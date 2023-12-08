@@ -1,9 +1,7 @@
-import { extend, useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import CustomObject from "./CustomObject.js";
-
-extend ({ OrbitControls: OrbitControls });
+import { useFrame, useThree } from "@react-three/fiber";
+import { OrbitControls, useGLTF } from '@react-three/drei'
+import { Perf } from 'r3f-perf';
+import { Suspense, useRef } from "react";
 
 export default function Experience()
 {
@@ -21,9 +19,16 @@ export default function Experience()
         // groupRef.current.rotation.y += delta * 0.5;
     });
 
+    function Thread()
+    {
+      const { scene } = useGLTF('/thread.glb');
+      return <primitive object={ scene } />
+    }
+
     return <>
-        <orbitControls args={ [camera, gl.domElement] } />
-        <directionalLight position={ [ 1, 2, 3]} intensity={ 4 } />
+        <Perf position="top-right" />
+        <OrbitControls makeDefault />
+        <directionalLight castShadow position={ [ 1, 2, 3]} intensity={ 4.5 } />
         <ambientLight intensity={ 1.5 } />
 
         <group ref={ groupRef }>
@@ -36,13 +41,15 @@ export default function Experience()
               <boxGeometry scale={ 1.5 }/>
               <meshStandardMaterial color="mediumpurple" />
           </mesh>
+
+          <Suspense fallback={ null }>
+            <Thread scale={ 1.5 }/>
+          </Suspense>
         </group>
 
         <mesh position-y={ - 1 } rotation-x={ -Math.PI * 0.5 } scale={ 10 }>
           <planeGeometry/>
           <meshStandardMaterial color="#654873" />
         </mesh>
-
-        <CustomObject/>
     </>
 }
