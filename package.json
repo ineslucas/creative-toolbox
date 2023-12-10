@@ -13,9 +13,14 @@
     "vite": "^4.5.0"
   },
   "dependencies": {
+    "@react-three/drei": "^9.90.1",
     "@react-three/fiber": "8.15",
+    "gltfjsx": "^6.2.15",
+    "leva": "^0.9.35",
+    "r3f-perf": "7.1",
     "react": "18.2",
     "react-dom": "18.2",
+    "styled-components": "^6.1.1",
     "three": "^0.158.0",
     "vercel": "^32.6.1"
   }
