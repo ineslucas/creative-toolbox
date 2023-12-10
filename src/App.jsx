@@ -5,6 +5,9 @@ import Overlay from './layout/Overlay.js'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
+{/* R3F and styled-components.js can't be used in the same page,
+Text is not allowed in the R3F tree*/}
+
 root.render(
   <>
     <Index />

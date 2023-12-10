@@ -2,6 +2,8 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from '@react-three/drei'
 import { Perf } from 'r3f-perf';
 import { Suspense, useRef } from "react";
+import Thread from "./Thread.jsx";
+import Microphone from "./Microphone.jsx";
 
 export default function Experience()
 {
@@ -19,11 +21,11 @@ export default function Experience()
         // groupRef.current.rotation.y += delta * 0.5;
     });
 
-    function Thread()
-    {
-      const { scene } = useGLTF('/thread.glb');
-      return <primitive object={ scene } />
-    }
+    // function Thread()
+    // {
+    //   const { scene } = useGLTF('/thread.glb');
+    //   return <primitive object={ scene } />
+    // }
 
     return <>
         <Perf position="top-right" />
@@ -32,18 +34,17 @@ export default function Experience()
         <ambientLight intensity={ 1.5 } />
 
         <group ref={ groupRef }>
-          <mesh position-x={ -2 }>
-            <sphereGeometry/>
-            <meshStandardMaterial color="#943e59" />
-          </mesh>
-
           <mesh ref={ cubeRef } rotation-y={ Math.PI * 0.25 } position={ [2, 0, 0 ] } scale={ 1.5 }> {/* same as mesh.position.set(3, 2, 1) */}
               <boxGeometry scale={ 1.5 }/>
               <meshStandardMaterial color="mediumpurple" />
           </mesh>
 
           <Suspense fallback={ null }>
-            <Thread scale={ 1.5 }/>
+            <Thread scale={ 1 } rotation={ [1.5, 0, 1.5] }/>
+          </Suspense>
+
+          <Suspense fallback={ null }>
+            <Microphone scale={ 1 }/>
           </Suspense>
         </group>
 

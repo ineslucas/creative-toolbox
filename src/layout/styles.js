@@ -19,3 +19,11 @@ export const TopLeft = styled.div`
   top: 5vw;
   left: 5vw;
 `
+
+export const BottomLeft = styled.div`
+  position: absolute;
+  bottom: 5vw;
+  left: 5vw;
+  width: 30ch;
+  max-width: 40%;
+`
