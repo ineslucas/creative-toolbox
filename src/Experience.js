@@ -4,6 +4,7 @@ import { Perf } from 'r3f-perf';
 import { Suspense, useRef } from "react";
 import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
+import Toolbox from "./Toolbox.jsx";
 
 export default function Experience()
 {
@@ -45,6 +46,10 @@ export default function Experience()
 
           <Suspense fallback={ null }>
             <Microphone scale={ 1 }/>
+          </Suspense>
+
+          <Suspense fallback={ null }>
+            <Toolbox scale={ 3 }/>
           </Suspense>
         </group>
 
