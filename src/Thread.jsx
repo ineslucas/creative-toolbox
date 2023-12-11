@@ -19,6 +19,8 @@ export default function Thread(props) {
   return (
     <group {...props} dispose={null}>
       <mesh
+        castShadow
+        receiveShadow
         ref={ threadRef }
         geometry={nodes.thread_spool.geometry}
         material={materials.material_0}

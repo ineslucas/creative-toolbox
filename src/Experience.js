@@ -1,8 +1,9 @@
 import { useFrame, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF } from '@react-three/drei'
+import { SoftShadows, OrbitControls, useGLTF, useHelper } from '@react-three/drei'
 import { Perf } from 'r3f-perf';
 import { Suspense, useRef } from "react";
 import { useControls } from 'leva';
+import * as THREE from 'three';
 import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
 import Toolbox from "./Toolbox.jsx";
@@ -11,6 +12,8 @@ export default function Experience()
 {
     {/** Experience is a component inside the Canvas - only place where we can use R3F hooks */}
 
+    const directionalLightRef = useRef();
+    useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
     const { camera, gl } = useThree();
     const { perfVisible, position, rotation } = useControls({
       position:
@@ -36,15 +39,30 @@ export default function Experience()
     // });
 
     return <>
+        {/** Essentials */}
         <axesHelper scale={ 4 } />
+        <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
         { perfVisible && <Perf position="top-left" /> }
         <OrbitControls makeDefault />
-        <directionalLight castShadow position={ [ 1, 2, 3]} intensity={ 4.5 } />
-        <ambientLight intensity={ 1.5 } />
+        <directionalLight
+          ref={ directionalLightRef }
+          position={ [ 1, 3, 1.8]}
+          intensity={ 4 }
+          castShadow
+          shadow-mapSize={ [1024 * 2, 1024 * 2] }
+          shadow-camera-top={ 2 }
+          shadow-camera-right={ 3 }
+          shadow-camera-bottom={ -2 }
+          shadow-camera-left={ -2 }
+          shadow-camera-near={ 0.5 }
+          shadow-camera-far={ 50 }
+
+        />
+        <ambientLight intensity={ 1 } />
 
         <group position-y={-0.6}>
           <Suspense fallback={ null }>
-            <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, 0, -0.4] } />
+            <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, -0.18, -0.4] } />
           </Suspense>
 
           <Suspense fallback={ null }>
@@ -57,11 +75,17 @@ export default function Experience()
         </group>
 
         {/* Floor */}
-        <mesh position-y={ -1 } rotation-x={ -Math.PI * 0.5 } scale={ 10 }>
-          <planeGeometry/>
-          <meshStandardMaterial color="#654873" />
+        <mesh receiveShadow position-y={ -6.97 } scale={ 6 }>
+          <boxGeometry args={[1, 2, 1.5]}/>
+          <meshPhysicalMaterial color="#654873" />
+        </mesh>
+        {/* Back Wall */}
+        <mesh position-z={ -4.5}>
+          <planeGeometry args={[6, 10]}/>
+          <meshStandardMaterial color="#654873"/>
         </mesh>
 
         {/* add an object that's color="mediumpurple" */}
+        {/** maybe bake the shadows as part of a sequence of movement? */}
     </>
 }

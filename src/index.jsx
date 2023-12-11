@@ -5,6 +5,7 @@ import * as THREE from 'three'
 
 export default function Index() {
   return <Canvas
+      shadows
       dpr={ 1 }
       gl={ {
         antialias: true, // default
