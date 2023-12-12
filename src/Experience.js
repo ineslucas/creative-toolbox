@@ -1,7 +1,8 @@
+import { Suspense, useLayoutEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { SoftShadows, OrbitControls, useGLTF, useHelper } from '@react-three/drei'
+import { SoftShadows, OrbitControls, useGLTF, useHelper, ScrollControls, useScroll } from '@react-three/drei';
+import { gsap } from "gsap";
 import { Perf } from 'r3f-perf';
-import { Suspense, useRef } from "react";
 import { useControls } from 'leva';
 import * as THREE from 'three';
 import Thread from "./Thread.jsx";
@@ -29,7 +30,37 @@ export default function Experience()
       perfVisible: true,
     })
 
-    // const groupRef = useRef();
+    const groupAnimationRef = useRef();
+    const tl = useRef();
+    const scroll = useScroll();
+    const floorHeight = 2;
+    const numberOfFloors = 3;
+
+    useFrame( () => {
+      if (tl.current && scroll) {
+        tl.current.seek(scroll.offset * tl.current.duration());
+      }
+    });
+
+    useLayoutEffect(() => {
+      tl.current = gsap.timeline();
+
+      // Vertical movement
+      tl.current.to(
+        groupAnimationRef.current.position,
+        {
+          duration: 2,
+          y: floorHeight * (numberOfFloors - 1), // positive value so it goes down (?)
+        },
+        0
+      );
+
+      tl.current.to(groupAnimationRef.current.position, { duration: 1, y: floorHeight }, "<");
+
+      tl.current.to(groupAnimationRef.current.position, { duration: 1, y: floorHeight * 2 }, "<");
+    }, []);
+
+
 
     // useFrame((state, delta) => // state is inside useFrame but we don't want to get it at each reload. Only at 1st load to use for OrbitControls
     // {
@@ -43,7 +74,8 @@ export default function Experience()
         <axesHelper scale={ 4 } />
         <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
         { perfVisible && <Perf position="top-left" /> }
-        <OrbitControls makeDefault />
+        <OrbitControls enableZoom={ false }/>
+          {/* there's a makeDefault command - could be turned on */}
         <directionalLight
           ref={ directionalLightRef }
           position={ [ 1, 3, 1.8]}
@@ -56,34 +88,38 @@ export default function Experience()
           shadow-camera-left={ -2 }
           shadow-camera-near={ 0.5 }
           shadow-camera-far={ 50 }
-
         />
         <ambientLight intensity={ 1 } />
 
-        <group position-y={-0.6}>
-          <Suspense fallback={ null }>
-            <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, -0.18, -0.4] } />
-          </Suspense>
+        <ScrollControls pages={3} damping={0.25}>
+           {/* Toolbox and Objects inside */}
+          <group ref={ groupAnimationRef }>
+            <group position-y={-0.6}>
+              <Suspense fallback={ null }>
+                <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, -0.18, -0.4] } />
+              </Suspense>
 
-          <Suspense fallback={ null }>
-            <Microphone scale={ 1 } rotation={ [rotation.x, rotation.y, rotation.z ] } position={ [ position.x, position.y, position.z ] }/>
-          </Suspense>
+              <Suspense fallback={ null }>
+                <Microphone scale={ 1 } rotation={ [rotation.x, rotation.y, rotation.z ] } position={ [ position.x, position.y, position.z ] }/>
+              </Suspense>
 
-          <Suspense fallback={ null }>
-            <Toolbox scale={ 11 }/>
-          </Suspense>
-        </group>
+              <Suspense fallback={ null }>
+                <Toolbox scale={ 11 }/>
+              </Suspense>
+            </group>
+            {/* Floor */}
+            <mesh receiveShadow position-y={ -6.97 } scale={ 6 }>
+              <boxGeometry args={[1, 2, 1.5]}/>
+              <meshPhysicalMaterial color="#654873" />
+            </mesh>
+            {/* Back Wall */}
+            <mesh position-z={ -4.5}>
+              <planeGeometry args={[6, 10]}/>
+              <meshStandardMaterial color="#654873"/>
+            </mesh>
+          </group>
+        </ScrollControls>
 
-        {/* Floor */}
-        <mesh receiveShadow position-y={ -6.97 } scale={ 6 }>
-          <boxGeometry args={[1, 2, 1.5]}/>
-          <meshPhysicalMaterial color="#654873" />
-        </mesh>
-        {/* Back Wall */}
-        <mesh position-z={ -4.5}>
-          <planeGeometry args={[6, 10]}/>
-          <meshStandardMaterial color="#654873"/>
-        </mesh>
 
         {/* add an object that's color="mediumpurple" */}
         {/** maybe bake the shadows as part of a sequence of movement? */}
