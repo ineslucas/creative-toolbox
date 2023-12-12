@@ -27,3 +27,41 @@ export const BottomLeft = styled.div`
   width: 30ch;
   max-width: 40%;
 `
+{/** Add media queries & margin & flex disposition */}
+export const BottomCenterBar = styled.div`
+  position: absolute;
+  bottom: 5vw;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 40%;
+`
+
+export const NavButton = styled.div`
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0px 0.5em 0.5em 0em;
+  background: #943E59;
+  color: white;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
+`
+
+{/** This is how we can extend a styled component - to be used */}
+export const NavButtonSelected = styled(NavButton)`
+  background: #000;
+  color: #fff;
+`
+
+export const NameDescription = styled.div`
+  display: inline-block;
+  margin: 0px 0.5em 0.5em 0em;
+  font-size: 2em;
+  font-weight: 300;
+  line-height: 1.2em;
+  color: white;
+`
