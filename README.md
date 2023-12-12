@@ -1,6 +1,7 @@
 Skills developed: 
 - React Three Fiber
 - Styled Components Library
+- GSAP and Scroll Animation
 - preparing models for animation in Blender and using the GLTF resources
 
 Credits: 
