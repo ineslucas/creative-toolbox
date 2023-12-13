@@ -13,6 +13,8 @@ export default function Toolbox(props) {
   return (
     <group {...props} dispose={null}>
       <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.Toolbox.geometry}
         material={tangerineMaterial}
       />

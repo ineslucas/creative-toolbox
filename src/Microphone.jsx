@@ -17,21 +17,29 @@ export default function Microphone(props) {
             scale={4}
           >
             <mesh
+              receiveShadow
+              castShadow
               geometry={nodes.defaultMaterial.geometry}
               material={materials.MetalicMic}
               position={[0, 0, 0.1]}
             />
             <mesh
+              receiveShadow
+              castShadow
               geometry={nodes.defaultMaterial001.geometry}
               material={materials.material}
               position={[0, 0, 0.35]}
             />
             <mesh
+              receiveShadow
+              castShadow
               geometry={nodes.defaultMaterial002.geometry}
               material={materials.Plastic}
               position={[0, 0, 0.243]}
             />
             <mesh
+              receiveShadow
+              castShadow
               geometry={nodes.defaultMaterial003.geometry}
               material={materials.BlueLogo}
               position={[0, -0.08, 0.22]}
