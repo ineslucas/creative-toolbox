@@ -2,12 +2,15 @@ import { Suspense, useLayoutEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { SoftShadows, OrbitControls, useGLTF, useHelper, ScrollControls, useScroll, Scroll } from '@react-three/drei';
 import { gsap } from "gsap";
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
 import * as THREE from 'three';
 import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
 import Toolbox from "./Toolbox.jsx";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience()
 {
@@ -63,9 +66,10 @@ export default function Experience()
 
   return <>
     <ScrollControls pages={3} damping={0.25}>
-        {/* Toolbox and Objects inside */}
+
       <group ref={ groupAnimationRef }>
-          {/** Essentials */}
+        {/** Essentials */}
+        <group>
           <gridHelper args={[10, 10]} />
           <axesHelper scale={ 5 } />
           <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
@@ -85,7 +89,9 @@ export default function Experience()
             shadow-camera-far={ 50 }
           />
           <ambientLight intensity={ 1 } />
+        </group>
 
+        {/* Toolbox and Objects */}
         <group position-y={-0.6}>
           <Suspense fallback={ null }>
             <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, -0.18, -0.4] } />
@@ -100,25 +106,12 @@ export default function Experience()
           </Suspense>
         </group>
 
-        {/* Floor & Cube*/}
-        <group>
-          <mesh receiveShadow position-y={ -6.97 } scale={ 6 }>
-            <boxGeometry args={[1, 2, 1.5]}/> {/** width, height, depth */}
-            <meshPhysicalMaterial color="#654873" />
-          </mesh>
-
-          {/* Temporary Placeholder */}
-          <mesh position={ [ 0, -2, 4.6] }>
-            <planeGeometry args={[6, 2]}/>
-            <meshStandardMaterial color="clear"/>
-          </mesh>
-        </group>
-
-        {/* Back Wall */}
-        <mesh position-z={- 4.5}>
-          <planeGeometry args={[6, 10]}/>
-          <meshStandardMaterial color="#654873"/>
+        {/* Temporary Placeholder */}
+        <mesh position={ [ 0, -2, 4.6] }>
+          <planeGeometry args={[6, 2]}/>
+          <meshStandardMaterial color="clear"/>
         </mesh>
+
       </group>
 
       {/* Temporary Placeholder */}
