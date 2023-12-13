@@ -1,13 +1,13 @@
-import { Container, TopLeft, BottomLeft } from './styles'
+import { Container, BottomLeft, BottomCenterBar, NavButton, NameDescription } from './styles'
 
 export default function Overlay()
 {
    return <Container>
-      <TopLeft>
-          <h1>Inês <br/> Lucas</h1>
-      </TopLeft>
-      <BottomLeft>
-          <p>Creative Technologist</p>
-      </BottomLeft>
+      <BottomCenterBar>
+          <NavButton>Projects</NavButton>
+          <NavButton>Playground</NavButton>
+          <NavButton>Digital Home</NavButton>
+          <NameDescription>Inês Lucas</NameDescription>
+      </BottomCenterBar>
    </Container>
 }
