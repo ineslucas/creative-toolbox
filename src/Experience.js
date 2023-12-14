@@ -1,12 +1,13 @@
 import { useLayoutEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-// import { gsap } from "gsap";
-// import ScrollTrigger from 'gsap/ScrollTrigger';
+import { gsap } from "gsap";
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
 import ToolboxWithObjects from "./ToolboxWithObjects.js";
+import EIF from "./projectpages/EIF.js";
 
-// gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience()
 {
@@ -16,26 +17,35 @@ export default function Experience()
     perfVisible: true,
   })
 
+  const tl = gsap.timeline();
+  useLayoutEffect(() => {
+    tl.to(camera.position, {
+      scrollTrigger: {
+        trigger: gl.domElement,
+        start: "top top",
+        end: "bottom center",
+        scrub: true,
+        markers: true,
+      },
+      x: 0, y: 6, z: 0, duration: 3 });
+  }, []);
+
   return <>
-    {/* <div id="scroll-container" style={{ height: '500px', overflow: 'scroll' }}> */}
-      {/* <ScrollControls pages={3} damping={0.25}> */}
-      <group>
-        {/** Essentials */}
-        { perfVisible && <Perf position="top-left" /> }
+    <group>
+      { perfVisible && <Perf position="top-left" /> }
 
-        {/* Toolbox and Objects */}
-        <group position-y={-0.6}>
-          <ToolboxWithObjects/>
-        </group>
+      <group position-y={-0.6}>
+        <ToolboxWithObjects/>
       </group>
+    </group>
 
-      {/* Temporary Placeholder */}
-      <mesh position={ [ 0, -2, 4.6] }>
-        <planeGeometry args={[6, 2]}/>
-        <meshStandardMaterial color="white"/>
-      </mesh>
-    {/* </div> */}
-    {/* </ScrollControls> */}
+    {/* Temporary Placeholder */}
+    <mesh position={ [ 0, -2, 4.6] }>
+      <planeGeometry args={[6, 2]}/>
+      <meshStandardMaterial color="white"/>
+    </mesh>
+
+    {/* <EIF/> */}
   </>
 }
 

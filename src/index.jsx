@@ -2,11 +2,14 @@ import './style.css'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.js'
 import * as THREE from 'three'
+import EIFForOverlay from './projectpages/EIFForOverlay.js'
 
 export default function Index() {
-  return <Canvas
+  return <>
+    <Canvas
       shadows
       dpr={ 1 }
+      style={{ width: '100vw', height: '100vh' }}
       gl={ {
         antialias: true, // default
         toneMapping: THREE.ACESFilmicToneMapping, // default
@@ -21,4 +24,6 @@ export default function Index() {
     >
       <Experience />
     </Canvas>
+    <EIFForOverlay/> {/* className="second-section" */}
+  </>
 }
