@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import Toolbox from "./Toolbox.jsx";
 import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
+import Keyboard from "./Keyboard.jsx";
 
 export default function ToolboxWithObjects()
 {
@@ -33,6 +34,10 @@ export default function ToolboxWithObjects()
 
     {/** Toolbox with Objects */}
     <group>
+      <Suspense fallback={ null }>
+        <Keyboard scale={ 0.014 } rotation={ [-1.6, -0.8, -1.6] } position={ [-0.6, 0.13, 0.65] } />
+      </Suspense>
+
       <Suspense fallback={ null }>
         <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, -0.18, -0.4] } />
       </Suspense>
