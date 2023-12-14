@@ -1,12 +1,12 @@
 import { useLayoutEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { gsap } from "gsap";
-import ScrollTrigger from 'gsap/ScrollTrigger';
+// import { gsap } from "gsap";
+// import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
 import ToolboxWithObjects from "./ToolboxWithObjects.js";
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience()
 {
@@ -15,30 +15,6 @@ export default function Experience()
   const { perfVisible } = useControls({
     perfVisible: true,
   })
-  const toolboxRef = useRef();
-
-  useLayoutEffect(() => {
-    const scrollElement = document.querySelector("#scroll-container");
-
-    ScrollTrigger.create({
-      trigger: scrollElement,
-      start: "top center",
-      end: "bottom center",
-      markers: true,
-      scrub: 1,
-      onUpdate: self => {
-        const progress = self.progress;
-        // Update Three.js scene based on progress
-        if (toolboxRef.current) {
-          toolboxRef.current.rotation.y = progress * Math.PI * 2; // Rotating the toolbox based on scroll progress
-        }
-      }
-    });
-
-    // // Add animations to the timeline
-    // tl.to(camera.position, { y: 5, duration: 1 });
-    // tl.to(toolboxRef.current.position, { y: 0.5, duration: 1 });
-  }, []);
 
   return <>
     {/* <div id="scroll-container" style={{ height: '500px', overflow: 'scroll' }}> */}
@@ -48,7 +24,7 @@ export default function Experience()
         { perfVisible && <Perf position="top-left" /> }
 
         {/* Toolbox and Objects */}
-        <group position-y={-0.6} ref={ toolboxRef }>
+        <group position-y={-0.6}>
           <ToolboxWithObjects/>
         </group>
       </group>
