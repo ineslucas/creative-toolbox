@@ -5,6 +5,7 @@ import Toolbox from "./Toolbox.jsx";
 import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
 import Keyboard from "./Keyboard.jsx";
+import LeicaM6 from "./LeicaM6.jsx";
 
 export default function ToolboxWithObjects()
 {
@@ -15,7 +16,7 @@ export default function ToolboxWithObjects()
     {/** Essentials */}
     <gridHelper args={[10, 10]} />
     <axesHelper scale={ 5 } />
-    <OrbitControls enableZoom={ false }/> {/* there's a makeDefault command - could be turned on */}
+    <OrbitControls enableZoom/> {/* there's a makeDefault command - could be turned on */}
     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
     <directionalLight
             ref={ directionalLightRef }
@@ -35,7 +36,11 @@ export default function ToolboxWithObjects()
     {/** Toolbox with Objects */}
     <group>
       <Suspense fallback={ null }>
-        <Keyboard scale={ 0.014 } rotation={ [-1.6, -0.8, -1.6] } position={ [-0.6, 0.13, 0.65] } />
+        <LeicaM6 scale={ 0.33 } rotation={ [ 0, 0, 0.1 ] } position={ [1.015, -0.27, 0.47 ] }/>
+      </Suspense>
+
+      <Suspense fallback={ null }>
+        <Keyboard scale={ 0.014 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } />
       </Suspense>
 
       <Suspense fallback={ null }>
