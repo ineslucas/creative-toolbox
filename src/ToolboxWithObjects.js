@@ -6,6 +6,7 @@ import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
 import Keyboard from "./Keyboard.jsx";
 import LeicaM6 from "./LeicaM6.jsx";
+import BusinessCard from "./BusinessCard.js";
 
 export default function ToolboxWithObjects()
 {
@@ -35,6 +36,8 @@ export default function ToolboxWithObjects()
 
     {/** Toolbox with Objects */}
     <group>
+      <BusinessCard scale={ 1 } rotation={ [ 0, 0, 0 ] } position={ [ 0, 0, 0 ] } />
+      
       <Suspense fallback={ null }>
         <LeicaM6 scale={ 0.33 } rotation={ [ 0, 0, 0.1 ] } position={ [1.015, -0.27, 0.47 ] }/>
       </Suspense>
