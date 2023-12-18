@@ -33,7 +33,6 @@ export const BottomCenterBar = styled.div`
   bottom: 5vw;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 40%;
 `
 
 export const NavButton = styled.div`
@@ -64,4 +63,14 @@ export const NameDescription = styled.div`
   font-weight: 300;
   line-height: 1.2em;
   color: white;
+`
+
+{/** Project pages */}
+export const ProjectContainer = styled.div`
+  top: 5vw;
+  left: 5vw;
+  width: 90vw;
+  height: 90vh;
+  background: mediumpurple;
+  padding: 10px;
 `
