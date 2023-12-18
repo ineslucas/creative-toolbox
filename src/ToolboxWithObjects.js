@@ -36,14 +36,14 @@ export default function ToolboxWithObjects()
 
     {/** Toolbox with Objects */}
     <group>
-      <BusinessCard scale={ 1 } rotation={ [ 0, 0, 0 ] } position={ [ 0, 0, 0 ] } />
-      
+      <BusinessCard/>
+
       <Suspense fallback={ null }>
         <LeicaM6 scale={ 0.33 } rotation={ [ 0, 0, 0.1 ] } position={ [1.015, -0.27, 0.47 ] }/>
       </Suspense>
 
       <Suspense fallback={ null }>
-        <Keyboard scale={ 0.014 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } />
+        <Keyboard scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } />
       </Suspense>
 
       <Suspense fallback={ null }>
