@@ -38,16 +38,17 @@ export default function Experience()
         <ToolboxWithObjects/>
       </group>
     </group>
-
-    {/* Temporary Placeholder */}
-    <mesh position={ [ 0, -2, 4.6] }>
-      <planeGeometry args={[6, 2]}/>
-      <meshStandardMaterial color="white"/>
-    </mesh>
-
-    {/* <EIF/> */}
   </>
 }
+
+
+{/* Temporary Placeholder */}
+{/* <mesh position={ [ 0, -2, 4.6] }>
+  <planeGeometry args={[6, 2]}/>
+  <meshStandardMaterial color="white"/>
+</mesh> */}
+
+{/* <EIF/> */}
 
 // Notes
 {/* delta = how much time has passed since last frame in seconds, can use it directly on rotation.y*/}

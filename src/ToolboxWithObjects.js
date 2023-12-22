@@ -17,7 +17,7 @@ export default function ToolboxWithObjects()
     {/** Essentials */}
     <gridHelper args={[10, 10]} />
     <axesHelper scale={ 5 } />
-    <OrbitControls enableZoom/> {/* there's a makeDefault command - could be turned on */}
+    <OrbitControls enableZoom={ false } /> {/* there's a makeDefault command - could be turned on */}
     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
     <directionalLight
             ref={ directionalLightRef }
