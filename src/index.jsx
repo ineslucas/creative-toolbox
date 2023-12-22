@@ -2,7 +2,7 @@ import './style.css'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.js'
 import * as THREE from 'three'
-import EIFForOverlay from './projectpages/EIFForOverlay.js'
+// import EIFForOverlay from './projectpages/EIFForOverlay.js'
 
 export default function Index() {
   return <>
@@ -24,6 +24,7 @@ export default function Index() {
     >
       <Experience />
     </Canvas>
-    <EIFForOverlay/> {/* className="second-section" */}
+    {/* <EIFForOverlay/> */}
+      {/* className="second-section" */}
   </>
 }
