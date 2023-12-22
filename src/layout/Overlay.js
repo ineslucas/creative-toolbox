@@ -9,7 +9,7 @@ export default function Overlay()
             <NavButton>Projects</NavButton>
             <NavButton>Playground</NavButton>
             <NavButton>Digital Home</NavButton>
-            <NameDescription>Inês Lucas</NameDescription>
+            {/* <NameDescription>Inês Lucas</NameDescription> */}
         </BottomCenterBar>
     </Container>
 
