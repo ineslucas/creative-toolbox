@@ -18,31 +18,24 @@ export default function Experience()
   });
   const keyboardRef = useRef();
 
-  const tl = gsap.timeline( { defaults: { ease: 'power1.inOut' }} );
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: gl.domElement,
+      start: "top top",
+      toggleActions: "play none none hone", // default
+      // end: "bottom center",
+      scrub: true,
+      markers: true,
+    },
+  });
+
   useLayoutEffect(() => {
+
     if (keyboardRef.current) {
-      tl.to(keyboardRef.current.position, {
-        scrollTrigger: {
-          trigger: gl.domElement,
-          start: "top top",
-          toggleActions: "play none none hone", // default
-          // end: "bottom center",
-          scrub: true,
-          markers: true,
-        },
-        x: 0, y: 3, z: 0, duration: 4 });
+      tl.to(keyboardRef.current.position, { x: 0, y: 3, z: 0, duration: 4 });
     }
 
-    // tl.to(camera.position, {
-    //   scrollTrigger: {
-    //     trigger: gl.domElement,
-    //     start: "top top",
-    //     toggleActions: "play none none hone", // default
-    //     // end: "bottom center",
-    //     scrub: true,
-    //     markers: true,
-    //   },
-    //   x: 0, y: 6, z: 0, duration: 4 });
+    tl.to(camera.position, { x: 0, y: 6, z: 0, duration: 4 });
 
   }, []);
 
