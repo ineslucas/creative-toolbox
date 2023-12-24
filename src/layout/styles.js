@@ -29,7 +29,8 @@ export const BottomLeft = styled.div`
 `
 {/** Add media queries & margin & flex disposition */}
 export const BottomCenterBar = styled.div`
-  position: absolute;
+  // position: absolute;
+  position: fixed;
   bottom: 5vw;
   left: 50%;
   transform: translateX(-50%);
