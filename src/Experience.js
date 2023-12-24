@@ -22,7 +22,7 @@ export default function Experience()
     scrollTrigger: {
       trigger: gl.domElement,
       start: "top top",
-      toggleActions: "play none none hone", // default
+      toggleActions: "play none none none", // default
       // end: "bottom center",
       scrub: true,
       markers: true,
@@ -32,11 +32,13 @@ export default function Experience()
   useLayoutEffect(() => {
 
     if (keyboardRef.current) {
-      tl.to(keyboardRef.current.position, { x: 0, y: 3, z: 0, duration: 4 });
+      // Final position + rotation inside the box
+      tl.to(keyboardRef.current.position, { x: -0.6, y: 0.13, z: 0.62, duration: 4 });
+      tl.to(keyboardRef.current.rotation, { x: -1.6, y: -0.75, z: -1.6, duration: 4 });
     }
 
-    tl.to(camera.position, { x: 0, y: 6, z: 0, duration: 4 });
-
+    tl.to(camera.rotation, { x: -0.6, y: 0, z: 0, duration: 3 }, 0);
+    tl.to(camera.position, { x: 0, y: 4, z: 6, duration: 3 }, 0);
   }, []);
 
   return <>
@@ -48,6 +50,8 @@ export default function Experience()
   </>
 }
 
+
+{/* in Experience.js, created a ref for the keyboard, passed it to ToolboxWithObjects, which will then forward it to the Keyboard component */}
 
 {/* Temporary Placeholder */}
 {/* <mesh position={ [ 0, -2, 4.6] }>
