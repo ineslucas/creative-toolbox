@@ -1,9 +1,9 @@
-import './style.css'
-import { Canvas } from '@react-three/fiber'
-import Experience from './Experience.js'
-import * as THREE from 'three'
+import './style.css';
+import { Canvas } from '@react-three/fiber';
+import Experience from './Experience.js';
+import * as THREE from 'three';
 import styled from 'styled-components';
-import EIFForOverlay from './projectpages/EIFForOverlay.js'
+import EIFForOverlay from './projectpages/EIFForOverlay.js';
 
 export const ScrollContainer = styled.div`
   height: 200vh; // Adjust this to play with toolbox animation duration.
@@ -11,6 +11,9 @@ export const ScrollContainer = styled.div`
 `
 
 export default function Index() {
+  const cameraRotation = [0, 1.3, 0]; // 0, 0, 0
+  const cameraPosition = [4, 2.5, 0]; // 0, 2, 6
+
   return <>
     <ScrollContainer>
       <Canvas
@@ -26,7 +29,8 @@ export default function Index() {
           fov: 45,
           near: 0.1,
           far: 200,
-          position: [3, 4, 6],
+          position: cameraPosition,
+          rotation: cameraRotation,
         }}
       >
         <Experience />

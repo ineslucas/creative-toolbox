@@ -1,5 +1,5 @@
 import { useRef, Suspense, forwardRef } from "react";
-import { useHelper, OrbitControls, SoftShadows } from "@react-three/drei";
+import { useHelper, SoftShadows, PresentationControls } from "@react-three/drei";
 import * as THREE from 'three';
 import Toolbox from "./Toolbox.jsx";
 import Thread from "./Thread.jsx";
@@ -18,7 +18,6 @@ const ToolboxWithObjects = ({ keyboardRef, ...props }) => {
     {/** Essentials */}
     <gridHelper args={[10, 10]} />
     <axesHelper scale={ 5 } />
-    <OrbitControls enableZoom={ false } /> {/* there's a makeDefault command - could be turned on */}
     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
     <directionalLight
             ref={ directionalLightRef }
@@ -36,29 +35,40 @@ const ToolboxWithObjects = ({ keyboardRef, ...props }) => {
     <ambientLight intensity={ 1 } />
 
     {/** Toolbox with Objects */}
-    <group>
-      <BusinessCard/>
+    <PresentationControls
+       config={{ mass: 2, tension: 500 }}
+       snap={{ mass: 4, tension: 1500 }}
+       rotation={[0, 0.3, 0]}
+       zoom={1}
+       polar={[-Math.PI / 3, Math.PI / 3]}
+       azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
 
-      <Suspense fallback={ null }>
-        <LeicaM6 scale={ 0.33 } rotation={ [ 0, 0, 0.1 ] } position={ [1.015, -0.27, 0.47 ] }/>
-      </Suspense>
+      <group>
+        <BusinessCard/>
 
-      <Suspense fallback={ null }>
-        <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } />
-      </Suspense>
+        <Suspense fallback={ null }>
+          <LeicaM6 scale={ 0.33 } rotation={ [ 0, 0, 0.1 ] } position={ [1.015, -0.27, 0.47 ] }/>
+        </Suspense>
 
-      <Suspense fallback={ null }>
-        <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, -0.18, -0.4] } />
-      </Suspense>
+        <Suspense fallback={ null }>
+          {/* <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } /> */}
+          <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [0, 3, 0] } />
+        </Suspense>
 
-      <Suspense fallback={ null }>
-        <Microphone scale={ 1 } rotation={ [ 5, 0.02, 1.6 ] } position={ [ 0.3, 0.4, -1.7 ] }/>
-      </Suspense>
+        <Suspense fallback={ null }>
+          <Thread scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, -0.18, -0.4] } />
+        </Suspense>
 
-      <Suspense fallback={ null }>
-        <Toolbox scale={ 11 }/>
-      </Suspense>
-    </group>
+        <Suspense fallback={ null }>
+          <Microphone scale={ 1 } rotation={ [ 5, 0.02, 1.6 ] } position={ [ 0.3, 0.4, -1.7 ] }/>
+        </Suspense>
+
+        <Suspense fallback={ null }>
+          <Toolbox scale={ 11 }/>
+        </Suspense>
+      </group>
+
+    </PresentationControls>
   </>
 };
 
