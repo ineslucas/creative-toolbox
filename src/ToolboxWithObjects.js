@@ -1,4 +1,4 @@
-import { useRef, Suspense } from "react";
+import { useRef, Suspense, forwardRef } from "react";
 import { useHelper, OrbitControls, SoftShadows } from "@react-three/drei";
 import * as THREE from 'three';
 import Toolbox from "./Toolbox.jsx";
@@ -8,8 +8,9 @@ import Keyboard from "./Keyboard.jsx";
 import LeicaM6 from "./LeicaM6.jsx";
 import BusinessCard from "./BusinessCard.js";
 
-export default function ToolboxWithObjects()
-{
+{/* ToolboxWithObjects accepts a keyboardRef prop and forwards it to the Keyboard component. */ }
+
+const ToolboxWithObjects = ({ keyboardRef, ...props }) => {
   const directionalLightRef = useRef();
   useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
 
@@ -43,7 +44,7 @@ export default function ToolboxWithObjects()
       </Suspense>
 
       <Suspense fallback={ null }>
-        <Keyboard scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } />
+        <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } />
       </Suspense>
 
       <Suspense fallback={ null }>
@@ -59,4 +60,6 @@ export default function ToolboxWithObjects()
       </Suspense>
     </group>
   </>
-}
+};
+
+export default ToolboxWithObjects; {/* replaces: export default function ToolboxWithObjects() { }; */}

@@ -1,11 +1,11 @@
-import { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
 import ToolboxWithObjects from "./ToolboxWithObjects.js";
-import EIF from "./projectpages/EIF.js";
+// import EIF from "./projectpages/EIF.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,28 +15,42 @@ export default function Experience()
   const { camera, gl } = useThree();
   const { perfVisible } = useControls({
     perfVisible: true,
-  })
+  });
+  const keyboardRef = useRef();
 
-  const tl = gsap.timeline();
+  const tl = gsap.timeline( { defaults: { ease: 'power1.inOut' }} );
   useLayoutEffect(() => {
-    tl.to(camera.position, {
-      scrollTrigger: {
-        trigger: gl.domElement,
-        start: "top top",
-        end: "bottom center",
-        scrub: true,
-        markers: true,
-      },
-      x: 0, y: 6, z: 0, duration: 3 });
+    if (keyboardRef.current) {
+      tl.to(keyboardRef.current.position, {
+        scrollTrigger: {
+          trigger: gl.domElement,
+          start: "top top",
+          toggleActions: "play none none hone", // default
+          // end: "bottom center",
+          scrub: true,
+          markers: true,
+        },
+        x: 0, y: 3, z: 0, duration: 4 });
+    }
+
+    // tl.to(camera.position, {
+    //   scrollTrigger: {
+    //     trigger: gl.domElement,
+    //     start: "top top",
+    //     toggleActions: "play none none hone", // default
+    //     // end: "bottom center",
+    //     scrub: true,
+    //     markers: true,
+    //   },
+    //   x: 0, y: 6, z: 0, duration: 4 });
+
   }, []);
 
   return <>
-    <group>
-      { perfVisible && <Perf position="top-left" /> }
+    { perfVisible && <Perf position="top-left" /> }
 
-      <group position-y={-0.6}>
-        <ToolboxWithObjects/>
-      </group>
+    <group position-y={-0.6}>
+      <ToolboxWithObjects keyboardRef={keyboardRef}/>
     </group>
   </>
 }
