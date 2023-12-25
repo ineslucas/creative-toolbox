@@ -43,3 +43,32 @@ const BusinessCard = forwardRef((props, ref) => {
 });
 
 export default BusinessCard;
+
+
+{/* trial of code to apply 2 textures to 1 mesh */}
+// import React, { forwardRef } from "react";
+// import { useLoader } from '@react-three/fiber';
+// import { TextureLoader, MeshStandardMaterial } from 'three';
+
+// const BusinessCard = forwardRef((props, ref) => {
+//   const front = useLoader(TextureLoader, '/images/card_front.png');
+//   const back = useLoader(TextureLoader, '/images/card_back.png');
+
+//   const materials = [
+//     new MeshStandardMaterial({ color: 'white' }), // right side
+//     new MeshStandardMaterial({ color: 'white' }), // left side
+//     new MeshStandardMaterial({ map: front }),     // top side
+//     new MeshStandardMaterial({ color: 'white' }), // bottom side
+//     new MeshStandardMaterial({ color: 'white' }), // front side
+//     new MeshStandardMaterial({ map: back }),      // back side
+//   ];
+
+//   return <>
+//     <mesh material={materials} scale={ 0.4 } rotation={ [ 1.3, 1, 0 ]} position={ [ 2, 3.3, -2]}>
+//       <boxGeometry args={ [ 3, 2, 0.03 ] } />
+//       <meshStandardMaterial attach="materials"/>
+//     </mesh>
+//   </>
+// });
+
+// export default BusinessCard;
