@@ -10,7 +10,7 @@ import BusinessCard from "./BusinessCard.js";
 
 {/* ToolboxWithObjects accepts a keyboardRef prop and forwards it to the Keyboard component. */ }
 
-const ToolboxWithObjects = ({ keyboardRef, ...props }) => {
+const ToolboxWithObjects = ({ keyboardRef, microphoneRef, ...props }) => {
   const directionalLightRef = useRef();
   useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
 
@@ -38,7 +38,6 @@ const ToolboxWithObjects = ({ keyboardRef, ...props }) => {
     <PresentationControls
        config={{ mass: 2, tension: 500 }}
        snap={{ mass: 4, tension: 1500 }}
-       rotation={[0, 0.3, 0]}
        zoom={1}
        polar={[-Math.PI / 3, Math.PI / 3]}
        azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
@@ -52,7 +51,7 @@ const ToolboxWithObjects = ({ keyboardRef, ...props }) => {
 
         <Suspense fallback={ null }>
           {/* <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 0.13, 0.62] } /> */}
-          <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [0, 3, 0] } />
+          <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 3, 0.62] } />
         </Suspense>
 
         <Suspense fallback={ null }>
@@ -60,7 +59,7 @@ const ToolboxWithObjects = ({ keyboardRef, ...props }) => {
         </Suspense>
 
         <Suspense fallback={ null }>
-          <Microphone scale={ 1 } rotation={ [ 5, 0.02, 1.6 ] } position={ [ 0.3, 0.4, -1.7 ] }/>
+          <Microphone ref={ microphoneRef } scale={ 1 } rotation={ [ 5, 0.02, 1.6 ] } position={ [ 0.3, 2.8, -1.7 ] }/>
         </Suspense>
 
         <Suspense fallback={ null }>
