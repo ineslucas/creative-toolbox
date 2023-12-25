@@ -18,6 +18,10 @@ export default function Experience()
   });
   const keyboardRef = useRef();
   const microphoneRef = useRef();
+  const leicaM6Ref = useRef();
+  const threadRef = useRef();
+  const businessCardRef = useRef();
+  const businessCardHorizontalRef = useRef();
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -31,6 +35,32 @@ export default function Experience()
   });
 
   useLayoutEffect(() => {
+    if (businessCardHorizontalRef.current) {
+      tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 2, z: 0.075, duration: 2 }, 0);
+      // Final position + rotation inside the box
+      tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 0, z: 0.075, duration: 2 }, 2);
+      tl.to(businessCardHorizontalRef.current.rotation, { x: -0.135, y: 0, z: 0, duration: 2 }, 2);
+    }
+
+    if (businessCardRef.current) {
+      tl.to(businessCardRef.current.position, { x: 0.005, y: 3.3, z: 0, duration: 2 }, 0);
+      tl.to(businessCardRef.current.rotation, { x: 0, y: 0, z: 0, duration: 2 }, 0);
+      // Final position + rotation inside the box
+      tl.to(businessCardRef.current.position, { x: 0.005, y: 0, z: 0, duration: 2 }, 2);
+      tl.to(businessCardRef.current.rotation, { x: 0, y: 0, z: 0, duration: 2 }, 2);
+    }
+
+    if (threadRef.current) {
+      // Final position + rotation inside the box
+      tl.to(threadRef.current.position, { x: 1.5, y: -0.18, z: -0.4, duration: 4 }, 0);
+      tl.to(threadRef.current.rotation, { x: 0, y: 0.08, z: 1.6, duration: 4 }, 0);
+    }
+
+    if (leicaM6Ref.current) {
+      // Final position + rotation inside the box
+      tl.to(leicaM6Ref.current.position, { x: 1.015, y: -0.27, z: 0.47, duration: 4 }, 0);
+      tl.to(leicaM6Ref.current.rotation, { x: 0, y: 0, z: 0.1, duration: 4 }, 0);
+    }
 
     if (keyboardRef.current) {
       // Final position + rotation inside the box
@@ -52,7 +82,7 @@ export default function Experience()
     { perfVisible && <Perf position="top-left" /> }
 
     <group position-y={-0.6}>
-      <ToolboxWithObjects keyboardRef={keyboardRef} microphoneRef={microphoneRef}/>
+      <ToolboxWithObjects keyboardRef={keyboardRef} microphoneRef={microphoneRef} leicaM6Ref={leicaM6Ref} threadRef={threadRef} businessCardRef={businessCardRef} businessCardHorizontalRef={businessCardHorizontalRef} />
     </group>
   </>
 }
