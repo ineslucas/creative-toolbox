@@ -17,6 +17,7 @@ export default function Experience()
     perfVisible: true,
   });
   const keyboardRef = useRef();
+  const microphoneRef = useRef();
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -33,8 +34,14 @@ export default function Experience()
 
     if (keyboardRef.current) {
       // Final position + rotation inside the box
-      tl.to(keyboardRef.current.position, { x: -0.6, y: 0.13, z: 0.62, duration: 4 });
-      tl.to(keyboardRef.current.rotation, { x: -1.6, y: -0.75, z: -1.6, duration: 4 });
+      tl.to(keyboardRef.current.position, { x: -0.6, y: 0.13, z: 0.62, duration: 4 }, 0);
+      tl.to(keyboardRef.current.rotation, { x: -1.6, y: -0.75, z: -1.6, duration: 4 }, 0);
+    }
+
+    if (microphoneRef.current) {
+      // Final position + rotation inside the box
+      tl.to(microphoneRef.current.position, { x: 0.3, y: 0.4, z: -1.7, duration: 4 }, 0);
+      tl.to(microphoneRef.current.rotation, { x: 5, y: 0.02, z: 1.6, duration: 4 }, 0);
     }
 
     tl.to(camera.rotation, { x: -0.6, y: 0, z: 0, duration: 3 }, 0);
@@ -45,7 +52,7 @@ export default function Experience()
     { perfVisible && <Perf position="top-left" /> }
 
     <group position-y={-0.6}>
-      <ToolboxWithObjects keyboardRef={keyboardRef}/>
+      <ToolboxWithObjects keyboardRef={keyboardRef} microphoneRef={microphoneRef}/>
     </group>
   </>
 }
