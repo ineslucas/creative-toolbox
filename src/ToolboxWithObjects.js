@@ -11,7 +11,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 
 {/* ToolboxWithObjects accepts a keyboardRef prop and forwards it to the Keyboard component. */ }
 
-const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef, businessCardRef, businessCardHorizontalRef, ...props }) => {
+const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef, businessCardRef, businessCardHorizontalRef, fullToolboxRef, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
@@ -19,7 +19,7 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
   return <>
     {/** Essentials */}
     {/* <gridHelper args={[10, 10]} /> */}
-    <axesHelper scale={ 5 } />
+    {/* <axesHelper scale={ 5 } /> */}
     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
     <directionalLight
             // ref={ directionalLightRef }
@@ -51,7 +51,7 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
        polar={[-Math.PI / 3, Math.PI / 3]}
        azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
 
-      <group>
+      <group ref={ fullToolboxRef }>
         <BusinessCard ref={ businessCardRef }/>
         <BusinessCardHorizontal ref={ businessCardHorizontalRef }/>
 
