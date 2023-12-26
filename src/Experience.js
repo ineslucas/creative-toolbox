@@ -76,6 +76,10 @@ export default function Experience()
 
     tl.to(camera.rotation, { x: -0.6, y: 0, z: 0, duration: 3 }, 0);
     tl.to(camera.position, { x: 0, y: 4, z: 6, duration: 3 }, 0);
+
+    tl.to(camera.rotation, { x: -2, y: 0, z: 1.6, duration: 1 }, 3);
+    tl.to(camera.position, { x: 0.5, y: 7, z: -0.3, duration: 1 }, 3);
+
   }, []);
 
   return <>
