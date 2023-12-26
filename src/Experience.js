@@ -22,6 +22,7 @@ export default function Experience()
   const threadRef = useRef();
   const businessCardRef = useRef();
   const businessCardHorizontalRef = useRef();
+  const fullToolboxRef = useRef();
 
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -30,7 +31,7 @@ export default function Experience()
       toggleActions: "play none none none", // default
       // end: "bottom center",
       scrub: true,
-      markers: true,
+      // markers: true,
     },
   });
 
@@ -77,16 +78,19 @@ export default function Experience()
     tl.to(camera.rotation, { x: -0.6, y: 0, z: 0, duration: 3 }, 0);
     tl.to(camera.position, { x: 0, y: 4, z: 6, duration: 3 }, 0);
 
-    tl.to(camera.rotation, { x: -2, y: 0, z: 1.6, duration: 1 }, 3);
-    tl.to(camera.position, { x: 0.5, y: 7, z: -0.3, duration: 1 }, 3);
-
+    if (fullToolboxRef.current) {
+      // objects could fall down inside the box
+      tl.to(fullToolboxRef.current.rotation, { x: 0, y: -1.54, z: 0, duration: 1 }, 4);
+      tl.to(camera.rotation, { x: -1.3, y: 0, z: 0, duration: 1 }, 4);
+      tl.to(camera.position, { x: 0, y: 6, z: 2.4, duration: 1 }, 4);
+    }
   }, []);
 
   return <>
     { perfVisible && <Perf position="top-left" /> }
 
     <group position-y={-0.6}>
-      <ToolboxWithObjects keyboardRef={keyboardRef} microphoneRef={microphoneRef} leicaM6Ref={leicaM6Ref} threadRef={threadRef} businessCardRef={businessCardRef} businessCardHorizontalRef={businessCardHorizontalRef} />
+      <ToolboxWithObjects keyboardRef={keyboardRef} microphoneRef={microphoneRef} leicaM6Ref={leicaM6Ref} threadRef={threadRef} businessCardRef={businessCardRef} businessCardHorizontalRef={businessCardHorizontalRef} fullToolboxRef={fullToolboxRef} />
     </group>
   </>
 }
