@@ -45,6 +45,7 @@ export const NavButton = styled.div`
   border-radius: 0.5em;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
   &:hover {
     background: #000;
     color: #fff;

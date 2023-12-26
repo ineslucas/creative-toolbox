@@ -1,5 +1,5 @@
 import { useRef, Suspense } from "react";
-import { useHelper, SoftShadows, PresentationControls } from "@react-three/drei";
+import { useHelper, SoftShadows, PresentationControls, Text, Billboard } from "@react-three/drei";
 import * as THREE from 'three';
 import Toolbox from "./Toolbox.jsx";
 import Thread from "./Thread.jsx";
@@ -14,6 +14,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef, businessCardRef, businessCardHorizontalRef, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
+  const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
 
   return <>
     {/** Essentials */}
@@ -35,6 +36,13 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
           />
     <ambientLight intensity={ 1 } />
 
+    <Billboard>
+      <Text position={ [ 2, 3.6, -0.2]} fontSize={0.1} color="#fab4ca" {...fontProps}>
+        Full Stack{'\n'}Developer
+      </Text>
+      <Text position={ [ 1, 3, -0.4]} fontSize={0.1} color="#f5a4bd" {...fontProps} >Creative Technologist</Text>
+    </Billboard>
+
     {/** Toolbox with Objects */}
     <PresentationControls
        config={{ mass: 2, tension: 500 }}
@@ -48,7 +56,7 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
         <BusinessCardHorizontal ref={ businessCardHorizontalRef }/>
 
         <Suspense fallback={ null }>
-          <LeicaM6 ref={ leicaM6Ref } scale={ 0.33 } rotation={ [ 0, 0, 0.1 ] } position={ [1.015, 3.1, 0.47 ] }/>
+          <LeicaM6 ref={ leicaM6Ref } scale={ 0.33 } rotation={ [ 0, -1, 0.1 ] } position={ [0.5, 3.1, 0.47 ] }/>
         </Suspense>
 
         <Suspense fallback={ null }>
