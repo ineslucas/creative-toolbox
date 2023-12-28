@@ -31,7 +31,7 @@ export const BottomLeft = styled.div`
 export const BottomCenterBar = styled.div`
   // position: absolute;
   position: fixed;
-  bottom: 5vw;
+  top: 2vw;
   left: 50%;
   transform: translateX(-50%);
 `

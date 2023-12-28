@@ -1,4 +1,5 @@
-import { useRef, Suspense } from "react";
+import { Suspense, useRef } from "react";
+// import { useFrame } from "@react-three/fiber";
 import { useHelper, SoftShadows, PresentationControls, Text, Billboard } from "@react-three/drei";
 import * as THREE from 'three';
 import Toolbox from "./Toolbox.jsx";
@@ -8,6 +9,7 @@ import Keyboard from "./Keyboard.jsx";
 import LeicaM6 from "./LeicaM6.jsx";
 import BusinessCard from "./BusinessCard.js";
 import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
+import Cursor from "./layout/Cursor.js";
 
 {/* ToolboxWithObjects accepts a keyboardRef prop and forwards it to the Keyboard component. */ }
 
@@ -15,6 +17,16 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
+
+  const leicaHoverStart = () => {
+    if (leicaM6Ref.current) {
+      const position = leicaM6Ref.current.position;
+      if (position.x === 1.015 && position.y === -0.27 && position.z === 0.47) {
+        console.log('Leica M6 has been hovered when inside the box!');
+      }
+    }
+  };
+
 
   return <>
     {/** Essentials */}
@@ -29,7 +41,7 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
             shadow-mapSize={ [1024 * 3, 1024 * 3] }
             shadow-camera-top={ 4 }
             shadow-camera-right={ 4 }
-            shadow-camera-bottom={ -2 }
+            shadow-camera-bottom={ -3 }
             shadow-camera-left={ -2 }
             shadow-camera-near={ 0.5 }
             shadow-camera-far={ 50 }
@@ -42,6 +54,8 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
       </Text>
       <Text position={ [ 1, 3, -0.4]} fontSize={0.1} color="#f5a4bd" {...fontProps} >Creative Technologist</Text>
     </Billboard>
+
+    <Cursor/>
 
     {/** Toolbox with Objects */}
     <PresentationControls
@@ -56,7 +70,13 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
         <BusinessCardHorizontal ref={ businessCardHorizontalRef }/>
 
         <Suspense fallback={ null }>
-          <LeicaM6 ref={ leicaM6Ref } scale={ 0.33 } rotation={ [ 0, -1, 0.1 ] } position={ [0.5, 3.1, 0.47 ] }/>
+          <LeicaM6
+            ref={ leicaM6Ref }
+            scale={ 0.33 }
+            rotation={ [ 0, -1, 0.1 ] }
+            position={ [0.5, 3.1, 0.47 ] }
+            onClick={ () => window.open('https://www.memorylab.space/', '_blank')}
+            onPointerEnter={ leicaHoverStart } />
         </Suspense>
 
         <Suspense fallback={ null }>
