@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import styled from 'styled-components';
 import EIFForOverlay from './projectpages/EIFForOverlay.js';
 
-export const ScrollContainer = styled.div`
+const ScrollContainer = styled.div`
   height: 200vh; // Adjust this to play with toolbox animation duration.
   width: 100vw;
 `

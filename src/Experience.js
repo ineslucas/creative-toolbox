@@ -80,9 +80,9 @@ export default function Experience()
 
     if (fullToolboxRef.current) {
       // objects could fall down inside the box
-      tl.to(fullToolboxRef.current.rotation, { x: 0, y: -1.54, z: 0, duration: 1 }, 4);
-      tl.to(camera.rotation, { x: -1.3, y: 0, z: 0, duration: 1 }, 4);
-      tl.to(camera.position, { x: 0, y: 6, z: 2.4, duration: 1 }, 4);
+      tl.to(fullToolboxRef.current.rotation, { x: 0, y: -1.525, z: 0, duration: 1 }, 4);
+      tl.to(camera.rotation, { x: -1.25, y: 0, z: 0, duration: 1 }, 4);
+      tl.to(camera.position, { x: 0, y: 6, z: 2.1, duration: 1 }, 4);
     }
   }, []);
 
