@@ -1,7 +1,5 @@
-import { Suspense, useRef } from "react";
-// import { useFrame } from "@react-three/fiber";
+import { Suspense, useState, useEffect } from "react";
 import { useHelper, SoftShadows, PresentationControls, Text, Billboard } from "@react-three/drei";
-import * as THREE from 'three';
 import Toolbox from "./Toolbox.jsx";
 import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
@@ -9,7 +7,6 @@ import Keyboard from "./Keyboard.jsx";
 import LeicaM6 from "./LeicaM6.jsx";
 import BusinessCard from "./BusinessCard.js";
 import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
-import Cursor from "./layout/Cursor.js";
 
 {/* ToolboxWithObjects accepts a keyboardRef prop and forwards it to the Keyboard component. */ }
 
@@ -18,15 +15,19 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
 
-  const leicaHoverStart = () => {
-    if (leicaM6Ref.current) {
-      const position = leicaM6Ref.current.position;
-      if (position.x === 1.015 && position.y === -0.27 && position.z === 0.47) {
-        console.log('Leica M6 has been hovered when inside the box!');
-      }
-    }
-  };
+  const [hovered, setProjectCursor] = useState(null);
 
+  useEffect(() => {
+    const projectCursorStyle = `url('/images/cursor.svg'), auto`;
+
+    if (hovered) {
+      console.log("hovered:", hovered);
+      document.body.style.cursor = projectCursorStyle;
+    } else {
+      console.log("not hovered:", hovered);
+      document.body.style.cursor = `auto`;
+    }
+  }, [hovered])
 
   return <>
     {/** Essentials */}
@@ -48,14 +49,12 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
           />
     <ambientLight intensity={ 1 } />
 
-    <Billboard>
+    {/* <Billboard>
       <Text position={ [ 2, 3.6, -0.2]} fontSize={0.1} color="#fab4ca" {...fontProps}>
         Full Stack{'\n'}Developer
       </Text>
       <Text position={ [ 1, 3, -0.4]} fontSize={0.1} color="#f5a4bd" {...fontProps} >Creative Technologist</Text>
-    </Billboard>
-
-    <Cursor/>
+    </Billboard> */}
 
     {/** Toolbox with Objects */}
     <PresentationControls
@@ -76,7 +75,8 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
             rotation={ [ 0, -1, 0.1 ] }
             position={ [0.5, 3.1, 0.47 ] }
             onClick={ () => window.open('https://www.memorylab.space/', '_blank')}
-            onPointerEnter={ leicaHoverStart } />
+            onPointerEnter={ () => setProjectCursor(true)}
+            onPointerLeave={ () => setProjectCursor(false)} />
         </Suspense>
 
         <Suspense fallback={ null }>
@@ -101,3 +101,56 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
 };
 
 export default ToolboxWithObjects; {/* replaces: export default function ToolboxWithObjects() { }; */}
+
+
+
+
+// import { Suspense, useState, useEffect } from "react";
+// import { SoftShadows, PresentationControls, Text, Billboard } from "@react-three/drei";
+// import LeicaM6 from "./LeicaM6.jsx";
+
+// const ToolboxWithObjects = ({ leicaM6Ref, fullToolboxRef, ...props }) => {
+//   const [hovered, setProjectCursor] = useState(null);
+
+//   useEffect(() => {
+//     const projectCursorStyle = `url('/images/cursor.svg'), auto`; // exists and is available at http://localhost:5173/images/cursor.svg
+
+//     if (hovered) {
+//       console.log("hovered:", hovered);
+//       document.body.style.cursor = projectCursorStyle;
+//     } else {
+//       console.log("not hovered:", hovered);
+//       document.body.style.cursor = `auto`;
+//     }
+//   }, [hovered])
+
+//   return <>
+//     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
+//     <directionalLight position={ [ 1, 3, 1.8]} intensity={ 4 } />
+//     <ambientLight intensity={ 1 } />
+
+//     {/** Toolbox with Objects */}
+//     <PresentationControls
+//        config={{ mass: 2, tension: 500 }}
+//        snap={{ mass: 4, tension: 1500 }}
+//        zoom={1}
+//        polar={[-Math.PI / 3, Math.PI / 3]}
+//        azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
+
+//       <group ref={ fullToolboxRef }>
+//         <Suspense fallback={ null }>
+//           <LeicaM6
+//             ref={ leicaM6Ref }
+//             scale={ 0.33 }
+//             rotation={ [ 0, -1, 0.1 ] }
+//             position={ [0.5, 3.1, 0.47 ] }
+//             onPointerEnter={ () => setProjectCursor(true)}
+//             onPointerLeave={ () => setProjectCursor(false)} />
+//         </Suspense>
+//       </group>
+
+//     </PresentationControls>
+//   </>
+// };
+
+// export default ToolboxWithObjects;

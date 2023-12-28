@@ -13,6 +13,7 @@
     "vite": "^4.5.0"
   },
   "dependencies": {
+    "@gsap/react": "^2.0.2",
     "@react-three/drei": "^9.90.1",
     "@react-three/fiber": "8.15",
     "gltfjsx": "^6.2.15",

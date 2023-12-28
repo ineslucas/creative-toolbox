@@ -1,6 +1,7 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
@@ -14,7 +15,7 @@ export default function Experience()
   {/** Experience is a component inside the Canvas - only place where we can use R3F hooks */}
   const { camera, gl } = useThree();
   const { perfVisible } = useControls({
-    perfVisible: true,
+    perfVisible: false,
   });
   const keyboardRef = useRef();
   const microphoneRef = useRef();
@@ -29,13 +30,16 @@ export default function Experience()
       trigger: gl.domElement,
       start: "top top",
       toggleActions: "play none none none", // default
-      // end: "bottom center",
       scrub: true,
       // markers: true,
+      // onComplete: () => console.log("scroll completed"),
     },
   });
 
-  useLayoutEffect(() => {
+  // ScrollTrigger.refresh() - call this when making the loading animation. 
+
+  useGSAP(() => {
+    // instead of useLayoutEffect
     if (businessCardHorizontalRef.current) {
       tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 2, z: 0.075, duration: 2 }, 0);
       // Final position + rotation inside the box
