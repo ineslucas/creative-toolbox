@@ -7,9 +7,14 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
-  background-color: rgb(181, 79, 111);
+  /* background-color: rgb(181, 79, 111); */
   font-family: 'ABCMonumentGrotesk', sans-serif;
+  p {
+    margin: 0;
+  }
+  h1 {
+    margin: 0;
+  }
 }
 
 #root {
@@ -17,21 +22,16 @@ body {
   min-height: 100vh;
 }
 
-/* @font-face {
-  font-family: 'ABCMonumentGrotesk';
-  src: url('../public/fonts/ABCMonumentGrotesk-Regular-Trial.woff') format('woff');
-} */
-
 @font-face {
   font-family: 'ABCMonumentGrotesk';
-  src: url('../public/fonts/ABCMonumentGrotesk-Regular-Trial.woff') format('woff');
+  src: url('/fonts/ABCMonumentGrotesk-Regular-Trial.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'ABCMonumentGrotesk';
-  src: url('../public/fonts/ABCMonumentGrotesk-HeavyItalic-Trial.woff') format('woff');
+  src: url('/fonts/ABCMonumentGrotesk-HeavyItalic-Trial.woff') format('woff');
   font-weight: bold;  /* or a numerical value like 700 */
   font-style: italic;
 }

@@ -19,7 +19,7 @@ export default function Index() {
       <Canvas
         shadows
         dpr={ 1 }
-        style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0 }}
+        style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0, backgroundColor: 'rgb(181, 79, 111)' }}
         gl={ {
           antialias: true, // default
           toneMapping: THREE.ACESFilmicToneMapping, // default

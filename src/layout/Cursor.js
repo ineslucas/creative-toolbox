@@ -1,4 +1,5 @@
-import styled, { keyframes } from 'styled-components';
+// Animated correctly but not in the right position
+import styled from 'styled-components';
 import { Html } from '@react-three/drei';
 
 const CircularLetter = styled.span`
