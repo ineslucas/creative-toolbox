@@ -36,7 +36,7 @@ export default function Experience()
     },
   });
 
-  // ScrollTrigger.refresh() - call this when making the loading animation. 
+  // ScrollTrigger.refresh(); how to use it properly?
 
   useGSAP(() => {
     // instead of useLayoutEffect
