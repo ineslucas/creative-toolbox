@@ -25,6 +25,7 @@ export default function Index() {
   const loaderStyles = {
     backgroundColor: '#654873',
     color: 'white',
+    position: 'fixed',
   }
   const barStyles = {
     height: '10px', // Example: Thicker bar
