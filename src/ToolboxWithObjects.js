@@ -23,6 +23,7 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
     if (hovered) {
       console.log("hovered:", hovered);
       document.body.style.cursor = projectCursorStyle;
+      leicaM6Ref.scale = 1.1;
     } else {
       console.log("not hovered:", hovered);
       document.body.style.cursor = `auto`;
@@ -101,56 +102,3 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
 };
 
 export default ToolboxWithObjects; {/* replaces: export default function ToolboxWithObjects() { }; */}
-
-
-
-
-// import { Suspense, useState, useEffect } from "react";
-// import { SoftShadows, PresentationControls, Text, Billboard } from "@react-three/drei";
-// import LeicaM6 from "./LeicaM6.jsx";
-
-// const ToolboxWithObjects = ({ leicaM6Ref, fullToolboxRef, ...props }) => {
-//   const [hovered, setProjectCursor] = useState(null);
-
-//   useEffect(() => {
-//     const projectCursorStyle = `url('/images/cursor.svg'), auto`; // exists and is available at http://localhost:5173/images/cursor.svg
-
-//     if (hovered) {
-//       console.log("hovered:", hovered);
-//       document.body.style.cursor = projectCursorStyle;
-//     } else {
-//       console.log("not hovered:", hovered);
-//       document.body.style.cursor = `auto`;
-//     }
-//   }, [hovered])
-
-//   return <>
-//     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
-//     <directionalLight position={ [ 1, 3, 1.8]} intensity={ 4 } />
-//     <ambientLight intensity={ 1 } />
-
-//     {/** Toolbox with Objects */}
-//     <PresentationControls
-//        config={{ mass: 2, tension: 500 }}
-//        snap={{ mass: 4, tension: 1500 }}
-//        zoom={1}
-//        polar={[-Math.PI / 3, Math.PI / 3]}
-//        azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
-
-//       <group ref={ fullToolboxRef }>
-//         <Suspense fallback={ null }>
-//           <LeicaM6
-//             ref={ leicaM6Ref }
-//             scale={ 0.33 }
-//             rotation={ [ 0, -1, 0.1 ] }
-//             position={ [0.5, 3.1, 0.47 ] }
-//             onPointerEnter={ () => setProjectCursor(true)}
-//             onPointerLeave={ () => setProjectCursor(false)} />
-//         </Suspense>
-//       </group>
-
-//     </PresentationControls>
-//   </>
-// };
-
-// export default ToolboxWithObjects;
