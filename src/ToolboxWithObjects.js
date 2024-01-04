@@ -62,8 +62,8 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
        config={{ mass: 2, tension: 500 }}
        snap={{ mass: 4, tension: 1500 }}
        zoom={1}
-       polar={[-Math.PI / 3, Math.PI / 3]}
-       azimuth={[-Math.PI / 1.4, Math.PI / 2]}>
+       polar={[-Math.PI / 3, Math.PI / 3]} // Vertical limits
+       azimuth={[-Math.PI / 1.4, Math.PI / 1.4]}> {/* Horizontal limits */}
 
       <group ref={ fullToolboxRef }>
         <BusinessCard ref={ businessCardRef }/>
@@ -73,23 +73,23 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
           <LeicaM6
             ref={ leicaM6Ref }
             scale={ 0.33 }
-            rotation={ [ 0, -1, 0.1 ] }
-            position={ [0.5, 3.1, 0.47 ] }
+            rotation={ [ 0, -1, 0.3 ] }
+            position={ [0.5, 3.6, 0.4 ] }
             onClick={ () => window.open('https://www.memorylab.space/', '_blank')}
             onPointerEnter={ () => setProjectCursor(true)}
             onPointerLeave={ () => setProjectCursor(false)} />
         </Suspense>
 
         <Suspense fallback={ null }>
-          <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.6, -0.75, -1.6] } position={ [-0.6, 3, 0.62] } />
+          <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.2, -0.75, -1.6] } position={ [-0.6, 3, 2] } />
         </Suspense>
 
         <Suspense fallback={ null }>
-          <Thread ref={ threadRef } scale={ 1 } rotation={ [0, 0.08, 1.6] } position={ [1.5, 3.4, -0.4] } />
+          <Thread ref={ threadRef } scale={ 1 } rotation={ [0, 1, 1.6] } position={ [1.6, 4, -0.7] } />
         </Suspense>
 
         <Suspense fallback={ null }>
-          <Microphone ref={ microphoneRef } scale={ 1 } rotation={ [ 5, 0.02, 1.6 ] } position={ [ 0.3, 2.8, -1.7 ] }/>
+          <Microphone ref={ microphoneRef } scale={ 1 } rotation={ [ 5.2, 0.5, 2.2 ] } position={ [ -0.3, 3.5, -0.9 ] }/>
         </Suspense>
 
         <Suspense fallback={ null }>

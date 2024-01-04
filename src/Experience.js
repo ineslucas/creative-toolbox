@@ -41,13 +41,16 @@ export default function Experience()
 
     // instead of useLayoutEffect
     if (businessCardHorizontalRef.current) {
-      tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 2, z: 0.075, duration: 2 }, 0);
+      // Mid position
+      tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 1, z: 0.075, duration: 1 }, 0);
+      tl.to(businessCardHorizontalRef.current.rotation, { x: -0.135, y: 0, z: 0, duration: 1 }, 0);
       // Final position + rotation inside the box
       tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 0, z: 0.075, duration: 2 }, 2);
       tl.to(businessCardHorizontalRef.current.rotation, { x: -0.135, y: 0, z: 0, duration: 2 }, 2);
     }
 
     if (businessCardRef.current) {
+      // Mid position
       tl.to(businessCardRef.current.position, { x: 0.005, y: 3.3, z: 0, duration: 2 }, 0);
       tl.to(businessCardRef.current.rotation, { x: 0, y: 0, z: 0, duration: 2 }, 0);
       // Final position + rotation inside the box
@@ -56,27 +59,36 @@ export default function Experience()
     }
 
     if (threadRef.current) {
+      // Mid position
+      tl.to(threadRef.current.position, { x: 1.6, y: 4, z: -0.4, duration: 2 }, 0);
       // Final position + rotation inside the box
-      tl.to(threadRef.current.position, { x: 1.5, y: -0.18, z: -0.4, duration: 4 }, 0);
+      tl.to(threadRef.current.position, { x: 1.5, y: -0.18, z: -0.4, duration: 2 }, 2);
       tl.to(threadRef.current.rotation, { x: 0, y: 0.08, z: 1.6, duration: 4 }, 0);
     }
 
     if (leicaM6Ref.current) {
+      // Mid position
+      tl.to(leicaM6Ref.current.rotation, { x: 0, y: 0, z: 0.1, duration: 2 }, 0);
       // Final position + rotation inside the box
-      tl.to(leicaM6Ref.current.position, { x: 1.015, y: -0.27, z: 0.47, duration: 4 }, 0);
-      tl.to(leicaM6Ref.current.rotation, { x: 0, y: 0, z: 0.1, duration: 4 }, 0);
+      tl.to(leicaM6Ref.current.position, { x: 1.015, y: -0.27, z: 0.47, duration: 2 }, 2);
+      tl.to(leicaM6Ref.current.rotation, { x: 0, y: 0, z: 0.1, duration: 2 }, 2);
     }
 
     if (keyboardRef.current) {
+      // Mid position
+      tl.to(keyboardRef.current.position, { x: -0.6, y: 3, z: 0.8, duration: 2 }, 1);
       // Final position + rotation inside the box
-      tl.to(keyboardRef.current.position, { x: -0.6, y: 0.13, z: 0.62, duration: 4 }, 0);
-      tl.to(keyboardRef.current.rotation, { x: -1.6, y: -0.75, z: -1.6, duration: 4 }, 0);
+      tl.to(keyboardRef.current.position, { x: -0.6, y: 0.13, z: 0.62, duration: 2 }, 2);
+      tl.to(keyboardRef.current.rotation, { x: -1.6, y: -0.75, z: -1.6, duration: 2 }, 2);
     }
 
     if (microphoneRef.current) {
+      // mid position
+      tl.to(microphoneRef.current.position, { x: 0.3, y: 2.8, z: -1.7, duration: 2 }, 0);
+      tl.to(microphoneRef.current.rotation, { x: 5, y: 0.02, z: 1.6, duration: 2 }, 0);
       // Final position + rotation inside the box
-      tl.to(microphoneRef.current.position, { x: 0.3, y: 0.4, z: -1.7, duration: 4 }, 0);
-      tl.to(microphoneRef.current.rotation, { x: 5, y: 0.02, z: 1.6, duration: 4 }, 0);
+      tl.to(microphoneRef.current.position, { x: 0.3, y: 0.4, z: -1.7, duration: 2 }, 2);
+      tl.to(microphoneRef.current.rotation, { x: 5, y: 0.02, z: 1.6, duration: 2 }, 2);
     }
 
     tl.to(camera.rotation, { x: -0.6, y: 0, z: 0, duration: 3 }, 0);
@@ -88,6 +100,9 @@ export default function Experience()
       tl.to(camera.rotation, { x: -1.25, y: 0, z: 0, duration: 1 }, 4);
       tl.to(camera.position, { x: 0, y: 6, z: 2.1, duration: 1 }, 4);
     }
+
+    // camera.lookAt(keyboardRef.current.position); // ✅
+    // camera.lookAt(0, 0, 0); // ✅
 
     return () => {
       tl.scrollTrigger.kill();

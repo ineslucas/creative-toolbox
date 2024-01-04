@@ -10,7 +10,7 @@ export default function Overlay()
 
   return <>
     <TopCenterBar>
-        <NameDescription onClick={toggleAbout}>Inês Lucas</NameDescription>
+        <NameDescription onClick={toggleAbout}>INÊS LUCAS</NameDescription>
         <NavButton>Projects</NavButton>
         <NavButton>Playground</NavButton>
         <NavButton>Digital Home</NavButton>
