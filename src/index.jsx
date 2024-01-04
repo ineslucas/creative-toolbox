@@ -9,6 +9,7 @@ import EIFForOverlay from './projectpages/EIFForOverlay.js';
 const ScrollContainer = styled.div`
   height: 200vh; // Adjust this to play with toolbox animation duration.
   width: 100vw;
+  background-color: rgb(181, 79, 111);
 `
 
 export default function Index() {
@@ -33,11 +34,18 @@ export default function Index() {
   };
 
   return <>
+    <Loader
+      dataStyles={loaderFont}
+      containerStyles={loaderStyles} // Flex layout styles
+      barStyles={barStyles} // Loading-bar styles
+      dataInterpolation={(p) => `${p.toFixed(2)}%`} />
+
     <ScrollContainer>
       <Canvas
         shadows
         dpr={ 1 }
         style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0, backgroundColor: 'rgb(181, 79, 111)' }}
+        //
         gl={ {
           antialias: true, // default
           toneMapping: THREE.ACESFilmicToneMapping, // default
@@ -55,14 +63,10 @@ export default function Index() {
       </Canvas>
       {/* <Loader /> */}
     </ScrollContainer>
-    <Loader
-      dataStyles={loaderFont}
-      containerStyles={loaderStyles} // Flex layout styles
-      barStyles={barStyles} // Loading-bar styles
-      dataInterpolation={(p) => `${p.toFixed(2)}%`} />
+
 
     {/* Place here what's is needed to play */}
     {/* <EIFForOverlay/> */}
-      {/* className="second-section" */}
+        {/* className="second-section" */}
   </>
 }

@@ -6,7 +6,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
 import ToolboxWithObjects from "./ToolboxWithObjects.js";
-// import EIF from "./projectpages/EIF.js";
+import EIF from "./projectpages/EIF.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,9 +14,9 @@ export default function Experience()
 {
   {/** Experience is a component inside the Canvas - only place where we can use R3F hooks */}
   const { camera, gl } = useThree();
-  const { perfVisible } = useControls({
-    perfVisible: false,
-  });
+  // const { perfVisible } = useControls({
+  //   perfVisible: false,
+  // });
   const keyboardRef = useRef();
   const microphoneRef = useRef();
   const leicaM6Ref = useRef();
@@ -25,20 +25,20 @@ export default function Experience()
   const businessCardHorizontalRef = useRef();
   const fullToolboxRef = useRef();
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: gl.domElement,
-      start: "top top",
-      toggleActions: "play none none none", // default
-      scrub: true,
-      // markers: true,
-      // onComplete: () => console.log("scroll completed"),
-    },
-  });
-
-  // ScrollTrigger.refresh(); how to use it properly?
-
   useGSAP(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: gl.domElement,
+        start: "top top",
+        toggleActions: "play none none none", // default
+        scrub: true,
+        // end: '10%',
+        // pin: true,
+        markers: true,
+        // onComplete: () => console.log("scroll completed"),
+      },
+    });
+
     // instead of useLayoutEffect
     if (businessCardHorizontalRef.current) {
       tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 2, z: 0.075, duration: 2 }, 0);
@@ -88,14 +88,19 @@ export default function Experience()
       tl.to(camera.rotation, { x: -1.25, y: 0, z: 0, duration: 1 }, 4);
       tl.to(camera.position, { x: 0, y: 6, z: 2.1, duration: 1 }, 4);
     }
+
+    return () => {
+      tl.scrollTrigger.kill();
+    };
   }, []);
 
   return <>
-    { perfVisible && <Perf position="top-left" /> }
+    {/* { perfVisible && <Perf position="top-left" /> } */}
 
     <group position-y={-0.6}>
       <ToolboxWithObjects keyboardRef={keyboardRef} microphoneRef={microphoneRef} leicaM6Ref={leicaM6Ref} threadRef={threadRef} businessCardRef={businessCardRef} businessCardHorizontalRef={businessCardHorizontalRef} fullToolboxRef={fullToolboxRef} />
     </group>
+    {/* <EIF/> */}
   </>
 }
 
@@ -108,7 +113,7 @@ export default function Experience()
   <meshStandardMaterial color="white"/>
 </mesh> */}
 
-{/* <EIF/> */}
+
 
 // Notes
 {/* delta = how much time has passed since last frame in seconds, can use it directly on rotation.y*/}

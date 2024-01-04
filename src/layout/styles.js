@@ -12,8 +12,7 @@ export const TopCenterBar = styled.div`
   left: 2vw; // vh?
 
   // background: #FECCD3;
-  background: white;
-  padding: 0.5em 1em;
+  padding: 0.5em 0em; // top+bottom left+right
   border-radius: 0.5em;
 
   font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
@@ -29,7 +28,7 @@ export const NavButton = styled.div`
   cursor: pointer;
   transition: all 0.2s ease;
   &:hover {
-    background: #000;
+    background: #73003A;
     color: #fff;
   }
 `
@@ -45,7 +44,7 @@ export const NameDescription = styled.div`
   margin-right: 10px;
   font-size: 2em;
   line-height: 1.2em;
-  color: #671069;
+  color: #fccada;
 `
 
 export const TopLeft = styled.div`
@@ -65,8 +64,8 @@ export const BottomLeft = styled.div`
 export const ProjectContainer = styled.div`
   top: 5vw;
   left: 5vw;
-  width: 90vw;
-  height: 90vh;
+  width: 100vw;
+  height: 100vh;
   background: mediumpurple;
   padding: 10px;
 `
