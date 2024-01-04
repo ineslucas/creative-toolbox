@@ -11,8 +11,8 @@ const BusinessCardHorizontal = forwardRef((props, ref) => {
     <mesh
       scale={ 0.33 }
       ref={ref}
-      rotation={ [-0.135, 0, 0]}
-      position={ [0, 2.7, 0.075]}
+      rotation={ [-0.135, 1, 0]}
+      position={ [-0.5, 3, -1.5]}
       castShadow
       receiveShadow>
       <boxGeometry args={ [ 3, 2, 0.02 ] } /> {/** width, height, depth */}

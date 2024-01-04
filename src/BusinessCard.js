@@ -18,7 +18,7 @@ const BusinessCard = forwardRef((props, ref) => {
 
   return <>
     {/** card with both faces */}
-    <group ref={ref} rotation={ [ 1.3, 0, 0 ]} position={ [ 2, 3.3, -3]}>
+    <group ref={ref} rotation={ [ 1.3, 0, 0 ]} position={ [ 2, 3.6, -2.2]}>
       <mesh
         scale={ 0.33 }
         rotation={ [ 1.6, -1.19, 9.45]}

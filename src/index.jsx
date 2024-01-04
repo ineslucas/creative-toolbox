@@ -13,8 +13,8 @@ const ScrollContainer = styled.div`
 `
 
 export default function Index() {
-  const cameraRotation = [0, 1.3, 0]; // 0, 0, 0 - do not move X or Z
-  const cameraPosition = [4, 2.5, 0]; // 0, 2, 6
+  const cameraRotation = [0, 1.5, 0]; // 0, 0, 0 - do not move X or Z
+  const cameraPosition = [4.5, 3, 0]; // 0, 2, 6
 
   const loaderFont = {
     font: '/ABCMonumentGrotesk-Regular-Trial.woff',
