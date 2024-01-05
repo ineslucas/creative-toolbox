@@ -7,9 +7,13 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
-  background-color: rgb(181, 79, 111);
-  font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+  font-family: 'ABCMonumentGrotesk', sans-serif;
+  p {
+    margin: 0;
+  }
+  h1 {
+    margin: 0;
+  }
 }
 
 #root {
@@ -19,5 +23,87 @@ body {
 
 @font-face {
   font-family: 'ABCMonumentGrotesk';
-  src: url('../public/fonts/ABCMonumentGrotesk-Regular-Trial.woff') format('woff');
+  src: url('/fonts/ABCMonumentGrotesk-Regular-Trial.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ABCMonumentGrotesk';
+  src: url('/fonts/ABCMonumentGrotesk-HeavyItalic-Trial.woff') format('woff');
+  font-weight: bold;  /* or a numerical value like 700 */
+  font-style: italic;
+}
+
+/* CURSOR WHEN NOT HOVERING*/
+.cursor-circle {
+  width: 36px;
+  height: 36px;
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease-in-out;
+  /* background: #EB5729; */
+  background: #73003A;
+  opacity: 0.8;
+  z-index: 1000;
+  transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* CURSOR WHEN HOVERING LEICA M6*/
+.hover-leica-m6 {
+  height: 120px;
+  width: 120px;
+  font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: white;
+  animation: rotateText 14s linear infinite;
+  opacity: 1;
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keyframes animation */
+@keyframes rotateText {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+.hover-leica-m6-inner-text {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Animation */
+  transition: opacity 0.3s ease; /* Add delay equal to the cursor transition duration */
+}
+
+.hover-leica-m6-inner-text span {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+  transform-origin: center; /* Set the origin to the center */
+}
+
+/* This will create 20 span elements for each character, adjust as needed */
+@for $i from 0 through 19 {
+  .hover-leica-m6-inner-text span:nth-child(#{$i + 1}) {
+    transform: rotate(calc(18deg * #{$i})) translate(0, -60px);
+  }
 }

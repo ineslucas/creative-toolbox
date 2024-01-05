@@ -1,53 +1,34 @@
-import styled from 'styled-components';
-{/** npm install styled-components */}
+import styled from 'styled-components'; {/** npm install styled-components */}
 
-export const Container = styled.div`
-  font-family: 'Inter';
-  font-size: 16px;
-  & h1 {
-    padding: 0;
-    margin: 0 0 0.05em 0;
-    font-family: 'Ayer Poster', serif;
-    font-weight: 400;
-    font-size: min(18vw, 14em);
-    line-height: 0.85em;
-  }
-`
-
-export const TopLeft = styled.div`
-  position: absolute;
-  top: 5vw;
-  left: 5vw;
-`
-
-export const BottomLeft = styled.div`
-  position: absolute;
-  bottom: 5vw;
-  left: 5vw;
-  width: 30ch;
-  max-width: 40%;
-`
 {/** Add media queries & margin & flex disposition */}
-export const BottomCenterBar = styled.div`
-  // position: absolute;
+export const TopCenterBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   position: fixed;
-  bottom: 5vw;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 2vw;
+  left: 2vw; // vh?
+
+  // background: #FECCD3;
+  padding: 0.5em 0em; // top+bottom left+right
+  border-radius: 0.5em;
+
+  font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
 `
 
 export const NavButton = styled.div`
   display: inline-block;
   padding: 0.5em 1em;
-  margin: 0px 0.5em 0.5em 0em;
+
   background: #943E59;
   color: white;
-  border-radius: 0.5em;
+  border-radius: 1em;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
   &:hover {
-    background: #000;
+    background: #73003A;
     color: #fff;
   }
 `
@@ -59,20 +40,32 @@ export const NavButtonSelected = styled(NavButton)`
 `
 
 export const NameDescription = styled.div`
-  display: inline-block;
-  margin: 0px 0.5em 0.5em 0em;
+  // display: inline-block;
+  margin-right: 10px;
   font-size: 2em;
-  font-weight: 300;
   line-height: 1.2em;
-  color: white;
+  color: #fccada;
+`
+
+export const TopLeft = styled.div`
+  position: absolute;
+  top: 5vw;
+  left: 5vw;
+`
+export const BottomLeft = styled.div`
+  position: absolute;
+  bottom: 5vw;
+  left: 5vw;
+  width: 30ch;
+  max-width: 40%;
 `
 
 {/** Project pages */}
 export const ProjectContainer = styled.div`
   top: 5vw;
   left: 5vw;
-  width: 90vw;
-  height: 90vh;
+  width: 100vw;
+  height: 100vh;
   background: mediumpurple;
   padding: 10px;
 `
