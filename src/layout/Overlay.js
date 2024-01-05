@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { TopCenterBar, NavButton, NameDescription } from './styles';
-import EIFForOverlay from '../projectpages/EIFForOverlay.js';
+import { OverlayContainer, TopCenterBar, NavButton, NameDescription } from './styles';
 import About from './About.js';
+import EIFForOverlay from '../pages/EIFForOverlay.js';
 
 export default function Overlay()
 {
@@ -9,15 +9,17 @@ export default function Overlay()
   const toggleAbout = () => setShowAbout(!showAbout);
 
   return <>
-    <TopCenterBar>
-        <NameDescription onClick={toggleAbout}>Inês Lucas</NameDescription>
-        <NavButton>Projects</NavButton>
-        <NavButton>Playground</NavButton>
-        <NavButton>Digital Home</NavButton>
-    </TopCenterBar>
+    <OverlayContainer>
+      <TopCenterBar>
+          <NameDescription onClick={toggleAbout}>Inês Lucas</NameDescription>
+          <NavButton>Projects</NavButton>
+          <NavButton>Playground</NavButton>
+          <NavButton>Digital Home</NavButton>
+      </TopCenterBar>
 
-    { showAbout && <About/>}
+      { showAbout && <About/>}
 
-    {/* <EIFForOverlay/> */}
-   </>
+      {/* <EIFForOverlay/> */}
+    </OverlayContainer>
+  </>
 }

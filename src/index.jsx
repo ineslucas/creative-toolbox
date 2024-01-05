@@ -5,7 +5,7 @@ import Experience from './Experience.js'; // Default Export
 import * as THREE from 'three';
 import styled from 'styled-components';
 import { useState } from "react";
-import EIFForOverlay from './projectpages/EIFForOverlay.js';
+import EIFForOverlay from './pages/EIFForOverlay.js';
 import { Cursor } from './layout/Cursor.js'; // Named Export
 
 const ScrollContainer = styled.div`

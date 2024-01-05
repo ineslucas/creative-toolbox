@@ -6,7 +6,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { Perf } from 'r3f-perf';
 import { useControls } from 'leva';
 import ToolboxWithObjects from "./ToolboxWithObjects.js";
-import EIF from "./projectpages/EIF.js";
+import EIF from "./pages/EIF.js";
 
 // gsap.registerPlugin(ScrollTrigger);
 
