@@ -1,5 +1,10 @@
 import styled from 'styled-components'; {/** npm install styled-components */}
 
+export const OverlayContainer = styled.div`
+  position: absolute;
+  z-index: 500;
+`
+
 {/** Add media queries & margin & flex disposition */}
 export const TopCenterBar = styled.div`
   display: flex;
