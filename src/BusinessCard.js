@@ -18,7 +18,7 @@ const BusinessCard = forwardRef((props, ref) => {
 
   return <>
     {/** card with both faces */}
-    <group ref={ref} rotation={ [ 1.3, 0, 0 ]} position={ [ 2, 3.3, -3]}>
+    <group ref={ref} rotation={ [ 1.3, 0, 0 ]} position={ [ 2, 3.6, -2.2]}>
       <mesh
         scale={ 0.33 }
         rotation={ [ 1.6, -1.19, 9.45]}
@@ -45,7 +45,7 @@ const BusinessCard = forwardRef((props, ref) => {
 export default BusinessCard;
 
 
-{/* trial of code to apply 2 textures to 1 mesh */}
+{/* trial to apply 2 textures to 1 mesh */}
 // import React, { forwardRef } from "react";
 // import { useLoader } from '@react-three/fiber';
 // import { TextureLoader, MeshStandardMaterial } from 'three';
