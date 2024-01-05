@@ -1,58 +1,70 @@
-// Animated correctly but not in the right position
-import styled from 'styled-components';
-import { Html } from '@react-three/drei';
+import { useEffect, useRef, useState } from "react";
 
-const CircularLetter = styled.span`
-  position: absolute;
-  height: 120px;
-  width: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform-origin: 60px 60px; // Half the size of the container
-  transform: ${({ angle }) => `rotate(${angle}deg) translateY(-47px)`}; // translateY determines radius
-  color: #EFA8B2;
-  font-size: 16px;
-  font-weight: 400;
-`;
+const CURSOR_SPEED = 0.08;
 
-const CursorPhoto = styled.div`
-  height: 120px;
-  width: 120px;
-  border-radius: 50%;
-  background: #EB5729;
-  z-index: 9999;
-  font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
-  position: relative;
-  overflow: hidden;
-  animation: effect 14s linear infinite; // takes 14s for the cursor to complete a full rotation
+// Global variables to track mouse and cursor positions
+let mouseX = 0;
+let mouseY = 0;
+let outlineX = 0;
+let outlineY = 0;
 
-  @keyframes effect {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-`;
+export const Cursor = ({ isHoveringLeicaM6 }) => {
+  const cursorCircle = useRef();
 
-export default function Cursor({ text = " view project view project" }) {
-  const letters = text.split('');
-  const degreeIncrement = 360 / letters.length;
+  // Function to animate the cursor
+  const animate = () => {
+    // Calculating the distance from the current cursor position to the target position
+    let distX = mouseX - outlineX;
+    let distY = mouseY - outlineY;
 
-  return (
-    <Html>
-      <CursorPhoto>
-        {letters.map((letter, index) => (
-          <CircularLetter
-            key={index}
-            angle={degreeIncrement * index}
-          >
-            {letter}
-          </CircularLetter>
-        ))}
-      </CursorPhoto>
-    </Html>
-  );
-}
+    // Incrementally move the cursor position closer to the target position
+    outlineX = outlineX + distX * CURSOR_SPEED;
+    outlineY = outlineY + distY * CURSOR_SPEED;
+
+    // Applying the new position to the cursor element
+    cursorCircle.current.style.left = `${outlineX}px`;
+    cursorCircle.current.style.top = `${outlineY}px`;
+    requestAnimationFrame(animate);
+  };
+
+  useEffect(() => {
+    // Event listener to update mouse position
+    const mouseEventsListener = (event) => {
+      mouseX = event.pageX;
+      mouseY = event.pageY;
+    };
+
+    // Add mousemove event listener
+    document.addEventListener("mousemove", mouseEventsListener);
+    // Start the animation
+    const animateEvent = requestAnimationFrame(animate);
+
+    // Cleanup function to remove event listener and cancel animation frame
+    return () => {
+      document.removeEventListener("mousemove", mouseEventsListener);
+      cancelAnimationFrame(animateEvent);
+    };
+  }, []);
+
+  {/** Text displayed when hovering Leica M6 */}
+  const leicaM6text = "view project view project ";
+  const charArray = leicaM6text.split("");
+  const totalChars = charArray.length;
+  const rotationAngle = 360 / totalChars; // distribute characters evenly in a circle
+  const leicaM6CursorText = charArray.map((char, index) => (
+    <span
+      key={index}
+      style={{ transform: `rotate(${index * rotationAngle}deg) translate(0, 5px)` }} // 60px here defines the rotation of each letter
+    >
+      {char}
+    </span>
+  ));
+
+  return <>
+    <div
+      className={`cursor-circle ${isHoveringLeicaM6 ? "hover-leica-m6" : ""}`}
+      ref={cursorCircle}>
+       { isHoveringLeicaM6 && <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>}
+    </div>
+  </>
+};

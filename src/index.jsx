@@ -1,13 +1,16 @@
 import './style.css';
 import { Canvas } from '@react-three/fiber';
 import { Loader } from '@react-three/drei';
-import Experience from './Experience.js';
+import Experience from './Experience.js'; // Default Export
 import * as THREE from 'three';
 import styled from 'styled-components';
+import { useState } from "react";
 import EIFForOverlay from './projectpages/EIFForOverlay.js';
+import { Cursor } from './layout/Cursor.js'; // Named Export
 
 const ScrollContainer = styled.div`
-  height: 200vh; // Adjust this to play with toolbox animation duration.
+  // height: 200vh; // Adjust this to play with toolbox animation duration.
+  height: 100vh;
   width: 100vw;
   background-color: rgb(181, 79, 111);
 `
@@ -32,6 +35,8 @@ export default function Index() {
     height: '10px', // Example: Thicker bar
     width: '50%', // Example: Bar width relative to its container
   };
+
+  const [isHoveringLeicaM6, setIsHoveringLeicaM6] = useState(false);
 
   return <>
     <Loader
@@ -59,11 +64,13 @@ export default function Index() {
           rotation: cameraRotation,
         }}
       >
-        <Experience />
+        <Experience setIsHoveringLeicaM6={setIsHoveringLeicaM6} />
       </Canvas>
       {/* <Loader /> */}
+
     </ScrollContainer>
 
+    <Cursor isHoveringLeicaM6={isHoveringLeicaM6}/>
 
     {/* Place here what's is needed to play */}
     {/* <EIFForOverlay/> */}

@@ -8,9 +8,9 @@ import { useControls } from 'leva';
 import ToolboxWithObjects from "./ToolboxWithObjects.js";
 import EIF from "./projectpages/EIF.js";
 
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
-export default function Experience()
+export default function Experience({ setIsHoveringLeicaM6 })
 {
   {/** Experience is a component inside the Canvas - only place where we can use R3F hooks */}
   const { camera, gl } = useThree();
@@ -25,21 +25,20 @@ export default function Experience()
   const businessCardHorizontalRef = useRef();
   const fullToolboxRef = useRef();
 
-  useGSAP(() => {
+  useGSAP(() => { // useGSAP instead of useLayoutEffect
     const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: gl.domElement,
-        start: "top top",
-        toggleActions: "play none none none", // default
-        scrub: true,
-        // end: '10%',
-        // pin: true,
-        markers: true,
-        // onComplete: () => console.log("scroll completed"),
-      },
+      // scrollTrigger: {
+      //   trigger: gl.domElement,
+      //   start: "top top",
+      //   toggleActions: "play none none none", // default
+      //   scrub: true,
+      //   // end: '10%',
+      //   // pin: true,
+      //   markers: true,
+      //   // onComplete: () => console.log("scroll completed"),
+      // },
     });
 
-    // instead of useLayoutEffect
     if (businessCardHorizontalRef.current) {
       // Mid position
       tl.to(businessCardHorizontalRef.current.position, { x: 0, y: 1, z: 0.075, duration: 1 }, 0);
@@ -76,7 +75,7 @@ export default function Experience()
 
     if (keyboardRef.current) {
       // Mid position
-      tl.to(keyboardRef.current.position, { x: -0.6, y: 3, z: 0.8, duration: 2 }, 1);
+      tl.to(keyboardRef.current.position, { x: -0.6, y: 3, z: 0.8, duration: 1 }, 1);
       // Final position + rotation inside the box
       tl.to(keyboardRef.current.position, { x: -0.6, y: 0.13, z: 0.62, duration: 2 }, 2);
       tl.to(keyboardRef.current.rotation, { x: -1.6, y: -0.75, z: -1.6, duration: 2 }, 2);
@@ -104,16 +103,18 @@ export default function Experience()
     // camera.lookAt(keyboardRef.current.position); // ✅
     // camera.lookAt(0, 0, 0); // ✅
 
-    return () => {
-      tl.scrollTrigger.kill();
-    };
+    // return () => {
+    //   tl.scrollTrigger.kill();
+    // };
   }, []);
 
   return <>
     {/* { perfVisible && <Perf position="top-left" /> } */}
 
     <group position-y={-0.6}>
-      <ToolboxWithObjects keyboardRef={keyboardRef} microphoneRef={microphoneRef} leicaM6Ref={leicaM6Ref} threadRef={threadRef} businessCardRef={businessCardRef} businessCardHorizontalRef={businessCardHorizontalRef} fullToolboxRef={fullToolboxRef} />
+      <ToolboxWithObjects
+        keyboardRef={keyboardRef} microphoneRef={microphoneRef} leicaM6Ref={leicaM6Ref} threadRef={threadRef} businessCardRef={businessCardRef} businessCardHorizontalRef={businessCardHorizontalRef} fullToolboxRef={fullToolboxRef}
+        setIsHoveringLeicaM6={setIsHoveringLeicaM6} />
     </group>
     {/* <EIF/> */}
   </>

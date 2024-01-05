@@ -9,7 +9,7 @@ const IntroContainer = styled.div`
   left: 2vw;
 
   overflow: auto;
-  padding: 4em;
+  padding: 1em;
   margin-right: 10px;
   background: white;
   animation: effect 1s ease-out;
@@ -38,7 +38,7 @@ const IntroContainer = styled.div`
 
   p {
     font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
-    font-size: 2em;
+    font-size: 1em;
     line-height: 1.2em;
     color: #943E59;
   }

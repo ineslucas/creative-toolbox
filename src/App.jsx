@@ -4,7 +4,6 @@ import Index from './index.jsx'
 import Overlay from './layout/Overlay.js'
 import { StrictMode } from "react";
 import AboutHover from './layout/AboutHover.js';
-import ReplacingCursor from './layout/ReplacingCursor.js';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
@@ -12,7 +11,7 @@ const root = ReactDOM.createRoot(document.querySelector('#root'))
 Text is not allowed in the R3F tree*/}
 
 const resetScrollPosition = () => {
-  console.log("Resetting scroll position");
+  // console.log("Resetting scroll position"); // to be used withScrollTrigger
   window.scrollTo(0, 0);
 };
 
@@ -21,10 +20,7 @@ root.render(
     {/* <AboutHover /> */}
     <Index />
     <Overlay />
-    <ReplacingCursor />
   </StrictMode>
 )
-
-// resetScrollPosition(); // Reset scroll position on page load
 
 window.addEventListener('load', resetScrollPosition); // listen to the 'load' event to ensure the page is fully loaded

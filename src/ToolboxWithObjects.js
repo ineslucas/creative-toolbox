@@ -10,7 +10,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 
 {/* ToolboxWithObjects accepts a keyboardRef prop and forwards it to the Keyboard component. */ }
 
-const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef, businessCardRef, businessCardHorizontalRef, fullToolboxRef, ...props }) => {
+const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef, businessCardRef, businessCardHorizontalRef, fullToolboxRef, setIsHoveringLeicaM6, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
@@ -61,8 +61,8 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
             rotation={ [ 0, -1, 0.3 ] }
             position={ [0.5, 3.6, 0.4 ] }
             onClick={ () => window.open('https://www.memorylab.space/', '_blank')}
-            // onPointerEnter={ () => setProjectCursor(true)}
-            // onPointerLeave={ () => setProjectCursor(false)} 
+            onPointerEnter={ () => setIsHoveringLeicaM6(true)}
+            onPointerLeave={ () => setIsHoveringLeicaM6(false)}
             />
         </Suspense>
 

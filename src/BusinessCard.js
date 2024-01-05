@@ -45,7 +45,7 @@ const BusinessCard = forwardRef((props, ref) => {
 export default BusinessCard;
 
 
-{/* trial of code to apply 2 textures to 1 mesh */}
+{/* trial to apply 2 textures to 1 mesh */}
 // import React, { forwardRef } from "react";
 // import { useLoader } from '@react-three/fiber';
 // import { TextureLoader, MeshStandardMaterial } from 'three';
