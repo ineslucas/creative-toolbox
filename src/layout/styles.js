@@ -24,7 +24,7 @@ export const NavButton = styled.div`
 
   background: #943E59;
   color: white;
-  border-radius: 0.5em;
+  border-radius: 1em;
   cursor: pointer;
   transition: all 0.2s ease;
   &:hover {
