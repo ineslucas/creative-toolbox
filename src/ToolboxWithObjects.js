@@ -1,5 +1,5 @@
 import { Suspense, useState, useEffect } from "react";
-import { useHelper, SoftShadows, PresentationControls, Text, Billboard } from "@react-three/drei";
+import { useHelper, SoftShadows, PresentationControls, Text, Billboard, Html } from "@react-three/drei";
 import Toolbox from "./Toolbox.jsx";
 import Thread from "./Thread.jsx";
 import Microphone from "./Microphone.jsx";
@@ -14,21 +14,6 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
-
-  const [hovered, setProjectCursor] = useState(null);
-
-  useEffect(() => {
-    const projectCursorStyle = `url('/images/cursor.svg'), auto`;
-
-    if (hovered) {
-      console.log("hovered:", hovered);
-      document.body.style.cursor = projectCursorStyle;
-      leicaM6Ref.scale = 1.1;
-    } else {
-      console.log("not hovered:", hovered);
-      document.body.style.cursor = `auto`;
-    }
-  }, [hovered])
 
   return <>
     {/** Essentials */}
@@ -76,8 +61,9 @@ const ToolboxWithObjects = ({ keyboardRef, microphoneRef, leicaM6Ref, threadRef,
             rotation={ [ 0, -1, 0.3 ] }
             position={ [0.5, 3.6, 0.4 ] }
             onClick={ () => window.open('https://www.memorylab.space/', '_blank')}
-            onPointerEnter={ () => setProjectCursor(true)}
-            onPointerLeave={ () => setProjectCursor(false)} />
+            // onPointerEnter={ () => setProjectCursor(true)}
+            // onPointerLeave={ () => setProjectCursor(false)} 
+            />
         </Suspense>
 
         <Suspense fallback={ null }>

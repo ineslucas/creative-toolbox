@@ -4,6 +4,7 @@ import Index from './index.jsx'
 import Overlay from './layout/Overlay.js'
 import { StrictMode } from "react";
 import AboutHover from './layout/AboutHover.js';
+import ReplacingCursor from './layout/ReplacingCursor.js';
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
@@ -20,6 +21,7 @@ root.render(
     {/* <AboutHover /> */}
     <Index />
     <Overlay />
+    <ReplacingCursor />
   </StrictMode>
 )
 
