@@ -2,6 +2,7 @@ import React from 'react';
 import Draggable from 'react-draggable';
 import { Link } from 'react-router-dom';
 import { PageContainer, Description, RightContainer, LeftContainer, BackButton, Title } from './TemplateComponents/ProjectStyledTemplates';
+import { Cursor } from '../layout/Cursor.js';
 
 const MemoryLab = () => {
   const handleStart = (event) => {
@@ -10,6 +11,7 @@ const MemoryLab = () => {
   };
 
   return <>
+    <Cursor />
     <PageContainer>
       <Title>Memory Lab</Title>
       <LeftContainer>

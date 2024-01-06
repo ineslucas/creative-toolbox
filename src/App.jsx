@@ -2,13 +2,13 @@ import React, { StrictMode } from 'react';
 import './style.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import Index from './index.jsx';
 import Overlay from './layout/Overlay.js';
 import MemoryLab from './pages/MemoryLab.js';
+import AboutMe from './pages/AboutMe.js';
 // import AboutHover from './layout/AboutHover.js';
 
-console.log("Creating root element");
+// console.log("Creating root element");
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 const App = () => (
@@ -18,6 +18,7 @@ const App = () => (
     <Routes>
       <Route exact path="/" element={<Index />} />
       <Route path="/memory-lab" element={<MemoryLab />} />
+      <Route path="/about" element={<AboutMe />} />
     </Routes>
   </Router>
 );

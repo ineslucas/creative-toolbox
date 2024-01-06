@@ -65,6 +65,26 @@ export const BottomLeft = styled.div`
   max-width: 40%;
 `
 
+export const AvatarImage = styled.img`
+  animation: rotateImage 14s linear infinite;
+  height: 34.5px;
+  margin-right: 10px;
+
+  @keyframes rotateImage {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  &:hover {
+    animation-play-state: paused;
+    // missing scaling
+  }
+`
+
 {/** Project pages */}
 export const ProjectContainer = styled.div`
   top: 5vw;
