@@ -27,13 +27,14 @@ export default function Index() {
     color: 'white',
     'materialToneMapped': false }
   const loaderStyles = {
-    backgroundColor: '#654873',
+    // backgroundColor: '#654873',
+    backgroundColor: 'black',
     color: 'white',
     position: 'fixed',
   }
   const barStyles = {
-    height: '10px', // Example: Thicker bar
-    width: '50%', // Example: Bar width relative to its container
+    height: '5px', // Thicker bar
+    width: '50%', // Bar width relative to its container
   };
 
   const [isHoveringLeicaM6, setIsHoveringLeicaM6] = useState(false);

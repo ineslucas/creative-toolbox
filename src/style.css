@@ -35,7 +35,7 @@ body {
   font-style: italic;
 }
 
-/* CURSOR WHEN NOT HOVERING*/
+/* CURSOR WHEN NOT HOVERING ANYTHING*/
 .cursor-circle {
   width: 36px;
   height: 36px;
@@ -75,7 +75,6 @@ body {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
 
 .hover-leica-m6-inner-text {
   position: absolute;

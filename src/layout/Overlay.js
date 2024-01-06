@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { OverlayContainer, TopCenterBar, NavButton, NameDescription } from './styles';
+import { OverlayContainer, TopCenterBar, NavButton, NameDescription, AvatarImage } from './styles';
 import About from './About.js';
 import EIFForOverlay from '../pages/EIFForOverlay.js';
 
@@ -12,7 +12,8 @@ export default function Overlay()
     <OverlayContainer>
       <TopCenterBar>
           <NameDescription onClick={toggleAbout}>Inês Lucas</NameDescription>
-          <NavButton>Projects</NavButton>
+          <AvatarImage src="/images/about/purple_avatar.png" onClick={() => window.open('/about')}/>
+          <NavButton onClick={() => window.open('/')}>Projects</NavButton>
           <NavButton>Playground</NavButton>
           <NavButton>Digital Home</NavButton>
       </TopCenterBar>
