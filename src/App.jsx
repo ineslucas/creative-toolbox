@@ -8,6 +8,7 @@ import Overlay from './layout/Overlay.js';
 import MemoryLab from './pages/MemoryLab.js';
 // import AboutHover from './layout/AboutHover.js';
 
+console.log("Creating root element");
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 const App = () => (
