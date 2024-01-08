@@ -6,6 +6,9 @@ import Index from './index.jsx';
 import Overlay from './layout/Overlay.js';
 import MemoryLab from './pages/MemoryLab.js';
 import AboutMe from './pages/AboutMe.js';
+import ClassRanking from './pages/ClassRanking.js';
+import SurfTheJob from './pages/SurfTheJob.js';
+import GatherGo from './pages/GatherGo.js';
 // import AboutHover from './layout/AboutHover.js';
 
 // console.log("Creating root element");
@@ -19,6 +22,9 @@ const App = () => (
       <Route exact path="/" element={<Index />} />
       <Route path="/memory-lab" element={<MemoryLab />} />
       <Route path="/about" element={<AboutMe />} />
+      <Route path="/class-ranking" element={<ClassRanking />} />
+      <Route path="/surf-the-job" element={<SurfTheJob />} />
+      <Route path="/gathergo" element={<GatherGo />} />
     </Routes>
   </Router>
 );

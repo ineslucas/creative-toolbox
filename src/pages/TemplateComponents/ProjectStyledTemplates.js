@@ -13,6 +13,19 @@ export const PageContainer = styled.div`
   @media (max-width: 663px) {
     flex-direction: column; // Stack children vertically on small screens
   }
+
+  h1 {
+    font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+    font-weight: 400;
+    font-size: 2em;
+    line-height: 1.2em;
+    color: #fad9e4;
+    margin-bottom: 3%;
+  }
+
+  p {
+    color: #fad9e4;
+  }
 `
 export const LeftContainer = styled.div`
   background: #630535;

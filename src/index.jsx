@@ -38,6 +38,7 @@ export default function Index() {
   };
 
   const [isHoveringLeicaM6, setIsHoveringLeicaM6] = useState(false);
+  const [isHoveringMicrophone, setIsHoveringMicrophone] = useState(false);
 
   return <>
     <Loader
@@ -65,13 +66,13 @@ export default function Index() {
           rotation: cameraRotation,
         }}
       >
-        <Experience setIsHoveringLeicaM6={setIsHoveringLeicaM6} />
+        <Experience setIsHoveringLeicaM6={setIsHoveringLeicaM6} setIsHoveringMicrophone={setIsHoveringMicrophone}/>
       </Canvas>
       {/* <Loader /> */}
 
     </ScrollContainer>
 
-    <Cursor isHoveringLeicaM6={isHoveringLeicaM6}/>
+    <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone}/>
 
     {/* Place here what's is needed to play */}
     {/* <EIFForOverlay/> */}
