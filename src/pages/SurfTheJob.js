@@ -69,14 +69,13 @@ const SurfTheJob = () => {
         It started as a slightly different idea but as we interviewed both students and companies, we also adapted our product into flexible internships for students adapted to today’s working culture.
         </p>
 
-        <h1>platform demo</h1>
         {renderYoutubeVideo()}
 
-        <h1>pitch deck</h1>
         <iframe
           src="/files/Surf_the_Job_pitching_kit_pdf.pdf"
-          style={{ border: 'none' }}>
+          style={{ border: 'none', width: '50%', height: '50%' }}>
         </iframe>
+        <h1>pitch deck</h1>
       </RightContainer>
     </PageContainer>
   </>
