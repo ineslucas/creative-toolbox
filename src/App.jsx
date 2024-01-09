@@ -2,6 +2,7 @@ import React, { StrictMode } from 'react';
 import './style.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import Index from './index.jsx';
 import Overlay from './layout/Overlay.js';
 import MemoryLab from './pages/MemoryLab.js';
@@ -16,6 +17,7 @@ const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 const App = () => (
   <Router>
+    <Analytics />
     {/* <AboutHover /> */}
     <Overlay/> {/* The Overlay component is rendered outside of the Routes but inside the Router, meaning it will be displayed on all routes. Displays error without zIndex property*/}
     <Routes>
