@@ -31,8 +31,26 @@ body {
 @font-face {
   font-family: 'ABCMonumentGrotesk';
   src: url('/fonts/ABCMonumentGrotesk-HeavyItalic-Trial.woff') format('woff');
-  font-weight: bold;  /* or a numerical value like 700 */
+  font-weight: bold;  /* or numerical value like 700 */
   font-style: italic;
+}
+
+/* CUSTOM BULLET POINT */
+.custom-bullet {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.custom-bullet li::before {
+  content: '';
+  display: inline-block;
+  margin-right: 10px; /* Space between bullet and text */
+  height: 5px;
+  width: 5px;
+  background-color: #fad9e4;
+  border-radius: 50%;
+  margin-left: -20px;
+  vertical-align: middle;
 }
 
 /* CURSOR WHEN NOT HOVERING ANYTHING*/
