@@ -28,11 +28,11 @@ const AboutMeContainer = styled.div`
 
 const FlexContainer = styled.div`
   display: flex;
-  justify-content: space-between; // Distributes space evenly
+  justify-content: space-between;
   align-items: flex-start;
   margin-top: 5vh;
 
-  @media (max-width: 768px) { // Tablet and mobile breakpoint
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 `;
@@ -42,11 +42,11 @@ const FlexChild = styled.div`
   padding: 1em;
 
   &:first-child {
-    padding-left: 0; // Remove left padding for the first child
+    padding-left: 0;
   }
 
   &:last-child {
-    padding-right: 0; // Remove right padding for the last child
+    padding-right: 0;
   }
 
   h1 {

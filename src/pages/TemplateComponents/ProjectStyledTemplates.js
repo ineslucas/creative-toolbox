@@ -48,7 +48,7 @@ export const BackButton = styled.div`
   display: flex; // Changed to flex to align children inline
   align-items: center; // Align items vertically
 
-  margin-top: 30vh;
+  margin-top: 25vh;
   margin-left: 3vw;
 
   img, p {
@@ -66,6 +66,7 @@ export const BackButton = styled.div`
 `
 
 export const Description = styled.div`
+  overflow-y: auto;
   align-self: flex-end;
   margin-left: 3vw;
   margin-right: 3vw;
@@ -118,3 +119,47 @@ export const Title = styled.h2`
     // Add any other adjustments for smaller screens
   }
 `
+
+export const TagsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5%;
+`;
+
+export const YearRoleTopicsTechTag = styled.div`
+  padding: 0.5em 1em;
+  // background: #943E59;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #fad9e4;
+  color: #fad9e4;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+`
+// can place them on upper right corner - with button to LIVE DEMO & GITHUB, Technologies used, Year, Role, Topics
+
+export const UpperRightLinkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: fixed;
+  top: 2.7vw;
+  right: 2.5vw;
+  z-index: 20;
+
+  img {
+    cursor: pointer;
+    transform: scale(1.6);
+    transition: all 0.2s ease;
+    &:hover {
+      transform: scale(1.2);
+    }
+    margin-left: 30px;
+  }
+`;

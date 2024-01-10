@@ -53,6 +53,7 @@ const LeftContainer = styled.div`
   @media (max-width: 1087px) {
     width: auto;
     margin-left: 3vw;
+    margin-top: 20vh;
   }
 `;
 
