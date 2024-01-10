@@ -17,6 +17,7 @@
     "@react-three/drei": "^9.90.1",
     "@react-three/fiber": "8.15",
     "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.2",
     "gltfjsx": "^6.2.15",
     "gsap": "3.12",
     "leva": "^0.9.35",

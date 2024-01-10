@@ -16,7 +16,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 
 {/* in ToolboxWithObjects.js, created a ref for the keyboard, which will then be forwarded it to the Keyboard component */}
 
-const ToolboxWithObjects = ({ setIsHoveringLeicaM6, ...props }) => {
+const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const keyboardRef = useRef();
@@ -28,7 +28,7 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, ...props }) => {
   const fullToolboxRef = useRef();
 
   const { camera, gl } = useThree();
-  const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
+  // const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
   const navigate = useNavigate();
 
   useGSAP(() => { // useGSAP instead of useLayoutEffect
@@ -161,11 +161,24 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, ...props }) => {
           // onClick={ () => window.open('https://www.memorylab.space/', '_blank')}
           onClick={() => navigate('/memory-lab')}
           onPointerEnter={ () => setIsHoveringLeicaM6(true)}
-          onPointerLeave={ () => setIsHoveringLeicaM6(false)}
-          />
-        <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.2, -0.75, -1.6] } position={ [-0.6, 3, 2] } />
+          onPointerLeave={ () => setIsHoveringLeicaM6(false)} />
+        <Keyboard
+          ref={ keyboardRef }
+          scale={ 0.013 }
+          rotation={ [-1.2, -0.75, -1.6] }
+          position={ [-0.6, 3, 2] }
+          onClick={() => navigate('/gathergo')}
+          onPointerEnter={ () => setIsHoveringKeyboard(true)}
+          onPointerLeave={ () => setIsHoveringKeyboard(false)} />
         <Thread ref={ threadRef } scale={ 1 } rotation={ [0, 1, 1.6] } position={ [1.6, 4, -0.7] } />
-        <Microphone ref={ microphoneRef } scale={ 1 } rotation={ [ 5.2, 0.5, 2.2 ] } position={ [ -0.3, 3.5, -0.9 ] }/>
+        <Microphone
+          ref={ microphoneRef }
+          scale={ 1 }
+          rotation={ [ 5.2, 0.5, 2.2 ] }
+          position={ [ -0.3, 3.5, -0.9 ] }
+          onClick={() => navigate('/surf-the-job')}
+          onPointerEnter={ () => setIsHoveringMicrophone(true)}
+          onPointerLeave={ () => setIsHoveringMicrophone(false)}/>
         <Toolbox scale={ 11 }/>
       </group>
 
