@@ -16,7 +16,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 
 {/* in ToolboxWithObjects.js, created a ref for the keyboard, which will then be forwarded it to the Keyboard component */}
 
-const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, ...props }) => {
+const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const keyboardRef = useRef();
@@ -161,9 +161,15 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, ...
           // onClick={ () => window.open('https://www.memorylab.space/', '_blank')}
           onClick={() => navigate('/memory-lab')}
           onPointerEnter={ () => setIsHoveringLeicaM6(true)}
-          onPointerLeave={ () => setIsHoveringLeicaM6(false)}
-          />
-        <Keyboard ref={ keyboardRef } scale={ 0.013 } rotation={ [-1.2, -0.75, -1.6] } position={ [-0.6, 3, 2] } />
+          onPointerLeave={ () => setIsHoveringLeicaM6(false)} />
+        <Keyboard
+          ref={ keyboardRef }
+          scale={ 0.013 }
+          rotation={ [-1.2, -0.75, -1.6] }
+          position={ [-0.6, 3, 2] }
+          onClick={() => navigate('/gathergo')}
+          onPointerEnter={ () => setIsHoveringKeyboard(true)}
+          onPointerLeave={ () => setIsHoveringKeyboard(false)} />
         <Thread ref={ threadRef } scale={ 1 } rotation={ [0, 1, 1.6] } position={ [1.6, 4, -0.7] } />
         <Microphone
           ref={ microphoneRef }
