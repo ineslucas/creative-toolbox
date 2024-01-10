@@ -13,7 +13,7 @@ export default function Overlay()
   return <>
     <OverlayContainer>
       <TopCenterBar>
-          <NameDescription onClick={() => navigate('/about')}>Inês Lucas</NameDescription> {/* onClick={toggleAbout} */}
+          <NameDescription onClick={() => navigate('/about')}>digipeasy</NameDescription> {/* onClick={toggleAbout} */}
           <AvatarImage src="/images/about/purple_avatar.png" onClick={() => navigate('/about')}/>
           <NavButton onClick={() => navigate('/')}>Projects</NavButton>
           {/* <NavButton>Playground</NavButton> */}
