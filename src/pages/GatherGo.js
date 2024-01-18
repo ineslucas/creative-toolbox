@@ -161,7 +161,7 @@ const GatherGo = () => {
               style={{ opacity: activeSection === 'ui' ? 1 : 0.4 }}>User Interface</SubHeading>
             <SubHeading
               onClick={() => handleSubHeadingClick('pitch')}
-              style={{ opacity: activeSection === 'pitch' ? 1 : 0.4 }}>Watch me pitch</SubHeading>
+              style={{ opacity: activeSection === 'pitch' ? 1 : 0.4 }}>Watch me demo</SubHeading>
             <SubHeading
               onClick={() => handleSubHeadingClick('tech')}
               style={{ opacity: activeSection === 'tech' ? 1 : 0.4 }}>Tech Stack details</SubHeading>
