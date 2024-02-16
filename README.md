@@ -11,3 +11,5 @@ Credits:
 - Yeti Blue Microphone's 3D model
 - [Leica M6 3D model]([url](https://sketchfab.com/3d-models/leica-m6-8bba2917f2634e91ab04b92ff20baa4b)https://sketchfab.com/3d-models/leica-m6-8bba2917f2634e91ab04b92ff20baa4b)
 - Font Monument Grotesk by [Dinamo]([[url](https://abcdinamo.com)](https://abcdinamo.com)https://abcdinamo.com)
+
+Start server with npm run dev.
