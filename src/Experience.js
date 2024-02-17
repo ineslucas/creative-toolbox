@@ -4,7 +4,7 @@ import ToolboxWithObjects from "./ToolboxWithObjects.js";
 // import { useControls } from 'leva';
 // import EIF from "./pages/EIF.js";
 
-export default function Experience({ setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard })
+export default function Experience({ isHoveringLeicaM6, isHoveringMicrophone, setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard })
 {
   {/** Experience is a component inside the Canvas - only place where we can use R3F hooks */}
 
@@ -17,6 +17,8 @@ export default function Experience({ setIsHoveringLeicaM6, setIsHoveringMicropho
     <group position-y={-0.6}>
       <Suspense>
         <ToolboxWithObjects
+          isHoveringLeicaM6={isHoveringLeicaM6}
+          isHoveringMicrophone={isHoveringMicrophone}
           setIsHoveringLeicaM6={setIsHoveringLeicaM6}
           setIsHoveringMicrophone={setIsHoveringMicrophone}
           setIsHoveringKeyboard={setIsHoveringKeyboard}/>

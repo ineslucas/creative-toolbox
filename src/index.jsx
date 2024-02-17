@@ -68,7 +68,12 @@ export default function Index() {
           rotation: cameraRotation,
         }}
       >
-        <Experience setIsHoveringLeicaM6={setIsHoveringLeicaM6} setIsHoveringMicrophone={setIsHoveringMicrophone} setIsHoveringKeyboard={setIsHoveringKeyboard}/>
+        <Experience
+          isHoveringLeicaM6={isHoveringLeicaM6}
+          isHoveringMicrophone={isHoveringMicrophone}
+          setIsHoveringLeicaM6={setIsHoveringLeicaM6}
+          setIsHoveringMicrophone={setIsHoveringMicrophone}
+          setIsHoveringKeyboard={setIsHoveringKeyboard}/>
       </Canvas>
       {/* <Loader /> */}
 

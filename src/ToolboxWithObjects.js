@@ -1,6 +1,7 @@
-import { useRef } from "react";
+// import * as THREE from 'three';
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { useHelper, SoftShadows, PresentationControls, Text, Billboard, Html } from "@react-three/drei";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -16,7 +17,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 
 {/* in ToolboxWithObjects.js, created a ref for the keyboard, which will then be forwarded it to the Keyboard component */}
 
-const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
+const ToolboxWithObjects = ({ isHoveringLeicaM6, isHoveringMicrophone, setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const keyboardRef = useRef();
@@ -26,10 +27,40 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, set
   const businessCardRef = useRef();
   const businessCardHorizontalRef = useRef();
   const fullToolboxRef = useRef();
+  const emptyToolboxRef = useRef();
 
   const { camera, gl } = useThree();
   // const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
   const navigate = useNavigate();
+  const [isHoveringFullToolbox, setIsHoveringFullToolbox] = useState(false); // Adding here as not needed higher up in the application - see Index with other hovering states
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+
+  // All Toolbox hovering interactions
+  useFrame(() => {
+    // It's the full Toolbox that needs to be rotated with all objects inside.
+    if (fullToolboxRef.current && isHoveringFullToolbox && !isHoveringMicrophone) {
+      fullToolboxRef.current.rotation.y += 0.008;
+      // camera.position.y -= 0.01;
+      // fullToolboxRef.current.position.y += 0.01;
+    } else if (microphoneRef.current && isHoveringFullToolbox && !isHoveringLeicaM6) {
+      // fullToolboxRef.current.rotation.y -= 0.01;
+      // fullToolboxRef.current.rotation.y = -1.525;
+      // camera.position.y += 0.01;
+
+    } else {
+      if (isAnimationComplete) { // when not hovering && if animation is complete
+        const originalYRotation = -1.525;
+        const lerpFactor = 0.1; // Lerp factor controls the speed of the interpolation
+        fullToolboxRef.current.rotation.y += (originalYRotation - fullToolboxRef.current.rotation.y) * lerpFactor;
+      }
+    }
+  });
+
+  const handlePointerEnterFullToolbox = () => {
+    if (isAnimationComplete) {
+      setIsHoveringFullToolbox(true);
+    }
+  };
 
   useGSAP(() => { // useGSAP instead of useLayoutEffect
     const tl = gsap.timeline({
@@ -43,6 +74,7 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, set
       //   // pin: true,
       //   // onComplete: () => console.log("scroll completed"),
       // },
+      onComplete: () => setIsAnimationComplete(true),
     });
 
     if (businessCardHorizontalRef.current) {
@@ -117,8 +149,9 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, set
 
   return <>
     {/** Essentials */}
-    {/* <gridHelper args={[10, 10]} /> */}
-    {/* <axesHelper scale={ 5 } /> */}
+    <gridHelper args={[10, 10]} />
+    <axesHelper scale={ 5 } />
+      {/* 🍓 */}
     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
     <directionalLight
             // ref={ directionalLightRef }
@@ -150,7 +183,7 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, set
        azimuth={[-Math.PI / 1.4, Math.PI / 1.4]}> {/* Horizontal limits */}
 
       {/** Toolbox with Objects */}
-      <group ref={ fullToolboxRef }>
+      <group ref={ fullToolboxRef } onPointerEnter={handlePointerEnterFullToolbox} onPointerLeave={()=> setIsHoveringFullToolbox(false)}>
         <BusinessCard ref={ businessCardRef }/>
         <BusinessCardHorizontal ref={ businessCardHorizontalRef }/>
         <LeicaM6
@@ -179,7 +212,7 @@ const ToolboxWithObjects = ({ setIsHoveringLeicaM6, setIsHoveringMicrophone, set
           onClick={() => navigate('/surf-the-job')}
           onPointerEnter={ () => setIsHoveringMicrophone(true)}
           onPointerLeave={ () => setIsHoveringMicrophone(false)}/>
-        <Toolbox scale={ 11 }/>
+        <Toolbox ref={ emptyToolboxRef } scale={ 11 }/>
       </group>
 
     </PresentationControls>
