@@ -64,9 +64,24 @@ export const Cursor = ({ isHoveringLeicaM6, isHoveringMicrophone, isHoveringKeyb
     <div
       className={`cursor-circle ${(isHoveringLeicaM6 || isHoveringMicrophone || isHoveringKeyboard) ? "hover-leica-m6" : ""}`}
       ref={cursorCircle}>
-        { isHoveringLeicaM6 && <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>}
-        { isHoveringMicrophone && <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>}
-        { isHoveringKeyboard && <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>}
+        { isHoveringLeicaM6 && (
+          <>
+            <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>
+            <img src="/images/flower_icon.svg" className="cursor-logo" />
+          </>
+        )}
+        { isHoveringMicrophone && (
+          <>
+            <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>
+            <img src="/images/pnglogosurfthejob.png" className="cursor-logo" />
+          </>
+        )}
+        { isHoveringKeyboard && (
+          <>
+            <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>
+            <img src="/images/gathergo.png" className="cursor-logo" />
+          </>
+        )}
     </div>
   </>
 };

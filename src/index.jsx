@@ -41,6 +41,7 @@ export default function Index() {
   const [isHoveringLeicaM6, setIsHoveringLeicaM6] = useState(false);
   const [isHoveringMicrophone, setIsHoveringMicrophone] = useState(false);
   const [isHoveringKeyboard, setIsHoveringKeyboard] = useState(false);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
   return <>
     <Loader
@@ -69,9 +70,11 @@ export default function Index() {
         }}
       >
         <Experience
+          isAnimationComplete={isAnimationComplete}
           isHoveringKeyboard={isHoveringKeyboard}
           isHoveringLeicaM6={isHoveringLeicaM6}
           isHoveringMicrophone={isHoveringMicrophone}
+          setIsAnimationComplete={setIsAnimationComplete}
           setIsHoveringLeicaM6={setIsHoveringLeicaM6}
           setIsHoveringMicrophone={setIsHoveringMicrophone}
           setIsHoveringKeyboard={setIsHoveringKeyboard}/>
@@ -80,7 +83,7 @@ export default function Index() {
 
     </ScrollContainer>
 
-    <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>
+    { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
 
     {/* Place here what's is needed to play */}
     {/* <EIFForOverlay/> */}
