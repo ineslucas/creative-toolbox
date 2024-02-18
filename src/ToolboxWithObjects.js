@@ -17,7 +17,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 
 {/* in ToolboxWithObjects.js, created a ref for the keyboard, which will then be forwarded it to the Keyboard component */}
 
-const ToolboxWithObjects = ({ isHoveringKeyboard, isHoveringLeicaM6, isHoveringMicrophone, setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
+const ToolboxWithObjects = ({ isAnimationComplete, isHoveringKeyboard, isHoveringLeicaM6, isHoveringMicrophone, setIsAnimationComplete, setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const keyboardRef = useRef();
@@ -34,7 +34,6 @@ const ToolboxWithObjects = ({ isHoveringKeyboard, isHoveringLeicaM6, isHoveringM
   // const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
   const navigate = useNavigate();
   const [isHoveringFullToolbox, setIsHoveringFullToolbox] = useState(false); // Adding here as not needed higher up in the application - see Index with other hovering states
-  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
   // All Toolbox hovering interactions -  It's the full Toolbox that needs to be rotated with all objects inside.
   useFrame(() => {
@@ -44,6 +43,7 @@ const ToolboxWithObjects = ({ isHoveringKeyboard, isHoveringLeicaM6, isHoveringM
         camera.position.y -= 0.01;
       }
     // } else if ((isHoveringMicrophone || isHoveringLeicaM6) && isHoveringFullToolbox) {
+      // to do: lift up business card & billboard it
     } else {
       if (isAnimationComplete && !isHoveringFullToolbox) {
         const originalYRotation = -1.525;

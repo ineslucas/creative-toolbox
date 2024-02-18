@@ -124,3 +124,21 @@ body {
     transform: rotate(calc(18deg * #{$i})) translate(0, -60px);
   }
 }
+
+/* For whichever project logo is inside the cursor */
+.cursor-logo {
+  position: absolute;
+  width: auto;
+  height: 30px;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  opacity: 1;
+  animation: keepLogoPositioned 14s linear infinite;
+}
+
+@keyframes keepLogoPositioned {
+  /* Set to rotate in the opposite direction as the hover-leica-m6 cursor*/
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
