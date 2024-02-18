@@ -16,7 +16,7 @@ const MessageContainer = styled.div`
   font-size: 1.5em;
   z-index: 9999;
 
-  @media (min-width: 971px) {
+  @media (min-width: 910px) {
     display: none; // Hide on larger screens
   }
 
@@ -29,7 +29,7 @@ const MessageContainer = styled.div`
 const MobileWarning = () => {
   return (
     <MessageContainer>
-      <p>Please check out Digipeasy on a computer for the best experience.</p>
+      <p>Please check out Digipeasy on a computer fullscreen for the best experience.</p>
     </MessageContainer>
   );
 }
