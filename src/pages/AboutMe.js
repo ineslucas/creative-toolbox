@@ -1,9 +1,10 @@
+// Route ✅
 import React from 'react';
 import styled from 'styled-components';
+import Physics from './Physics.js';
 
 const AboutMeContainer = styled.div`
   background: #4C325F;
-  height: 100vh;
   overflow: auto; // allows scrolling
 
   padding: 20vh 2vw 10vh 2vw; // top right bottom left
@@ -76,7 +77,7 @@ const AboutMe = () => {
       <br />
       <p>Digipeasy is the space acting as a playground for experimentation. My main goal is to create quality experiences for my community, which are web based for the moment.</p>
 
-      <FlexContainer>
+      {/* <FlexContainer>
         <FlexChild>
           <h1>the what where</h1>
           <p>On a sabbatical, where I’ve recently finished an intensive Web Development bootcamp.
@@ -94,9 +95,10 @@ const AboutMe = () => {
             Surf the Job in the Forward Pre-Acceleration Program.
             Recently, since I’ve learnt how to code, I built GatherGo. Now working on Rails, React & Three JS projects like this portfolio which I coded and designed.</p>
         </FlexChild>
-      </FlexContainer>
+      </FlexContainer> */}
 
     </AboutMeContainer>
+    <Physics />
   </>
 }
 
