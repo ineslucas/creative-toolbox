@@ -53,16 +53,31 @@ export const NameDescription = styled.div`
 `
 
 export const TopLeft = styled.div`
-  position: absolute;
+  position: fixed;
   top: 5vw;
   left: 5vw;
 `
 export const BottomLeft = styled.div`
-  position: absolute;
+  position: fixed;
   bottom: 5vw;
   left: 5vw;
   width: 30ch;
   max-width: 40%;
+`
+
+export const BottomRight = styled.div`
+  position: fixed;
+  bottom: 5vw;
+  right: 5vw;
+  text-align: right;
+  max-width: 22%;
+  // color: #fccada;
+  color: #73003A;
+
+  a {
+    // color: #8a0146;
+    color: #660134;
+  }
 `
 
 export const AvatarImage = styled.img`
