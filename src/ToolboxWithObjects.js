@@ -27,7 +27,6 @@ const ToolboxWithObjects = ({ isAnimationComplete, isHoveringKeyboard, isHoverin
   const businessCardRef = useRef();
   const businessCardHorizontalRef = useRef();
   const fullToolboxRef = useRef();
-  const emptyToolboxRef = useRef();
 
   const { camera, gl } = useThree();
   const minCameraHeightY = 5;
@@ -212,7 +211,7 @@ const ToolboxWithObjects = ({ isAnimationComplete, isHoveringKeyboard, isHoverin
           onClick={() => navigate('/surf-the-job')}
           onPointerEnter={ () => setIsHoveringMicrophone(true)}
           onPointerLeave={ () => setIsHoveringMicrophone(false)}/>
-        <Toolbox ref={ emptyToolboxRef } scale={ 11 }/>
+        <Toolbox scale={ 11 }/>
       </group>
 
     </PresentationControls>
