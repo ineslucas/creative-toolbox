@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useState } from "react";
 import EIFForOverlay from './pages/EIFForOverlay.js';
 import { Cursor } from './layout/Cursor.js'; // Named Export
-import { BottomRight } from './layout/styles.js';
+import { BottomRight, BottomLeft } from './layout/styles.js';
 
 const ScrollContainer = styled.div`
   // height: 200vh; // Adjust this to play with toolbox animation duration.
@@ -42,6 +42,7 @@ export default function Index() {
   const [isHoveringMicrophone, setIsHoveringMicrophone] = useState(false);
   const [isHoveringKeyboard, setIsHoveringKeyboard] = useState(false);
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+  const [isHoveringInfoIcon, setIsHoveringInfoIcon] = useState(false);
 
   return <>
     <Loader
@@ -89,8 +90,15 @@ export default function Index() {
     {/* <EIFForOverlay/> */}
         {/* className="second-section" */}
 
+    <BottomLeft className="info-icon-container" onMouseEnter={() => setIsHoveringInfoIcon(true)} onMouseLeave={() => setIsHoveringInfoIcon(false)}>
+      <div className="info-icon">
+        <img src="/images/icons/info.svg"/>
+      </div>
+      { isHoveringInfoIcon && <span>I designed and coded this page. See how on <a href="https://github.com/ineslucas/" target="_blank">Github</a>.</span> }
+    </BottomLeft>
+
     <BottomRight>
-      Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank">Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica.{/* <br></br> */} I unfortunately don’t own one. Drag the box and hover around. See what you can find.
+      Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank">Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica.{/* <br></br> */} She sadly doesn’t own one. Drag the box and hover around. See what you can find.
     </BottomRight>
 </>
 }
