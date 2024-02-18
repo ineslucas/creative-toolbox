@@ -38,7 +38,7 @@ export const NavButton = styled.div`
   }
 `
 
-{/** This is how we can extend a styled component - to be used */}
+{/** This is how we can extend a styled component - tbc */}
 export const NavButtonSelected = styled(NavButton)`
   background: #000;
   color: #fff;
@@ -59,8 +59,8 @@ export const TopLeft = styled.div`
 `
 export const BottomLeft = styled.div`
   position: fixed;
-  bottom: 5vw;
-  left: 5vw;
+  bottom: 3vw;
+  left: 3vw;
   width: 30ch;
   max-width: 40%;
 `
