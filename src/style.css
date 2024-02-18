@@ -142,3 +142,60 @@ body {
   from { transform: rotate(360deg); }
   to { transform: rotate(0deg); }
 }
+
+/* Info icon with Github Link */
+.info-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: #73003A;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 2s infinite alternate;
+  aspect-ratio: 1 / 1;
+
+  /* Keeps icon in place on hover */
+  position: relative;
+  top: 0;
+}
+
+.info-icon img {
+  width: 15px;
+  height: 15px;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  } 50% {
+    transform: scale(1.5);
+  } 100% {
+    transform: scale(1);
+  }
+}
+
+.info-icon-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #fccada;
+}
+
+.info-icon-container span {
+  font-size: 15px;
+
+  /* Keeps icon in place on hover */
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  transform: translateY(-50%); /* Centering vertically - translate along the Y axis by 50% of its own height */
+}
+
+.info-icon-container a {
+  color: #fccada;
+}
