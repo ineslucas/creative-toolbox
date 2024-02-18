@@ -69,6 +69,7 @@ export default function Index() {
         }}
       >
         <Experience
+          isHoveringKeyboard={isHoveringKeyboard}
           isHoveringLeicaM6={isHoveringLeicaM6}
           isHoveringMicrophone={isHoveringMicrophone}
           setIsHoveringLeicaM6={setIsHoveringLeicaM6}
