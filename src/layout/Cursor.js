@@ -63,25 +63,21 @@ export const Cursor = ({ isHoveringLeicaM6, isHoveringMicrophone, isHoveringKeyb
   return <>
     <div
       className={`cursor-circle ${(isHoveringLeicaM6 || isHoveringMicrophone || isHoveringKeyboard) ? "hover-leica-m6" : ""}`}
-      ref={cursorCircle}>
-        { isHoveringLeicaM6 && (
-          <>
-            <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>
-            <img src="/images/flower_icon.svg" className="cursor-logo" />
-          </>
+      ref={cursorCircle}
+    >
+        {(isHoveringLeicaM6 || isHoveringMicrophone || isHoveringKeyboard) && (
+          <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>
         )}
-        { isHoveringMicrophone && (
-          <>
-            <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>
-            <img src="/images/pnglogosurfthejob.png" className="cursor-logo" />
-          </>
-        )}
-        { isHoveringKeyboard && (
-          <>
-            <div className="hover-leica-m6-inner-text">{leicaM6CursorText}</div>
-            <img src="/images/gathergo.png" className="cursor-logo" />
-          </>
-        )}
+
+        { isHoveringLeicaM6 ? (
+          <img src="/images/flower_icon.svg" className="cursor-logo" />
+
+        ) : isHoveringMicrophone ? (
+          <img src="/images/pnglogosurfthejob.png" className="cursor-logo" />
+
+        ) : isHoveringKeyboard ? (
+          <img src="/images/gathergo.png" className="cursor-logo" />
+        ) : null }
     </div>
   </>
 };
