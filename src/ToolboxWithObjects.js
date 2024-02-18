@@ -17,7 +17,7 @@ import BusinessCardHorizontal from "./BusinessCardHorizontal.js";
 
 {/* in ToolboxWithObjects.js, created a ref for the keyboard, which will then be forwarded it to the Keyboard component */}
 
-const ToolboxWithObjects = ({ isHoveringLeicaM6, isHoveringMicrophone, setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
+const ToolboxWithObjects = ({ isHoveringKeyboard, isHoveringLeicaM6, isHoveringMicrophone, setIsHoveringLeicaM6, setIsHoveringMicrophone, setIsHoveringKeyboard, ...props }) => {
   // const directionalLightRef = useRef();
   // useHelper(directionalLightRef, THREE.DirectionalLightHelper, 1, 'hotpink');
   const keyboardRef = useRef();
@@ -30,28 +30,29 @@ const ToolboxWithObjects = ({ isHoveringLeicaM6, isHoveringMicrophone, setIsHove
   const emptyToolboxRef = useRef();
 
   const { camera, gl } = useThree();
+  const minCameraHeightY = 5;
   // const fontProps = { font: '/ABCMonumentGrotesk-Regular-Trial.woff', fontSize: 0.2, letterSpacing: 0, lineHeight: 1, 'material-toneMapped': false }
   const navigate = useNavigate();
   const [isHoveringFullToolbox, setIsHoveringFullToolbox] = useState(false); // Adding here as not needed higher up in the application - see Index with other hovering states
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
 
-  // All Toolbox hovering interactions
+  // All Toolbox hovering interactions -  It's the full Toolbox that needs to be rotated with all objects inside.
   useFrame(() => {
-    // It's the full Toolbox that needs to be rotated with all objects inside.
-    if (fullToolboxRef.current && isHoveringFullToolbox && !isHoveringMicrophone) {
+    if (fullToolboxRef.current && isHoveringFullToolbox && !isHoveringMicrophone && !isHoveringLeicaM6 && !isHoveringKeyboard) {
       fullToolboxRef.current.rotation.y += 0.008;
-      // camera.position.y -= 0.01;
-      // fullToolboxRef.current.position.y += 0.01;
-    } else if (microphoneRef.current && isHoveringFullToolbox && !isHoveringLeicaM6) {
-      // fullToolboxRef.current.rotation.y -= 0.01;
-      // fullToolboxRef.current.rotation.y = -1.525;
-      // camera.position.y += 0.01;
-
+      if (minCameraHeightY < camera.position.y) {
+        camera.position.y -= 0.01;
+      }
+    // } else if ((isHoveringMicrophone || isHoveringLeicaM6) && isHoveringFullToolbox) {
     } else {
-      if (isAnimationComplete) { // when not hovering && if animation is complete
+      if (isAnimationComplete && !isHoveringFullToolbox) {
         const originalYRotation = -1.525;
-        const lerpFactor = 0.1; // Lerp factor controls the speed of the interpolation
+        const lerpFactor = 0.1; // Controls speed of the interpolation
         fullToolboxRef.current.rotation.y += (originalYRotation - fullToolboxRef.current.rotation.y) * lerpFactor;
+          // To-do: reset rotation from the right or left depending on the current rotation.
+
+        const originalCameraPositionY = 6;
+        camera.position.y += (originalCameraPositionY - camera.position.y) * lerpFactor;
       }
     }
   });
@@ -149,9 +150,8 @@ const ToolboxWithObjects = ({ isHoveringLeicaM6, isHoveringMicrophone, setIsHove
 
   return <>
     {/** Essentials */}
-    <gridHelper args={[10, 10]} />
-    <axesHelper scale={ 5 } />
-      {/* 🍓 */}
+    {/* <gridHelper args={[10, 10]} />
+    <axesHelper scale={ 5 } /> */}
     <SoftShadows size={ 80 } samples={ 20 } focus={ 0 } />
     <directionalLight
             // ref={ directionalLightRef }
