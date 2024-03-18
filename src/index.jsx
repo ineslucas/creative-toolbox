@@ -8,12 +8,42 @@ import { useState } from "react";
 import EIFForOverlay from './pages/EIFForOverlay.js';
 import { Cursor } from './layout/Cursor.js'; // Named Export
 import { BottomRight, BottomLeft } from './layout/styles.js';
+import SkillsTags from './pages/SkillsTags.js';
+import InteractiveFooter from './pages/InteractiveFooter.js';
 
 const ScrollContainer = styled.div`
-  // height: 200vh; // Adjust this to play with toolbox animation duration.
-  height: 100vh;
+  height: 200vh; // Adjust this to play with toolbox animation duration.
+  // height: 100vh;
+   // TBC adjust to be responsive to how many contents there are in the page
   width: 100vw;
   background-color: rgb(181, 79, 111);
+`
+
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`
+
+const IntroductionContainer = styled.div`
+  min-width: 400px;
+  padding: 20vh 2vw 10vh 2vw; // top right bottom left
+
+  h1 {
+    font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+    font-weight: 400;
+    font-size: 2.5em;
+    line-height: 1.2em;
+    color: #fad9e4;
+  }
+
+  p {
+    font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+    font-weight: 400;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    color: #fad9e4;
+  }
 `
 
 export default function Index() {
@@ -22,7 +52,7 @@ export default function Index() {
 
   const loaderFont = {
     font: '/ABCMonumentGrotesk-Regular-Trial.woff',
-    fontSize: 30,
+    fontSize: 18,
     letterSpacing: 0,
     lineHeight: 1,
     color: 'white',
@@ -55,8 +85,8 @@ export default function Index() {
       <Canvas
         shadows
         dpr={ 1 }
-        style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0, backgroundColor: 'rgb(181, 79, 111)' }}
-        //
+        style={{ width: '100vw', height: '100vh', top: 0, left: 0, backgroundColor: 'rgb(181, 79, 111)' }}
+        //  position: 'fixed',
         gl={ {
           antialias: true, // default
           toneMapping: THREE.ACESFilmicToneMapping, // default
@@ -82,7 +112,22 @@ export default function Index() {
       </Canvas>
       {/* <Loader /> */}
 
+      <FlexContainer>
+        <IntroductionContainer>
+          <h1>
+            I'm Inês, a marketer turned full stack developer into entrepreneurship and creativity through tech, previously at the European Investment Fund and Nestlé.
+          </h1>
+        </IntroductionContainer>
+
+        <SkillsTags style={{ position: 'fixed', top: 0, right: 0, backgroundColor: 'rgb(181, 79, 111)' }}/>
+      </FlexContainer>
+
     </ScrollContainer>
+
+
+    {/* USING 2D in r3F 🍓 */}
+    <InteractiveFooter/>
+
 
     { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
 
@@ -90,6 +135,7 @@ export default function Index() {
     {/* <EIFForOverlay/> */}
         {/* className="second-section" */}
 
+    {/* Absolutely positioned components */}
     <BottomLeft className="info-icon-container" onMouseEnter={() => setIsHoveringInfoIcon(true)} onMouseLeave={() => setIsHoveringInfoIcon(false)}>
       <div className="info-icon">
         <img src="/images/icons/info.svg"/>
@@ -98,7 +144,7 @@ export default function Index() {
     </BottomLeft>
 
     <BottomRight>
-      Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank">Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica.{/* <br></br> */} She sadly doesn’t own one. Drag the box and hover around. See what you can find.
+      Animated arrow down.
     </BottomRight>
 </>
 }

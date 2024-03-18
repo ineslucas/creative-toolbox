@@ -57,6 +57,21 @@ export const TopLeft = styled.div`
   top: 5vw;
   left: 5vw;
 `
+
+export const TopRight = styled.div`
+  position: fixed;
+  top: 3vw;
+  right: 3vw;
+  text-align: right;
+  max-width: 22%;
+  color: #73003A;
+
+  a {
+    // color: #8a0146;
+    color: #660134;
+  }
+`
+
 export const BottomLeft = styled.div`
   position: fixed;
   bottom: 3vw;
