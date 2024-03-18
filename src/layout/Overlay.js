@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { OverlayContainer, TopCenterBar, NavButton, NameDescription, AvatarImage } from './styles';
+import { OverlayContainer, TopCenterBar, NavButton, NameDescription, AvatarImage, TopRight } from './styles';
 // import About from './About.js';
 // import EIFForOverlay from '../pages/EIFForOverlay.js';
 
@@ -24,6 +24,12 @@ export default function Overlay()
 
       {/* { showAbout && <About/>} */}
       {/* <EIFForOverlay/> */}
+
+      <TopRight>
+      {/* This top left should dissapear and become sticky to the bottom of the canvas */}
+      Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank">Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica.{/* <br></br> */} She sadly doesn’t own one. Drag the box and hover around. See what you can find.
+      </TopRight>
+
     </OverlayContainer>
   </>
 }
