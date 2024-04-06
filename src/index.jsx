@@ -82,6 +82,8 @@ export default function Index() {
       dataInterpolation={(p) => `${p.toFixed(2)}%`} />
 
     <ScrollContainer>
+      <SkillsTags style={{ position: 'fixed', top: 0, right: 0, backgroundColor: 'rgb(181, 79, 111)' }}/>
+
       <Canvas
         shadows
         dpr={ 1 }
@@ -119,15 +121,12 @@ export default function Index() {
           </h1>
         </IntroductionContainer>
 
-        <SkillsTags style={{ position: 'fixed', top: 0, right: 0, backgroundColor: 'rgb(181, 79, 111)' }}/>
-      </FlexContainer>
 
+      </FlexContainer>
     </ScrollContainer>
 
-
-    {/* USING 2D in r3F 🍓 */}
-    <InteractiveFooter/>
-
+    {/* USING 2D in r3F */}
+    {/* <InteractiveFooter/> */}
 
     { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
 
