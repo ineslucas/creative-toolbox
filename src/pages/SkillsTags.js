@@ -1,7 +1,7 @@
 // using Matter.js to create a 2D physics simulation
 import React, { useEffect, useRef } from 'react';
 import Matter, { use } from 'matter-js';
-import Adobe from "/images/skillsTags/Adobe Creative Suite.png"
+import Adobe from "/images/skillsTags/codingSkills/Adobe Creative Suite.png"
 
 const SkillsTags = () => {
   const boxRef = useRef(null);
@@ -14,10 +14,12 @@ const SkillsTags = () => {
     let Mouse = Matter.Mouse;
     let MouseConstraint = Matter.MouseConstraint;
     let Bodies = Matter.Bodies;
-    let World = Matter.World;
+    let Composite = Matter.Composite; // previous Matter.World
 
     // Create Engine
     const engine = Engine.create();
+
+    engine.gravity.y = 0.1; // 1 keeps the boxes on the ground
 
     const containerWidth = window.innerWidth // 600
     const containerHeight = window.innerHeight
@@ -35,6 +37,7 @@ const SkillsTags = () => {
       options: {
         width: window.innerWidth,
         height: window.innerHeight,
+        pixelRatio: window.devicePixelRatio,
         hasBounds: true, // displaying the part of the simulation that has bodies
         wireframes: false,
         background: '#73003A',
@@ -58,20 +61,20 @@ const SkillsTags = () => {
       });
 
     const textures = [
-      '/images/skillsTags/Adobe Creative Suite.png',
-      '/images/skillsTags/Blender.png',
-      '/images/skillsTags/Figma.png',
-      '/images/skillsTags/Git.png',
-      '/images/skillsTags/GSAP.png',
-      '/images/skillsTags/Heroku.png',
-      '/images/skillsTags/HtmlCSS.png',
-      '/images/skillsTags/JavaScript.png',
-      '/images/skillsTags/React Three Fiber.png',
-      '/images/skillsTags/React.png',
-      // '/images/skillsTags/RubyOnRails.png',
-      // '/images/skillsTags/SQL.png',
-      // '/images/skillsTags/Three JS.png',
-      // '/images/skillsTags/Vercel.png',
+      '/images/skillsTags/codingSkills/Adobe Creative Suite.png',
+      '/images/skillsTags/codingSkills/Blender.png',
+      '/images/skillsTags/codingSkills/Figma.png',
+      '/images/skillsTags/codingSkills/Git.png',
+      '/images/skillsTags/codingSkills/GSAP.png',
+      '/images/skillsTags/codingSkills/Heroku.png',
+      '/images/skillsTags/codingSkills/HtmlCSS.png',
+      '/images/skillsTags/codingSkills/JavaScript.png',
+      '/images/skillsTags/codingSkills/React Three Fiber.png',
+      '/images/skillsTags/codingSkills/React.png',
+      '/images/skillsTags/codingSkills/RubyOnRails.png',
+      '/images/skillsTags/codingSkills/SQL.png',
+      '/images/skillsTags/codingSkills/Three JS.png',
+      '/images/skillsTags/codingSkills/Vercel.png',
     ];
 
 
@@ -99,35 +102,44 @@ const SkillsTags = () => {
     })
 
     // Create 4 boxes with specified options // creating multiple pills
-    const createLightPurpleBoxes = (x, y, width, height, textures, count = 10) => {
+    const createLightPurpleBoxes = (x, y, height, textures, count = 14) => {
+      // Width will be determined by texture width
       const boxes = [];
+      textures.forEach((textureSrc, index) => {
+        // Get width of each texture
+        const texture = new Image();
+        texture.src = textureSrc;
 
-      for (let i = 0; i < count; i++) {
-        const options = {
-          chamfer: { radius: 20 },
-          render: {
-            sprite: {
-              texture: textures[i], // assigning the i-th texture
-              xScale: 0.3,
-              yScale: 0.3,
+        texture.onload = () => {
+          const scale = height / texture.height;
+          const width = texture.width * scale;
+
+          const options = {
+            chamfer: { radius: 20 },
+            render: {
+              sprite: {
+                texture: textureSrc, // assigning each texture
+                xScale: scale, // might need adjustment
+                yScale: scale,
+              }
             }
-          }
-        };
+          };
 
-        // Adjust the x position for each box to avoid overlap
-        const box = Bodies.rectangle(x + i * (width + 10), y, width, height, options);
-        console.log(`Box ${i} created`, box);
-        boxes.push(box);
-      }
-      return boxes;
+          // Create the box with dynamic width and fixed height
+          const box = Bodies.rectangle(x, y + index * ( height + 20 ), width, height, options); // Adjust the y position for each box to avoid overlap
+          console.log(`Box ${index} created`, box);
+          Composite.add(engine.world, box);
+          //boxes.push(box);
+        };
+      });
+      return boxes; // Array will be populated asynchronously
     };
 
-    const boxes = createLightPurpleBoxes(200, 200, 100, 36, textures); // x, y, width, height, textures
-    World.add(engine.world, boxes); // moving this downwards made boxes not render 🍓
+    const boxes = createLightPurpleBoxes(200, 200, 36, textures); // x, y, width, height, textures
 
     // Adding circles on the click position
     boxRef.current.addEventListener("click", (event) => {
-      World.add(engine.world, Bodies.circle(event.clientX, event.clientY, 30, { restitution: 0.7 }));
+      Composite.add(engine.world, Bodies.circle(event.clientX, event.clientY, 30, { restitution: 0.7 }));
     })
         // ‼️ Doesn't work well when canvas is inside ScrollContainer
 
@@ -165,10 +177,11 @@ const SkillsTags = () => {
       wallOptions
     );
 
-    World.add(engine.world, [
+    Composite.add(engine.world, [
       mouseConstraint,
       boxA,
-      boxB,
+      // boxB,
+      // ...boxes, // multiple items
       ceiling,
       ground,
       rightWall,
@@ -180,16 +193,64 @@ const SkillsTags = () => {
     // Run the renderer
     Render.run(render);
 
+    const handleResize = () => {
+      render.options.width = window.innerWidth; // checking if it's the same as window.innerWidth
+      render.options.height = window.innerHeight;
+      render.canvas.width = render.options.width;
+      render.canvas.height = render.options.height;
+
+      // Remove previous walls from the world
+      Composite.remove(engine.world, [ground, ceiling, rightWall, leftWall]);
+
+      // Create new walls with new dimensions
+      const wallOptions = { isStatic: true, render: { visible: false } };
+      const ceiling = Bodies.rectangle( // x, y, width, height
+        render.options.width / 2,
+        0,
+        render.options.width,
+        2,
+        wallOptions
+      );
+
+      const ground = Bodies.rectangle(
+        render.options.width / 2,
+        render.options.height,
+        render.options.width,
+        2,
+        wallOptions
+      );
+
+      const leftWall = Bodies.rectangle(
+        0,
+        render.options.height / 2,
+        2,
+        render.options.height,
+        wallOptions
+      );
+
+      const rightWall = Bodies.rectangle(
+        render.options.width,
+        render.options.height / 2,
+        2,
+        render.options.height,
+        wallOptions
+      );
+
+      // Re-add walls to the world
+      Composite.add(engine.world, [ceiling, ground, rightWall, leftWall]);
+    };
+
+    // Event listener for window resize
+    window.addEventListener('resize', handleResize);
+
     // Clean up
     return () => {
-      // Render.stop(render);
-      // Runner.stop(runner);
-      // Engine.clear(engine);
-      Render.stop(render)
-      World.clear(engine.world)
+      window.removeEventListener('resize', handleResize);
+      Render.stop(render) // Clear all bodies, constraints, and composites from the world
+      Composite.clear(engine.world, true)
       Engine.clear(engine)
       render.canvas.remove()
-      render.canvas = null
+      render.canvas = null // won't be needed when canvas is created with useEffect
       render.context = null
       render.textures = {}
       console.log("Component unmounted")
@@ -204,6 +265,15 @@ const SkillsTags = () => {
 };
 
 export default SkillsTags;
+
+// Open Issues:
+  // Width of texture = width of body ✅
+  // Bodies created by function can't be interacted with using the mouse
+  // Impossible to scroll down
+  // Resizing bodies when resizing the window
+    // After resizing the window, the mouse is not working properly
+  // Preloading textures - https://github.com/liabru/matter-js/issues/180
+
 
 
 // TO DO: some skills float around in a cluster and the rest stay down with gravity.
@@ -233,8 +303,5 @@ export default SkillsTags;
 // Interests:
 // Sustainability
 // EdTech
-// Wellness Tech (????)
+// Wellness Tech
 // Neuroscience
-
-// Issues to solve:
-  // Impossible to scroll down
