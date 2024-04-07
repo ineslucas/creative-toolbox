@@ -17,6 +17,7 @@ const ScrollContainer = styled.div`
    // TBC adjust to be responsive to how many contents there are in the page
   width: 100vw;
   background-color: rgb(181, 79, 111);
+  overflow: scroll;
 `
 
 const FlexContainer = styled.div`
