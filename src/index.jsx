@@ -12,9 +12,11 @@ import SkillsTags from './pages/SkillsTags.js';
 import InteractiveFooter from './pages/InteractiveFooter.js';
 
 const ScrollContainer = styled.div`
-  height: 200vh; // Adjust this to play with toolbox animation duration.
+  // height: 200vh; // Adjust this to play with toolbox animation duration.
   // height: 100vh;
    // TBC adjust to be responsive to how many contents there are in the page
+   // No height set atm.
+
   width: 100vw;
   background-color: rgb(181, 79, 111);
   overflow: scroll;
@@ -83,8 +85,6 @@ export default function Index() {
       dataInterpolation={(p) => `${p.toFixed(2)}%`} />
 
     <ScrollContainer>
-      <SkillsTags style={{ position: 'fixed', top: 0, right: 0, backgroundColor: 'rgb(181, 79, 111)' }}/>
-
       <Canvas
         shadows
         dpr={ 1 }
@@ -121,9 +121,12 @@ export default function Index() {
             I'm Inês, a marketer turned full stack developer into entrepreneurship and creativity through tech, previously at the European Investment Fund and Nestlé.
           </h1>
         </IntroductionContainer>
-
-
       </FlexContainer>
+
+      <SkillsTags/>
+        {/* Adding a color here affects the container that holds the canvas, but not the canvas itself */}
+      {/* position: 'fixed', top: 0, right: 0, */}
+      {/* Removed as it may be interfering with scrolling behaviour */}
     </ScrollContainer>
 
     {/* USING 2D in r3F */}
@@ -135,13 +138,16 @@ export default function Index() {
     {/* <EIFForOverlay/> */}
         {/* className="second-section" */}
 
+
+
     {/* Absolutely positioned components */}
-    <BottomLeft className="info-icon-container" onMouseEnter={() => setIsHoveringInfoIcon(true)} onMouseLeave={() => setIsHoveringInfoIcon(false)}>
+      {/* 🍓 TO-DO: place these only on top of the Toolbox. */}
+    {/* <BottomLeft className="info-icon-container" onMouseEnter={() => setIsHoveringInfoIcon(true)} onMouseLeave={() => setIsHoveringInfoIcon(false)}>
       <div className="info-icon">
         <img src="/images/icons/info.svg"/>
       </div>
       { isHoveringInfoIcon && <span>I designed and coded this page. See how on <a href="https://github.com/ineslucas/" target="_blank">Github</a>.</span> }
-    </BottomLeft>
+    </BottomLeft> */}
 
     <BottomRight>
       Animated arrow down.
