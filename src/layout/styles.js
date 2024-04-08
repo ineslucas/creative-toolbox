@@ -73,7 +73,7 @@ export const TopRight = styled.div`
 `
 
 export const BottomLeft = styled.div`
-  position: fixed;
+  // Usable for Index component only, bottom + left are redundant. TBC.
   bottom: 3vw;
   left: 3vw;
   width: 30ch;
