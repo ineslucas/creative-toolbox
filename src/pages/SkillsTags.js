@@ -1,12 +1,13 @@
 // using Matter.js to create a 2D physics simulation
 import React, { useEffect, useRef } from 'react';
-import Matter, { use } from 'matter-js';
-import AdobeTexture from "/images/skillsTags/codingSkills/Adobe Creative Suite.png"
-import BlenderTexture from "/images/skillsTags/codingSkills/Blender.png"
+import Matter from 'matter-js';
+// import AdobeTexture from "/images/skillsTags/codingSkills/Adobe Creative Suite.png"
+// import BlenderTexture from "/images/skillsTags/codingSkills/Blender.png"
 import PurpleAvatar from "/images/about/purple_avatar.png"
-import { texture } from 'three/examples/jsm/nodes/Nodes.js';
+import ArrowUp from "/images/icons/arrow-up-solid.svg"
+// import { texture } from 'three/examples/jsm/nodes/Nodes.js';
 
-const SkillsTags = () => {
+const SkillsTags = ({ scrollToIntroduction }) => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -59,6 +60,7 @@ const SkillsTags = () => {
       }
     });
 
+    // TO-DO: Last 4 aren't being created within the screen so they're not showing up. Will be fixed when I create by click.
     const textures = [
       '/images/skillsTags/codingSkills/Adobe Creative Suite.png',
       '/images/skillsTags/codingSkills/Blender.png',
@@ -221,6 +223,7 @@ const SkillsTags = () => {
         render: renderOptions
       }
     }
+      // Note: Created error: Uncaught TypeError: Cannot read properties of null (reading 'style') at _applyBackground + at Render.world
 
     // WALLS
     const wallOptions = { isStatic: true, render: { visible: false } };
@@ -323,8 +326,12 @@ const SkillsTags = () => {
   }, []);
 
   return <>
-    <div ref={boxRef} style={{ backgroundColor: '#73003A' }}>
+    {/* Please note that anything placed at this level still won't allow scrolling. */}
+    <div ref={boxRef} style={{ backgroundColor: '#73003A', position: 'relative' }}>
       <canvas ref={canvasRef} />
+      <div onClick={scrollToIntroduction} style={{ position: 'absolute', top: '4vw', right: '2.5vw', zIndex: 100 }}>
+        <img src={ArrowUp} alt="Arrow to scroll up" style={{ width: '100px', height: '100px' }} />
+      </div>
     </div>
   </>
 };
