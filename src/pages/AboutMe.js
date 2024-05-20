@@ -1,7 +1,6 @@
-// Route ✅
+// Route ✅ on /about
 import React from 'react';
 import styled from 'styled-components';
-import Physics from './Physics.js';
 import SkillsTags from './SkillsTags.js';
 
 const AboutMeContainer = styled.div`
