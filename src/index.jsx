@@ -16,11 +16,10 @@ const ScrollContainer = styled.div`
   // height: 200vh; // Adjust this to play with toolbox animation duration.
   // height: 100vh;
    // TBC adjust to be responsive to how many contents there are in the page
-   // No height set atm.
 
+  // No height set atm.
   width: 100vw;
   background-color: rgb(181, 79, 111);
-  overflow: scroll;
 `
 
 const ThreeJSContainer = styled.div`
