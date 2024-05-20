@@ -1,4 +1,5 @@
 // Using Matter.js to create a 2D physics simulation.
+// Collision filters are useless in this case because I want all the boxes to collide with each other.
 
 import React, { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
@@ -22,7 +23,8 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     // Create Engine
     const engine = Engine.create();
-    engine.gravity.y = 0.1; // 1 keeps the boxes on the ground
+    engine.gravity.x = 0.33;
+    engine.gravity.y = -0.2;
 
     const containerWidth = window.innerWidth;
     const containerHeight = window.innerHeight * 0.6
@@ -62,12 +64,54 @@ const SkillsTags = ({ scrollToIntroduction }) => {
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
       constraint: {
-        stiffness: 0.2,
+        stiffness: 0.1, // lower value: bodies will have softer connection to mouse pointer
         render: { visible: true } // Set to true for debugging
       }
     });
 
-    // TO-DO: Last 4 aren't being created within the screen so they're not showing up. Will be fixed when I create by click.
+    // WALLS
+    const wallOptions = {
+      isStatic: true,
+      collisionFilter: {
+        category: wallCategory,
+        mask: defaultCategory
+      },
+      render: { visible: false }
+    };
+
+    const ceiling = Bodies.rectangle( // x, y, width, height
+      containerWidth / 2,
+      0,
+      containerWidth,
+      10,
+      wallOptions
+    );
+
+    const ground = Bodies.rectangle(
+      containerWidth / 2, // Divided by two because Matter JS uses the center of the canvas to place the object
+      containerHeight, // Should be at the bottom (y: 0 is the ceiling level, full height is the very bottom)
+      containerWidth,
+      10,
+      wallOptions
+    );
+
+    const leftWall = Bodies.rectangle(
+      0,
+      containerHeight / 2,
+      10,
+      containerHeight,
+      wallOptions
+    );
+
+    const rightWall = Bodies.rectangle(
+      containerWidth,
+      containerHeight / 2,
+      10,
+      containerHeight,
+      wallOptions
+    );
+
+    // PURPLE BOXES - 4 steps to create
     const textures = [
       '/images/skillsTags/codingSkills/Adobe Creative Suite.png',
       '/images/skillsTags/codingSkills/Blender.png',
@@ -131,6 +175,9 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
         const options = {
           chamfer: { radius: 20 },
+          // restitution: 0.3,
+          // friction: 0.2, // Decreased friction
+          // frictionAir: 0.3, //
           collisionFilter: {
             category: defaultCategory,
             mask: wallCategory | defaultCategory // Allow boxes to collide with walls and other boxes
@@ -177,7 +224,10 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     // INITIAL CIRCLE
     const avatarCircle = Bodies.circle(350, 200, 30, {
-      restitution: 0.7, // bounciness - tbd adjust
+      restitution: 0.5, // bounciness - 0.9 is very bouncy
+      friction: 0.5, // 0.1 is very slippery
+      frictionAir: 0.01, // air resistance - 0.01 is very low
+
       collisionFilter: {
         category: defaultCategory,
         mask: wallCategory | defaultCategory
@@ -241,7 +291,9 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
       // Return the render options
       return {
-        restitution: 0.7,
+        restitution: 0.9,
+        friction: 0.1, // 0.1 is very slippery
+        frictionAir: 0.01, // air resistance - 0.01 is very low
         collisionFilter: {
           category: defaultCategory,
           mask: wallCategory | defaultCategory
@@ -250,48 +302,6 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       }
     }
       // Note: Created error: Uncaught TypeError: Cannot read properties of null (reading 'style') at _applyBackground + at Render.world
-
-    // WALLS
-    const wallOptions = {
-      isStatic: true,
-      collisionFilter: {
-        category: wallCategory,
-        mask: defaultCategory
-      },
-      render: { visible: false }
-    };
-
-    const ceiling = Bodies.rectangle( // x, y, width, height
-      render.options.width / 2,
-      0,
-      containerWidth,
-      10,
-      wallOptions
-    );
-
-    const ground = Bodies.rectangle(
-      containerWidth / 2, // Divided by two because Matter JS uses the center of the canvas to place the object
-      containerHeight, // Should be at the bottom (y: 0 is the ceiling level, full height is the very bottom)
-      containerWidth,
-      10,
-      wallOptions
-    );
-
-    const leftWall = Bodies.rectangle(
-      0,
-      containerHeight / 2,
-      10,
-      containerHeight,
-      wallOptions
-    );
-
-    const rightWall = Bodies.rectangle(
-      containerWidth,
-      containerHeight / 2,
-      10,
-      containerHeight,
-      wallOptions
-    );
 
     const handleResize = () => {
       render.options.width = window.innerWidth; // checking if it's the same as window.innerWidth
@@ -307,7 +317,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         render.options.width / 2,
         0,
         render.options.width,
-        2,
+        10,
         wallOptions
       );
 
@@ -315,14 +325,14 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         render.options.width / 2,
         render.options.height,
         render.options.width,
-        2,
+        10,
         wallOptions
       );
 
       const newLeftWall = Bodies.rectangle(
         0,
         render.options.height / 2,
-        2,
+        10,
         render.options.height,
         wallOptions
       );
@@ -330,7 +340,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       const newRightWall = Bodies.rectangle(
         render.options.width,
         render.options.height / 2,
-        2,
+        10,
         render.options.height,
         wallOptions
       );
