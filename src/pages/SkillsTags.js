@@ -1,9 +1,9 @@
-// using Matter.js to create a 2D physics simulation
+// Using Matter.js to create a 2D physics simulation.
+
 import React, { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
-// import AdobeTexture from "/images/skillsTags/codingSkills/Adobe Creative Suite.png"
-// import BlenderTexture from "/images/skillsTags/codingSkills/Blender.png"
 import PurpleAvatar from "/images/about/purple_avatar.png"
+// import AdobeTexture from "/images/skillsTags/codingSkills/Adobe Creative Suite.png"
 // import ArrowUp from "/images/icons/arrow-up-solid.svg"
 // import { texture } from 'three/examples/jsm/nodes/Nodes.js';
 
@@ -22,7 +22,6 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     // Create Engine
     const engine = Engine.create();
-
     engine.gravity.y = 0.1; // 1 keeps the boxes on the ground
 
     const containerWidth = window.innerWidth;
@@ -32,6 +31,10 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       canvasRef.current.width = containerWidth;
       canvasRef.current.height = containerHeight;
     }
+
+    // Collision Filtering
+    const defaultCategory = 0x0001;
+    const wallCategory = 0x0002;
 
     // RENDERER
     const render = Render.create({
@@ -43,6 +46,10 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         height: containerHeight,
         pixelRatio: window.devicePixelRatio,
         hasBounds: true, // displaying the part of the simulation that has bodies
+        bounds: { // Define bounds explicitly
+          min: { x: 0, y: 0 },
+          max: { x: containerWidth, y: containerHeight }
+        },
         wireframes: false,
         background: 'transparent',
         showPerformance: false,
@@ -87,7 +94,8 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         img.onerror = reject;
       })));
 
-      createLightPurpleBoxes(150, 50, 36, loadedTextures); // x, y, width, height, textures
+      createLightPurpleBoxes(150, 15, 26, loadedTextures); // x, y, width, height, textures
+        // original height is 36 but it's too big for the screen
     };
 
     // can be grabbed!
@@ -114,18 +122,6 @@ const SkillsTags = ({ scrollToIntroduction }) => {
     //   }
     // })
 
-    // const Blender = Bodies.rectangle(50, 380, 80, 40, {
-    //   chamfer: { radius: 20 },
-    //   render: {
-    //     sprite: {
-    //       // texture: '/images/skillsTags/codingSkills/Blender.png',
-    //       texture: BlenderTexture,
-    //       xScale: 0.3,
-    //       yScale: 0.3
-    //     }
-    //   }
-    // })
-
     // Moved inside useEffect to ensure it has access to engine
     const createLightPurpleBoxes = (initialX, y, fixedHeight, loadedTextures) => {
       // Width will be determined by texture width
@@ -135,6 +131,10 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
         const options = {
           chamfer: { radius: 20 },
+          collisionFilter: {
+            category: defaultCategory,
+            mask: wallCategory | defaultCategory // Allow boxes to collide with walls and other boxes
+          },
           render: {
             sprite: {
               texture: src, // assigning each texture
@@ -148,7 +148,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         const x = initialX + index * 10;
 
         // Create the box with dynamic width and fixed height
-        const box = Bodies.rectangle(x, y + index * ( fixedHeight + 10 ), width, fixedHeight, options); // Adjust the y position for each box to avoid overlap
+        const box = Bodies.rectangle(x, y + index * ( fixedHeight + 7 ), width, fixedHeight, options); // Adjust the y position for each box to avoid overlap
         console.log(`Box ${index} created`, box);
         console.log(`Box ${index} created and width is ${width}`);
         Composite.add(engine.world, box);
@@ -163,9 +163,9 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         ground,
         rightWall,
         leftWall,
+        avatarCircle,
 
         // Adobe,
-        // Blender,
         // boxB,
       ]);
 
@@ -175,7 +175,21 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       Render.run(render);
     });
 
-    // const boxes = createLightPurpleBoxes(200, 200, 36, textures); // x, y, width, height, textures
+    // INITIAL CIRCLE
+    const avatarCircle = Bodies.circle(350, 200, 30, {
+      restitution: 0.7, // bounciness - tbd adjust
+      collisionFilter: {
+        category: defaultCategory,
+        mask: wallCategory | defaultCategory
+      },
+      render: {
+        sprite: {
+          texture: PurpleAvatar,
+          xScale: 0.027,
+          yScale: 0.027,
+        }
+      }
+    });
 
     // CIRCLES ON THE CLICK POSITION
     boxRef.current.addEventListener("click", (event) => {
@@ -228,18 +242,30 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       // Return the render options
       return {
         restitution: 0.7,
+        collisionFilter: {
+          category: defaultCategory,
+          mask: wallCategory | defaultCategory
+        },
         render: renderOptions
       }
     }
       // Note: Created error: Uncaught TypeError: Cannot read properties of null (reading 'style') at _applyBackground + at Render.world
 
     // WALLS
-    const wallOptions = { isStatic: true, render: { visible: true } };
+    const wallOptions = {
+      isStatic: true,
+      collisionFilter: {
+        category: wallCategory,
+        mask: defaultCategory
+      },
+      render: { visible: false }
+    };
+
     const ceiling = Bodies.rectangle( // x, y, width, height
       render.options.width / 2,
       0,
       containerWidth,
-      2,
+      10,
       wallOptions
     );
 
@@ -247,14 +273,14 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       containerWidth / 2, // Divided by two because Matter JS uses the center of the canvas to place the object
       containerHeight, // Should be at the bottom (y: 0 is the ceiling level, full height is the very bottom)
       containerWidth,
-      2,
+      10,
       wallOptions
     );
 
     const leftWall = Bodies.rectangle(
       0,
       containerHeight / 2,
-      2,
+      10,
       containerHeight,
       wallOptions
     );
@@ -262,7 +288,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
     const rightWall = Bodies.rectangle(
       containerWidth,
       containerHeight / 2,
-      2,
+      10,
       containerHeight,
       wallOptions
     );
@@ -277,8 +303,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       Composite.remove(engine.world, [ground, ceiling, rightWall, leftWall]);
 
       // Create new walls with new dimensions
-      const wallOptions = { isStatic: true, render: { visible: false } };
-      const ceiling = Bodies.rectangle( // x, y, width, height
+      const newCeiling = Bodies.rectangle( // x, y, width, height
         render.options.width / 2,
         0,
         render.options.width,
@@ -286,7 +311,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         wallOptions
       );
 
-      const ground = Bodies.rectangle(
+      const newGround = Bodies.rectangle(
         render.options.width / 2,
         render.options.height,
         render.options.width,
@@ -294,7 +319,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         wallOptions
       );
 
-      const leftWall = Bodies.rectangle(
+      const newLeftWall = Bodies.rectangle(
         0,
         render.options.height / 2,
         2,
@@ -302,7 +327,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         wallOptions
       );
 
-      const rightWall = Bodies.rectangle(
+      const newRightWall = Bodies.rectangle(
         render.options.width,
         render.options.height / 2,
         2,
@@ -311,7 +336,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       );
 
       // Re-add walls to the world
-      Composite.add(engine.world, [ceiling, ground, rightWall, leftWall]);
+      Composite.add(engine.world, [newCeiling, newGround, newRightWall, newLeftWall]);
     };
 
     // Event listener for window resize
@@ -336,7 +361,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
   return <>
     {/* Anything placed at this level still won't allow scrolling because of Matter. */}
     <div ref={boxRef} style={{ backgroundColor: '#73003A' }}>
-     {/* position: 'relative' - for the arrow */}
+     {/* position: 'relative' - for the divs placed in relation to it */}
       <canvas ref={canvasRef} />
       {/* <div onClick={scrollToIntroduction} style={{ position: 'absolute', top: '4vw', right: '2.5vw', zIndex: 100 }}>
         <img src={ArrowUp} alt="Arrow to scroll up" style={{ width: '100px', height: '100px' }} />
