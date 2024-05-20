@@ -4,7 +4,7 @@ import Matter from 'matter-js';
 // import AdobeTexture from "/images/skillsTags/codingSkills/Adobe Creative Suite.png"
 // import BlenderTexture from "/images/skillsTags/codingSkills/Blender.png"
 import PurpleAvatar from "/images/about/purple_avatar.png"
-import ArrowUp from "/images/icons/arrow-up-solid.svg"
+// import ArrowUp from "/images/icons/arrow-up-solid.svg"
 // import { texture } from 'three/examples/jsm/nodes/Nodes.js';
 
 const SkillsTags = ({ scrollToIntroduction }) => {
@@ -25,8 +25,8 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     engine.gravity.y = 0.1; // 1 keeps the boxes on the ground
 
-    const containerWidth = window.innerWidth // 600
-    const containerHeight = window.innerHeight
+    const containerWidth = window.innerWidth;
+    const containerHeight = window.innerHeight * 0.6
 
     if (canvasRef.current) {
       canvasRef.current.width = containerWidth;
@@ -39,8 +39,8 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       engine: engine,
       canvas: canvasRef.current,
       options: {
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: containerWidth,
+        height: containerHeight,
         pixelRatio: window.devicePixelRatio,
         hasBounds: true, // displaying the part of the simulation that has bodies
         wireframes: false,
@@ -87,7 +87,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         img.onerror = reject;
       })));
 
-      createLightPurpleBoxes(200, 200, 36, loadedTextures); // x, y, width, height, textures
+      createLightPurpleBoxes(150, 50, 36, loadedTextures); // x, y, width, height, textures
     };
 
     // can be grabbed!
@@ -127,7 +127,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
     // })
 
     // Moved inside useEffect to ensure it has access to engine
-    const createLightPurpleBoxes = (x, y, fixedHeight, loadedTextures) => {
+    const createLightPurpleBoxes = (initialX, y, fixedHeight, loadedTextures) => {
       // Width will be determined by texture width
       loadedTextures.forEach(({img, src}, index) => {
         const scale = fixedHeight / img.height;
@@ -144,8 +144,11 @@ const SkillsTags = ({ scrollToIntroduction }) => {
           }
         };
 
+        // Incrementing X position for each box
+        const x = initialX + index * 10;
+
         // Create the box with dynamic width and fixed height
-        const box = Bodies.rectangle(x, y + index * ( fixedHeight + 20 ), width, fixedHeight, options); // Adjust the y position for each box to avoid overlap
+        const box = Bodies.rectangle(x, y + index * ( fixedHeight + 10 ), width, fixedHeight, options); // Adjust the y position for each box to avoid overlap
         console.log(`Box ${index} created`, box);
         console.log(`Box ${index} created and width is ${width}`);
         Composite.add(engine.world, box);
@@ -176,9 +179,14 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     // CIRCLES ON THE CLICK POSITION
     boxRef.current.addEventListener("click", (event) => {
-      Composite.add(engine.world, Bodies.circle(event.clientX, event.clientY, 30, {...getCircleStyleOptions()}));
+      const rectangle = canvasRef.current.getBoundingClientRect(); // getBoundingClientRect() returns the size of an element and its position relative to the viewport
+      const x = event.clientX - rectangle.left; // x position within the element
+      const y = event.clientY - rectangle.top; // y position within the element
+
+      Composite.add(engine.world, Bodies.circle(x, y, 30, {...getCircleStyleOptions()}));
     })
 
+    // ALTERNATING FILL STYLES FOR THE CIRCLES CREATED ON CLICK
     let clickCount = 0;
     const fillStyles = [
       // '#F3CFFA',
@@ -226,7 +234,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       // Note: Created error: Uncaught TypeError: Cannot read properties of null (reading 'style') at _applyBackground + at Render.world
 
     // WALLS
-    const wallOptions = { isStatic: true, render: { visible: false } };
+    const wallOptions = { isStatic: true, render: { visible: true } };
     const ceiling = Bodies.rectangle( // x, y, width, height
       render.options.width / 2,
       0,
@@ -261,7 +269,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     const handleResize = () => {
       render.options.width = window.innerWidth; // checking if it's the same as window.innerWidth
-      render.options.height = window.innerHeight;
+      render.options.height = window.innerHeight * 0.6;
       render.canvas.width = render.options.width;
       render.canvas.height = render.options.height;
 
@@ -326,12 +334,13 @@ const SkillsTags = ({ scrollToIntroduction }) => {
   }, []);
 
   return <>
-    {/* Please note that anything placed at this level still won't allow scrolling. */}
-    <div ref={boxRef} style={{ backgroundColor: '#73003A', position: 'relative' }}>
+    {/* Anything placed at this level still won't allow scrolling because of Matter. */}
+    <div ref={boxRef} style={{ backgroundColor: '#73003A' }}>
+     {/* position: 'relative' - for the arrow */}
       <canvas ref={canvasRef} />
-      <div onClick={scrollToIntroduction} style={{ position: 'absolute', top: '4vw', right: '2.5vw', zIndex: 100 }}>
+      {/* <div onClick={scrollToIntroduction} style={{ position: 'absolute', top: '4vw', right: '2.5vw', zIndex: 100 }}>
         <img src={ArrowUp} alt="Arrow to scroll up" style={{ width: '100px', height: '100px' }} />
-      </div>
+      </div> */}
     </div>
   </>
 };
@@ -341,13 +350,12 @@ export default SkillsTags;
 // Open Issues:
   // Bodies created by function can't be interacted with using the mouse
   // Impossible to scroll down - https://github.com/liabru/matter-js/issues/868
-  // Objects are being created 2x
   // Resizing bodies when resizing the window
     // After resizing the window, the mouse is not working properly
   // Preloading textures - https://github.com/liabru/matter-js/issues/180
 
   // Solutions to scrolling issue:
-  // Could add custom scroll controls outside of the canvas area.
+    // Could add custom scroll controls outside of the canvas area.
 
 
 
