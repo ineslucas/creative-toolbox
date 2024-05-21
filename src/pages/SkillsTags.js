@@ -1,10 +1,10 @@
 // Using Matter.js to create a 2D physics simulation.
 // Collision filters are useless in this case because I want all the boxes to collide with each other.
+// Bodies placed one at a time could be grabbed using mouse.
 
 import React, { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
 import PurpleAvatar from "/images/about/purple_avatar.png"
-// import AdobeTexture from "/images/skillsTags/codingSkills/Adobe Creative Suite.png"
 // import ArrowUp from "/images/icons/arrow-up-solid.svg"
 // import { texture } from 'three/examples/jsm/nodes/Nodes.js';
 
@@ -142,30 +142,6 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         // original height is 36 but it's too big for the screen
     };
 
-    // can be grabbed!
-    // const Adobe = Bodies.rectangle(400, 200, 86, 40, { // x, y, width, height
-    //   chamfer: { radius: 20 },
-    //   render: {
-    //     // fillStyle: lightPurple,
-    //     sprite: {
-    //       texture: AdobeTexture,
-    //       yScale: 0.3,
-    //       xScale: 0.3,
-    //     }
-    //   }
-    // });
-
-    // const boxB = Bodies.rectangle(50, 380, 86, 40, {
-    //   chamfer: { radius: 20 },
-    //   render: {
-    //     sprite: {
-    //       texture: 'https://i.imgur.com/tc3MsJP.png',
-    //       xScale: 0.5,
-    //       yScale: 0.5
-    //     }
-    //   }
-    // })
-
     // Moved inside useEffect to ensure it has access to engine
     const createLightPurpleBoxes = (initialX, y, fixedHeight, loadedTextures) => {
       // Width will be determined by texture width
@@ -210,10 +186,6 @@ const SkillsTags = ({ scrollToIntroduction }) => {
         ground,
         rightWall,
         leftWall,
-        avatarCircle,
-
-        // Adobe,
-        // boxB,
       ]);
 
       // Run the engine and runner
@@ -222,42 +194,41 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       Render.run(render);
     });
 
-    // INITIAL CIRCLE
-    const avatarCircle = Bodies.circle(350, 200, 30, {
-      restitution: 0.5, // bounciness - 0.9 is very bouncy
-      friction: 0.5, // 0.1 is very slippery
-      frictionAir: 0.01, // air resistance - 0.01 is very low
+    // CIRCLES ON THE CLICK/MOUSEMOVE POSITION
+    const maxCirclesBeforeClickingIsAllowed = 70;
+    let circleCount = 0;
 
-      collisionFilter: {
-        category: defaultCategory,
-        mask: wallCategory | defaultCategory
-      },
-      render: {
-        sprite: {
-          texture: PurpleAvatar,
-          xScale: 0.027,
-          yScale: 0.027,
-        }
-      }
-    });
+    const createCircle = (x, y) => {
+      Composite.add(engine.world, Bodies.circle(x, y, 30, {...getCircleStyleOptions()}));
+      circleCount++; // Increment the circle count
+    };
 
-    // CIRCLES ON THE CLICK POSITION
-    boxRef.current.addEventListener("click", (event) => {
+    const handleEvent = (event) => {
+      // At which position should the event happen - regardless of what it is?
       const rectangle = canvasRef.current.getBoundingClientRect(); // getBoundingClientRect() returns the size of an element and its position relative to the viewport
       const x = event.clientX - rectangle.left; // x position within the element
       const y = event.clientY - rectangle.top; // y position within the element
 
-      Composite.add(engine.world, Bodies.circle(x, y, 30, {...getCircleStyleOptions()}));
-    })
+      // Switching from a mouse move to a click event
+      if (circleCount < maxCirclesBeforeClickingIsAllowed) {
+        createCircle(x, y);
+      } else {
+        boxRef.current.removeEventListener("mousemove", handleEvent);
+        boxRef.current.addEventListener("click", handleEvent);
+        createCircle(x, y);
+      }
+    };
 
-    // ALTERNATING FILL STYLES FOR THE CIRCLES CREATED ON CLICK
-    let clickCount = 0;
+    boxRef.current.addEventListener("mousemove", handleEvent);
+
+    // ALTERNATING FILL STYLES FOR THE CIRCLES CREATED ON CLICK/MOUSEMOVE
+    let clickTextureCount = 0;
     const fillStyles = [
-      // '#F3CFFA',
       '#F3B3FF',
-      // '#B38FBA', // light purple
       '#A63382',
       '#3C154E' // dark purple
+      // '#B38FBA', // light purple
+      // '#F3CFFA'
     ];
     const texture = PurpleAvatar;
 
@@ -265,7 +236,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       // Determine the fillStyle or texture based on click count
       let renderOptions = {};
 
-      if (clickCount % 4 === 3) {
+      if (clickTextureCount % 4 === 3) {
         // Apply texture every 4th click
         renderOptions = {
           sprite: {
@@ -277,23 +248,23 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       } else {
         // Use fillStyle for other clicks, creating new renderOptions object
         renderOptions = {
-          fillStyle: fillStyles[clickCount % 3]
+          fillStyle: fillStyles[clickTextureCount % 3]
         };
       }
 
       // Increment the click count
-      clickCount++;
+      clickTextureCount++;
 
       // Reset if it reaches 4
-      if (clickCount >= 5) {
-        clickCount = 0;
+      if (clickTextureCount >= 5) {
+        clickTextureCount = 0;
       }
 
       // Return the render options
       return {
-        restitution: 0.9,
-        friction: 0.1, // 0.1 is very slippery
-        frictionAir: 0.01, // air resistance - 0.01 is very low
+        restitution: 0.5,
+        // friction: 0.7, // 0.1 is very slippery
+        // frictionAir: 0.3, // air resistance - 0.01 is very low
         collisionFilter: {
           category: defaultCategory,
           mask: wallCategory | defaultCategory
@@ -354,6 +325,9 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     // Clean up
     return () => {
+      boxRef.current.removeEventListener("mousemove", handleEvent);
+      boxRef.current.removeEventListener("click", handleEvent);
+
       window.removeEventListener('resize', handleResize);
       Render.stop(render); // Clear all bodies, constraints, and composites from the world
       Composite.clear(engine.world, true);
@@ -423,6 +397,8 @@ export default SkillsTags;
 // EdTech
 // Wellness Tech
 // Neuroscience
+
+// IoT & More
 
 
 
