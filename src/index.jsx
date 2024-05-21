@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import styled, { keyframes } from 'styled-components';
 import React, { useState, useRef } from "react";
 import { Cursor } from './layout/Cursor.js'; // Named Export
-import { BottomLeft } from './layout/styles.js';
+// import { BottomLeft } from './layout/styles.js';
 import SkillsTags from './pages/SkillsTags.js';
 import ArrowDown from '../public/images/icons/arrow-down-solid.svg';
 // import EIFForOverlay from './pages/EIFForOverlay.js';
@@ -40,17 +40,18 @@ const bounceAnimation = keyframes`
 const AnimatedArrow = styled.img`
   width: 40px;
   height: 40px;
+  margin-left: 35px;
   animation: ${bounceAnimation} 2s infinite;
 `;
 
 const IntroductionContainer = styled.div`
   min-width: 400px;
-  padding: 6vh 3vw 10vh 2vw; // top right bottom left
+  padding: 15vh 3vw 10vh 2vw; // top right bottom left
 
   h1 {
     font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
     font-weight: 400;
-    font-size: 2.5em;
+    font-size: 2.2em;
     line-height: 1.2em;
     color: #fad9e4;
   }
@@ -93,8 +94,8 @@ export default function Index() {
   const [isHoveringInfoIcon, setIsHoveringInfoIcon] = useState(false);
 
   // Scrolling upwards to the introduction section from the SkillsTags component
-  const introductionContainerRef = useRef(null);
-  const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // const introductionContainerRef = useRef(null);
+  // const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   return <>
     <Loader
@@ -135,34 +136,44 @@ export default function Index() {
             setIsHoveringKeyboard={setIsHoveringKeyboard}/>
         </Canvas>
 
-        <div style={{ position: 'absolute', top: '3vw', right: '3vw', textAlign: 'right', maxWidth: '22%', color: '#73003A' }}>
+        {/* Container positioned at the top */}
+        <div style={{ position: 'absolute', top: '3vw', right: '3vw', textAlign: 'right', color: '#73003A' }}>
           {/* TO DO: replace this with arrows and something more playful such as 'Drag me!'*/}
-          <p>Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica.{/* <br></br> */} She sadly doesn’t own one. Drag the box and hover around. See what you can find.</p>
+          {/* <p>Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica. She sadly doesn’t own one. Drag the box and hover around. See what you can find.</p> */}
         </div>
 
-        <div style={{ position: 'absolute', bottom: '3vw', left: '3vw' }}>
-          <BottomLeft className="info-icon-container" onMouseEnter={() => setIsHoveringInfoIcon(true)} onMouseLeave={() => setIsHoveringInfoIcon(false)}>
-            <div className="info-icon">
-              <img src="/images/icons/info.svg"/>
+        {/* Container with Github Info Icon + Arrow */}
+        <div style={{ position: 'absolute', display: 'flex', bottom: '3vw', right: '3vw', maxWidth: '300px' }}>
+          <div
+            onMouseEnter={() => setIsHoveringInfoIcon(true)}
+            onMouseLeave={() => setIsHoveringInfoIcon(false)}
+          >
+              <div className="info-icon-container">
+              { isHoveringInfoIcon && (
+                <span>
+                  I designed and coded this creative toolbox. <br /> Drag the box, hover and explore. Code on <a href="https://github.com/ineslucas/" target="_blank">Github</a>.
+                </span>
+              )}
+              <div className="info-icon">
+                <img src="/images/icons/info.svg"/>
+              </div>
             </div>
-            { isHoveringInfoIcon && <span>I designed and coded this page. See how on <a href="https://github.com/ineslucas/" target="_blank">Github</a>.</span> }
-          </BottomLeft>
-        </div>
-
-        <div style={{ position: 'absolute', bottom: '3vw', right: '3vw' }}>
+          </div>
           <AnimatedArrow src={ArrowDown} alt="Arrow to scroll up" style={{ width: '40px', height: '40px' }} />
         </div>
+
       </ThreeJSContainer>
 
       {/* 2: Introduction Container */}
-      <IntroductionContainer ref={introductionContainerRef}>
+      <IntroductionContainer>
         <h1>
-          I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund and Nestlé.
+          I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund and Nestlé. <br />
+          Incoming NYU Interactive Telecommunications grad student.
         </h1>
       </IntroductionContainer>
 
       {/* 3: Physics Container */}
-      <SkillsTags scrollToIntroduction={scrollToIntroduction}/>
+      <SkillsTags/>
     </ScrollContainer>
 
     { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}

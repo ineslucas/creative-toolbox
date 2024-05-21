@@ -5,14 +5,16 @@
 import React, { useEffect, useRef } from 'react';
 import Matter from 'matter-js';
 import PurpleAvatar from "/images/about/purple_avatar.png"
-// import ArrowUp from "/images/icons/arrow-up-solid.svg"
 // import { texture } from 'three/examples/jsm/nodes/Nodes.js';
 
-const SkillsTags = ({ scrollToIntroduction }) => {
+const SkillsTags = () => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
+  const containerHeight = window.innerHeight * 0.6;
 
   useEffect(() => {
+    console.log("useEffect started");
+
     // Runner doesn't need to be created
     let Engine = Matter.Engine;
     let Render = Matter.Render;
@@ -27,7 +29,6 @@ const SkillsTags = ({ scrollToIntroduction }) => {
     engine.gravity.y = -0.2;
 
     const containerWidth = window.innerWidth;
-    const containerHeight = window.innerHeight * 0.6
 
     if (canvasRef.current) {
       canvasRef.current.width = containerWidth;
@@ -110,12 +111,17 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     // Preload textures + Create boxes
     const preloadTexturesAndCreateBoxes = async () => {
-      const loadedTextures = await Promise.all(textures.map(src => new Promise((resolve, reject) =>{
-        const img = new Image();
-        img.src = src;
-        img.onload = () => resolve({img, src});
-        img.onerror = reject;
-      })));
+      const loadedTextures = await Promise.all(
+        textures.map(
+          (src) =>
+            new Promise((resolve, reject) =>{
+              const img = new Image();
+              img.src = src;
+              img.onload = () => resolve({img, src});
+              img.onerror = reject;
+            })
+        )
+      );
 
       createLightPurpleBoxes(150, 15, 26, loadedTextures); // x, y, width, height, textures
         // original height is 36 but it's too big for the screen - fix when creating the boxes in a grid format
@@ -150,8 +156,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
         // Create the box with dynamic width and fixed height
         const box = Bodies.rectangle(x, y + index * ( fixedHeight + 7 ), width, fixedHeight, options); // Adjust the y position for each box to avoid overlap
-        console.log(`Box ${index} created`, box);
-        console.log(`Box ${index} created and width is ${width}`);
+        console.log(`Box ${index} created and width is ${width}`, box);
         Composite.add(engine.world, box);
       });
     };
@@ -253,8 +258,8 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       // Note: Created error: Uncaught TypeError: Cannot read properties of null (reading 'style') at _applyBackground + at Render.world
 
     const handleResize = () => {
-      render.options.width = window.innerWidth; // checking if it's the same as window.innerWidth
-      render.options.height = window.innerHeight * 0.6;
+      render.options.width = window.innerWidth; // Checking if it's the same as window.innerWidth
+      render.options.height = containerHeight; // When the window is resized, the height remains the same as when the component was mounted.
       render.canvas.width = render.options.width;
       render.canvas.height = render.options.height;
 
@@ -303,8 +308,14 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
     // Clean up
     return () => {
-      boxRef.current.removeEventListener("mousemove", handleEvent);
-      boxRef.current.removeEventListener("click", handleEvent);
+      console.log("useEffect cleanup");
+
+      // boxRef.current might be null during the cleanup phase if the component unmounts and the reference is cleared before the cleanup code runs, hence the need for a check.
+      if (boxRef.current) {
+        boxRef.current.removeEventListener("mousemove", handleEvent);
+        boxRef.current.removeEventListener("click", handleEvent);
+        // In JS, attempting to remove an event listener that does not exist does not cause any issues. TBC: avoid unnecessary function calls by adding an eventListenerRef.
+      }
 
       window.removeEventListener('resize', handleResize);
       Render.stop(render); // Clear all bodies, constraints, and composites from the world
@@ -313,8 +324,10 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       if (render.canvas) {
         render.canvas.remove();
         render.canvas = null; // won't be needed when canvas is created with useEffect
+        render.textures = {}; // TBC: Should we be clearing the object? How do we remove textures?
+      }
+      if (render.context) {
         render.context = null;
-        render.textures = {}; // Should it be added? How do we remove textures?
       }
       console.log("Component unmounted");
     };
@@ -323,11 +336,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
   return <>
     {/* Anything placed at this level still won't allow scrolling because of Matter. */}
     <div ref={boxRef} style={{ backgroundColor: '#73003A' }}>
-     {/* position: 'relative' - for the divs placed in relation to it */}
       <canvas ref={canvasRef} />
-      {/* <div onClick={scrollToIntroduction} style={{ position: 'absolute', top: '4vw', right: '2.5vw', zIndex: 100 }}>
-        <img src={ArrowUp} alt="Arrow to scroll up" style={{ width: '100px', height: '100px' }} />
-      </div> */}
     </div>
   </>
 };
@@ -379,11 +388,11 @@ export default SkillsTags;
   // Wellness Tech
   // Neuroscience
 
-  // IoT & More
+  // IoT, Accessibility, Interactive Furniture, Data Visualization
 
 
 
-// Doesn't work
+// (Work in Progress) Doesn't work
   // Matter.Events.on(mouseConstraint, 'startdrag', () => {
   //   // Disable scrolling when dragging starts
   //   render.canvas.style.pointerEvents = 'auto';
@@ -392,6 +401,7 @@ export default SkillsTags;
   // Matter.Events.on(mouseConstraint, 'enddrag', () => {
   //   // Re-enable scrolling when dragging ends
   //   render.canvas.style.pointerEvents = 'none'; // Preventing the canvas from capturing the mouse events = now I can scroll but still can't click on the canvas
+    // Could work if we only have mouse move events to create circles
   // });
 
 
