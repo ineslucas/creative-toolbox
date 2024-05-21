@@ -94,8 +94,8 @@ export default function Index() {
   const [isHoveringInfoIcon, setIsHoveringInfoIcon] = useState(false);
 
   // Scrolling upwards to the introduction section from the SkillsTags component
-  const introductionContainerRef = useRef(null);
-  const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // const introductionContainerRef = useRef(null);
+  // const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   return <>
     <Loader
@@ -165,7 +165,7 @@ export default function Index() {
       </ThreeJSContainer>
 
       {/* 2: Introduction Container */}
-      <IntroductionContainer ref={introductionContainerRef}>
+      <IntroductionContainer>
         <h1>
           I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund and Nestlé. <br />
           Incoming NYU Interactive Telecommunications grad student.
@@ -173,7 +173,7 @@ export default function Index() {
       </IntroductionContainer>
 
       {/* 3: Physics Container */}
-      <SkillsTags scrollToIntroduction={scrollToIntroduction}/>
+      <SkillsTags/>
     </ScrollContainer>
 
     { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}

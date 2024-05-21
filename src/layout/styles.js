@@ -23,6 +23,7 @@ export const TopCenterBar = styled.div`
   font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
 `
 
+// Button being used as a div with Link
 export const NavButton = styled.div`
   display: inline-block;
   padding: 0.5em 1em;
@@ -50,6 +51,13 @@ export const NameDescription = styled.div`
   font-size: 2em;
   line-height: 1.2em;
   color: #fccada;
+
+  // to target the 'Link'
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
 `
 
 export const TopLeft = styled.div`
