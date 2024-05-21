@@ -334,7 +334,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
 export default SkillsTags;
 
-
+  
 
 
 // Working notes - Open Issues:

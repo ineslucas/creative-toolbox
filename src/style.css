@@ -153,7 +153,7 @@ a {
   to { transform: rotate(0deg); }
 }
 
-/* Info icon with Github Link */
+/* INFO ICON WITH GITHUB LINK */
 .info-icon {
   width: 36px;
   height: 36px;
@@ -166,7 +166,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: pulse 2s infinite alternate;
+  animation: pulse 3s infinite alternate;
   aspect-ratio: 1 / 1;
 
   /* Keeps icon in place on hover */
@@ -194,14 +194,19 @@ a {
   flex-direction: row;
   align-items: center;
   color: #fccada;
+  margin-left: 50px;
 }
 
+/* Text Container */
 .info-icon-container span {
   font-size: 15px;
+  text-align: right;
+  width: 350px; /* Size of (span) text box */
+  margin-right: 120px; /* Space between icon and text */
 
   /* Keeps icon in place on hover */
   position: absolute;
-  left: 20%;
+  right: 20%;
   top: 50%;
   transform: translateY(-50%); /* Centering vertically - translate along the Y axis by 50% of its own height */
 }
