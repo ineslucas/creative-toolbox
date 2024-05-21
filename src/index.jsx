@@ -5,11 +5,11 @@ import Experience from './Experience.js'; // Default Export
 import * as THREE from 'three';
 import styled, { keyframes } from 'styled-components';
 import React, { useState, useRef } from "react";
-// import EIFForOverlay from './pages/EIFForOverlay.js';
 import { Cursor } from './layout/Cursor.js'; // Named Export
 import { BottomLeft } from './layout/styles.js';
 import SkillsTags from './pages/SkillsTags.js';
 import ArrowDown from '../public/images/icons/arrow-down-solid.svg';
+// import EIFForOverlay from './pages/EIFForOverlay.js';
 // import InteractiveFooter from './pages/InteractiveFooter.js';
 
 const ScrollContainer = styled.div`

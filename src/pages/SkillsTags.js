@@ -64,8 +64,8 @@ const SkillsTags = ({ scrollToIntroduction }) => {
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
       constraint: {
-        stiffness: 0.1, // lower value: bodies will have softer connection to mouse pointer
-        render: { visible: true } // Set to true for debugging
+        stiffness: 0.2, // Lower value = Bodies will have softer connection to mouse pointer
+        render: { visible: false } // Set to true for debugging
       }
     });
 
@@ -79,37 +79,16 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       render: { visible: false }
     };
 
-    const ceiling = Bodies.rectangle( // x, y, width, height
-      containerWidth / 2,
-      0,
-      containerWidth,
-      10,
-      wallOptions
-    );
-
-    const ground = Bodies.rectangle(
+    const ground = Bodies.rectangle( // x, y, width, height
       containerWidth / 2, // Divided by two because Matter JS uses the center of the canvas to place the object
       containerHeight, // Should be at the bottom (y: 0 is the ceiling level, full height is the very bottom)
       containerWidth,
       10,
       wallOptions
     );
-
-    const leftWall = Bodies.rectangle(
-      0,
-      containerHeight / 2,
-      10,
-      containerHeight,
-      wallOptions
-    );
-
-    const rightWall = Bodies.rectangle(
-      containerWidth,
-      containerHeight / 2,
-      10,
-      containerHeight,
-      wallOptions
-    );
+    const ceiling = Bodies.rectangle(containerWidth / 2, 0, containerWidth, 10, wallOptions);
+    const leftWall = Bodies.rectangle( 0, containerHeight / 2, 10, containerHeight, wallOptions);
+    const rightWall = Bodies.rectangle( containerWidth, containerHeight / 2, 10, containerHeight, wallOptions);
 
     // PURPLE BOXES - 4 steps to create
     const textures = [
@@ -139,10 +118,9 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       })));
 
       createLightPurpleBoxes(150, 15, 26, loadedTextures); // x, y, width, height, textures
-        // original height is 36 but it's too big for the screen
+        // original height is 36 but it's too big for the screen - fix when creating the boxes in a grid format
     };
 
-    // Moved inside useEffect to ensure it has access to engine
     const createLightPurpleBoxes = (initialX, y, fixedHeight, loadedTextures) => {
       // Width will be determined by texture width
       loadedTextures.forEach(({img, src}, index) => {
@@ -356,7 +334,10 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
 export default SkillsTags;
 
-// Open Issues:
+
+
+
+// Working notes - Open Issues:
   // Bodies created by function can't be interacted with using the mouse
   // Impossible to scroll down - https://github.com/liabru/matter-js/issues/868
   // Resizing bodies when resizing the window
@@ -368,37 +349,37 @@ export default SkillsTags;
 
 
 
-// TO DO: some skills float around in a cluster and the rest stay down with gravity.
+// TO DO: some skills float around in a cluster and the rest stay down with gravity. ⭐️
 
-// Coding skills:
-// JavaScript
-// Ruby on Rails
-// React
-// React Three Fiber
-// Three JS
-// HTML
-// CSS
-// GSAP
-// Vercel
-// Heroku
-// SQL
-// Git
-// Figma
+  // Coding skills:
+  // JavaScript
+  // Ruby on Rails
+  // React
+  // React Three Fiber
+  // Three JS
+  // HTML
+  // CSS
+  // GSAP
+  // Vercel
+  // Heroku
+  // SQL
+  // Git
+  // Figma
 
-// Other Skills:
-// Project Management
-// Copywriting
-// Product Development
-// Marketing
-// Immersive Experiences
+  // Other Skills:
+  // Project Management
+  // Copywriting
+  // Product Development
+  // Marketing
+  // Immersive Experiences
 
-// Interests:
-// Sustainability
-// EdTech
-// Wellness Tech
-// Neuroscience
+  // Interests:
+  // Sustainability
+  // EdTech
+  // Wellness Tech
+  // Neuroscience
 
-// IoT & More
+  // IoT & More
 
 
 
@@ -412,6 +393,7 @@ export default SkillsTags;
   //   // Re-enable scrolling when dragging ends
   //   render.canvas.style.pointerEvents = 'none'; // Preventing the canvas from capturing the mouse events = now I can scroll but still can't click on the canvas
   // });
+
 
 
 // var yellow = "#EDDC8C"
