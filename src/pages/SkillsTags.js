@@ -11,6 +11,7 @@ import PurpleAvatar from "/images/about/purple_avatar.png"
 const SkillsTags = ({ scrollToIntroduction }) => {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
+  const containerHeight = window.innerHeight * 0.6;
 
   useEffect(() => {
     // Runner doesn't need to be created
@@ -27,7 +28,6 @@ const SkillsTags = ({ scrollToIntroduction }) => {
     engine.gravity.y = -0.2;
 
     const containerWidth = window.innerWidth;
-    const containerHeight = window.innerHeight * 0.6
 
     if (canvasRef.current) {
       canvasRef.current.width = containerWidth;
@@ -253,8 +253,8 @@ const SkillsTags = ({ scrollToIntroduction }) => {
       // Note: Created error: Uncaught TypeError: Cannot read properties of null (reading 'style') at _applyBackground + at Render.world
 
     const handleResize = () => {
-      render.options.width = window.innerWidth; // checking if it's the same as window.innerWidth
-      render.options.height = window.innerHeight * 0.6;
+      render.options.width = window.innerWidth; // Checking if it's the same as window.innerWidth
+      render.options.height = containerHeight; // When the window is resized, the height remains the same as when the component was mounted.
       render.canvas.width = render.options.width;
       render.canvas.height = render.options.height;
 
@@ -323,7 +323,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
   return <>
     {/* Anything placed at this level still won't allow scrolling because of Matter. */}
     <div ref={boxRef} style={{ backgroundColor: '#73003A' }}>
-     {/* position: 'relative' - for the divs placed in relation to it */}
+     {/* position: 'relative' - for the divs overlayed in relation to it */}
       <canvas ref={canvasRef} />
       {/* <div onClick={scrollToIntroduction} style={{ position: 'absolute', top: '4vw', right: '2.5vw', zIndex: 100 }}>
         <img src={ArrowUp} alt="Arrow to scroll up" style={{ width: '100px', height: '100px' }} />
@@ -334,7 +334,7 @@ const SkillsTags = ({ scrollToIntroduction }) => {
 
 export default SkillsTags;
 
-  
+
 
 
 // Working notes - Open Issues:
@@ -379,11 +379,11 @@ export default SkillsTags;
   // Wellness Tech
   // Neuroscience
 
-  // IoT & More
+  // IoT, Accessibility, Interactive Furniture, Data Visualization
 
 
 
-// Doesn't work
+// (Work in Progress) Doesn't work
   // Matter.Events.on(mouseConstraint, 'startdrag', () => {
   //   // Disable scrolling when dragging starts
   //   render.canvas.style.pointerEvents = 'auto';
@@ -392,6 +392,7 @@ export default SkillsTags;
   // Matter.Events.on(mouseConstraint, 'enddrag', () => {
   //   // Re-enable scrolling when dragging ends
   //   render.canvas.style.pointerEvents = 'none'; // Preventing the canvas from capturing the mouse events = now I can scroll but still can't click on the canvas
+    // Could work if we only have mouse move events to create circles
   // });
 
 

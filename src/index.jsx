@@ -51,7 +51,7 @@ const IntroductionContainer = styled.div`
   h1 {
     font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
     font-weight: 400;
-    font-size: 2.5em;
+    font-size: 2.2em;
     line-height: 1.2em;
     color: #fad9e4;
   }

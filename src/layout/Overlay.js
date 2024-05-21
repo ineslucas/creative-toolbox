@@ -10,6 +10,18 @@ export default function Overlay()
   // const [showAbout, setShowAbout] = useState(false);
   // const toggleAbout = () => setShowAbout(!showAbout);
 
+  // TBD:
+  // function handleClick() {
+  //   // navigate to '/'
+  //   navigate('/');
+
+  //   // scroll to the top of the page
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth' // or 'auto' for instant scrolling
+  //   });
+  // }
+
   return <>
     <OverlayContainer>
       <TopCenterBar>
