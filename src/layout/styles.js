@@ -57,8 +57,23 @@ export const TopLeft = styled.div`
   top: 5vw;
   left: 5vw;
 `
-export const BottomLeft = styled.div`
+
+export const TopRight = styled.div`
   position: fixed;
+  top: 3vw;
+  right: 3vw;
+  text-align: right;
+  max-width: 22%;
+  color: #73003A;
+
+  a {
+    // color: #8a0146;
+    color: #660134;
+  }
+`
+
+export const BottomLeft = styled.div`
+  // Usable for Index component only, bottom + left are redundant. TBC.
   bottom: 3vw;
   left: 3vw;
   width: 30ch;

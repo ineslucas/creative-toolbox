@@ -1,7 +1,7 @@
-// Route ✅
+// Route ✅ on /about
 import React from 'react';
 import styled from 'styled-components';
-import Physics from './Physics.js';
+import SkillsTags from './SkillsTags.js';
 
 const AboutMeContainer = styled.div`
   background: #4C325F;
@@ -70,6 +70,7 @@ const FlexChild = styled.div`
 
 const AboutMe = () => {
   return <>
+    <SkillsTags />
     <AboutMeContainer>
       <p>Hi - my name is (Maria) Inês Lucas, a Marketeer turned Full Stack Developer based in Lisbon, Portugal.
         Into entrepreneurship and creativity through technology.
@@ -98,7 +99,6 @@ const AboutMe = () => {
       </FlexContainer> */}
 
     </AboutMeContainer>
-    <Physics />
   </>
 }
 
