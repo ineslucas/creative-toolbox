@@ -1,6 +1,4 @@
-html,
-body {
-  /* position: fixed; */
+html, body {
   top: 0;
   left: 0;
   margin: 0;
@@ -8,12 +6,24 @@ body {
   width: 100%;
   height: 100%;
   font-family: 'ABCMonumentGrotesk', sans-serif;
-  p {
-    margin: 0;
-  }
-  h1 {
-    margin: 0;
-  }
+
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera to avoid overflow in Matter JS canvas */
+body::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+p, h1 {
+  margin: 0;
+  font-family: 'ABCMonumentGrotesk', sans-serif;
+}
+
+a {
+  /* color: #8a0146; */
+  color: #660134;
 }
 
 #root {

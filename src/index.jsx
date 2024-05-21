@@ -3,17 +3,65 @@ import { Canvas } from '@react-three/fiber';
 import { Loader } from '@react-three/drei';
 import Experience from './Experience.js'; // Default Export
 import * as THREE from 'three';
-import styled from 'styled-components';
-import { useState } from "react";
-import EIFForOverlay from './pages/EIFForOverlay.js';
+import styled, { keyframes } from 'styled-components';
+import React, { useState, useRef } from "react";
 import { Cursor } from './layout/Cursor.js'; // Named Export
-import { BottomRight, BottomLeft } from './layout/styles.js';
+import { BottomLeft } from './layout/styles.js';
+import SkillsTags from './pages/SkillsTags.js';
+import ArrowDown from '../public/images/icons/arrow-down-solid.svg';
+// import EIFForOverlay from './pages/EIFForOverlay.js';
+// import InteractiveFooter from './pages/InteractiveFooter.js';
 
 const ScrollContainer = styled.div`
   // height: 200vh; // Adjust this to play with toolbox animation duration.
-  height: 100vh;
+  // height: 100vh;
+   // TBC adjust to be responsive to how many contents there are in the page
+
+  // No height set atm.
   width: 100vw;
   background-color: rgb(181, 79, 111);
+`
+
+const ThreeJSContainer = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+`
+
+const bounceAnimation = keyframes`
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+`;
+
+const AnimatedArrow = styled.img`
+  width: 40px;
+  height: 40px;
+  animation: ${bounceAnimation} 2s infinite;
+`;
+
+const IntroductionContainer = styled.div`
+  min-width: 400px;
+  padding: 6vh 3vw 10vh 2vw; // top right bottom left
+
+  h1 {
+    font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+    font-weight: 400;
+    font-size: 2.5em;
+    line-height: 1.2em;
+    color: #fad9e4;
+  }
+
+  p {
+    font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+    font-weight: 400;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    color: #fad9e4;
+  }
 `
 
 export default function Index() {
@@ -22,7 +70,7 @@ export default function Index() {
 
   const loaderFont = {
     font: '/ABCMonumentGrotesk-Regular-Trial.woff',
-    fontSize: 30,
+    fontSize: 18,
     letterSpacing: 0,
     lineHeight: 1,
     color: 'white',
@@ -44,6 +92,10 @@ export default function Index() {
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [isHoveringInfoIcon, setIsHoveringInfoIcon] = useState(false);
 
+  // Scrolling upwards to the introduction section from the SkillsTags component
+  const introductionContainerRef = useRef(null);
+  const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+
   return <>
     <Loader
       dataStyles={loaderFont}
@@ -52,53 +104,72 @@ export default function Index() {
       dataInterpolation={(p) => `${p.toFixed(2)}%`} />
 
     <ScrollContainer>
-      <Canvas
-        shadows
-        dpr={ 1 }
-        style={{ width: '100vw', height: '100vh', position: 'fixed', top: 0, left: 0, backgroundColor: 'rgb(181, 79, 111)' }}
-        //
-        gl={ {
-          antialias: true, // default
-          toneMapping: THREE.ACESFilmicToneMapping, // default
-          // outputColorSpace: THREE.LinearDisplayP3ColorSpace
-        } }
-        camera={{
-          fov: 45,
-          near: 0.1,
-          far: 200,
-          position: cameraPosition,
-          rotation: cameraRotation,
-        }}
-      >
-        <Experience
-          isAnimationComplete={isAnimationComplete}
-          isHoveringKeyboard={isHoveringKeyboard}
-          isHoveringLeicaM6={isHoveringLeicaM6}
-          isHoveringMicrophone={isHoveringMicrophone}
-          setIsAnimationComplete={setIsAnimationComplete}
-          setIsHoveringLeicaM6={setIsHoveringLeicaM6}
-          setIsHoveringMicrophone={setIsHoveringMicrophone}
-          setIsHoveringKeyboard={setIsHoveringKeyboard}/>
-      </Canvas>
-      {/* <Loader /> */}
+      {/* 1: Toolbox + Overlays */}
+      <ThreeJSContainer>
+        <Canvas
+          shadows
+          dpr={ 1 }
+          style={{ width: '100vw', height: '100vh', top: 0, left: 0, backgroundColor: 'rgb(181, 79, 111)' }}
+          //  position: 'fixed',
+          gl={ {
+            antialias: true, // default
+            toneMapping: THREE.ACESFilmicToneMapping, // default
+            // outputColorSpace: THREE.LinearDisplayP3ColorSpace
+          } }
+          camera={{
+            fov: 45,
+            near: 0.1,
+            far: 200,
+            position: cameraPosition,
+            rotation: cameraRotation,
+          }}
+        >
+          <Experience
+            isAnimationComplete={isAnimationComplete}
+            isHoveringKeyboard={isHoveringKeyboard}
+            isHoveringLeicaM6={isHoveringLeicaM6}
+            isHoveringMicrophone={isHoveringMicrophone}
+            setIsAnimationComplete={setIsAnimationComplete}
+            setIsHoveringLeicaM6={setIsHoveringLeicaM6}
+            setIsHoveringMicrophone={setIsHoveringMicrophone}
+            setIsHoveringKeyboard={setIsHoveringKeyboard}/>
+        </Canvas>
 
+        <div style={{ position: 'absolute', top: '3vw', right: '3vw', textAlign: 'right', maxWidth: '22%', color: '#73003A' }}>
+          {/* TO DO: replace this with arrows and something more playful such as 'Drag me!'*/}
+          <p>Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica.{/* <br></br> */} She sadly doesn’t own one. Drag the box and hover around. See what you can find.</p>
+        </div>
+
+        <div style={{ position: 'absolute', bottom: '3vw', left: '3vw' }}>
+          <BottomLeft className="info-icon-container" onMouseEnter={() => setIsHoveringInfoIcon(true)} onMouseLeave={() => setIsHoveringInfoIcon(false)}>
+            <div className="info-icon">
+              <img src="/images/icons/info.svg"/>
+            </div>
+            { isHoveringInfoIcon && <span>I designed and coded this page. See how on <a href="https://github.com/ineslucas/" target="_blank">Github</a>.</span> }
+          </BottomLeft>
+        </div>
+
+        <div style={{ position: 'absolute', bottom: '3vw', right: '3vw' }}>
+          <AnimatedArrow src={ArrowDown} alt="Arrow to scroll up" style={{ width: '40px', height: '40px' }} />
+        </div>
+      </ThreeJSContainer>
+
+      {/* 2: Introduction Container */}
+      <IntroductionContainer ref={introductionContainerRef}>
+        <h1>
+          I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund and Nestlé.
+        </h1>
+      </IntroductionContainer>
+
+      {/* 3: Physics Container */}
+      <SkillsTags scrollToIntroduction={scrollToIntroduction}/>
     </ScrollContainer>
 
     { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
 
-    {/* Place here what's is needed to play */}
     {/* <EIFForOverlay/> */}
-        {/* className="second-section" */}
 
-    <BottomLeft className="info-icon-container" onMouseEnter={() => setIsHoveringInfoIcon(true)} onMouseLeave={() => setIsHoveringInfoIcon(false)}>
-      <div className="info-icon">
-        <img src="/images/icons/info.svg"/>
-      </div>
-      { isHoveringInfoIcon && <span>I designed and coded this page. See how on <a href="https://github.com/ineslucas/" target="_blank">Github</a>.</span> }
-    </BottomLeft>
-
-    <BottomRight>
-      Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank">Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica.{/* <br></br> */} She sadly doesn’t own one. Drag the box and hover around. See what you can find.
-    </BottomRight>
+    {/* USING 2D in r3F */}
+    {/* <InteractiveFooter/> */}
 </>
 }
