@@ -1,4 +1,6 @@
-![image](https://github.com/ineslucas/creative-toolbox/assets/122114360/7471c68e-ec27-4bec-94e1-c0ef999a4630)
+<img width="1512" alt="image" src="https://github.com/ineslucas/creative-toolbox/assets/122114360/573ee04d-c2f6-46b1-8c13-f07cbb1a7a1c">
+<img width="1512" alt="Screenshot 2024-05-22 at 14 09 01" src="https://github.com/ineslucas/creative-toolbox/assets/122114360/36010f11-8698-4d5b-8682-26b0b8167652">
+
 
 # 🚀 Creative Toolbox: portfolio
 
@@ -39,16 +41,17 @@ From conceptualization to deployment, the project was a deep dive into 3D web te
 
 This project was a substantial learning opportunity, covering:
 - **3D Web Rendering**: Leveraging React Three Fiber to integrate 3D models into a web environment.
-- **Animation and Physics**: Using GSAP for smooth animations and Matter JS for physics interactions.
-- **Interactive Design**: Crafting an interactive experience that's both engaging and informative, a unique approach to portfolio presentation.
+- **Animation and Physics**: Using GSAP for smooth animations and Matter JS for physics interactions. Performance techniques in combining these.
+- **Interactive Design**: Crafting an interactive experience that's both engaging and informative.
 
-Visitors can explore a virtual space where objects can be interacted with — drag, drop, and watch them react to virtual physics. This interactive environment serves as a unique portfolio, demonstrating skills in real-time 3D rendering, user interaction design, and animation.
+Visitors can explore a virtual space where objects can be interacted with — drag, drop, and watch them react to virtual physics. This interactive environment demonstrates skills in real-time 3D rendering, user interaction design, physics interactions and animation.
 
 ## 💭 Features in progress
 
 - Mobile responsiveness and interaction alternatives for the toolbox 3D environment on mobile.
 - Adding an About Me, Playground and Journal of Experiments sections.
 - More interactive elements and animations to showcase additional skills.
+- Performance improvements. 
 
 ## 🚦 Running the Project
 
@@ -64,6 +67,8 @@ To experience the Creative Toolbox locally:
 - [Yeti Blue Microphone's 3D model](https://sketchfab.com/3d-models/blue-yeti-microphone-8ee3f06179d24078bf39a44e0bd9ae7a)
 - [Leica M6 3D model](https://sketchfab.com/3d-models/leica-m6-8bba2917f2634e91ab04b92ff20baa4b)
 - Font Monument Grotesk by [Dinamo](https://abcdinamo.com)
+
+  Any unmentioned assets, have been created by me from scratch.
 
 <img width="727" alt="image" src="https://github.com/ineslucas/creative-toolbox/assets/122114360/0e0c094e-004c-4dee-bc19-655e5a8a27c3">
 <img width="1512" alt="image" src="https://github.com/ineslucas/creative-toolbox/assets/122114360/77ad6f4e-a648-42e2-95d2-31cb96590ee1">
