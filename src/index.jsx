@@ -167,7 +167,7 @@ export default function Index() {
       {/* 2: Introduction Container */}
       <IntroductionContainer>
         <h1>
-          I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund and Nestlé. <br />
+          I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund. 
           Incoming NYU Interactive Telecommunications grad student.
         </h1>
       </IntroductionContainer>
