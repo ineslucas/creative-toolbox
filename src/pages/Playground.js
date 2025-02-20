@@ -64,9 +64,9 @@ const DrawingCanvas = ({ currentTool, clearTrigger }) => {
     const drawTools = {
       pen: (x, y) => {
         ctx.beginPath();
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 4;
         ctx.lineCap = 'round';
-        ctx.strokeStyle = '#000000';
+        ctx.strokeStyle = '#618D9A';
         ctx.moveTo(lastPos.x, lastPos.y);
         ctx.lineTo(x, y);
         ctx.stroke();
