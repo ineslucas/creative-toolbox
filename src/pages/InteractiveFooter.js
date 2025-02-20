@@ -1,4 +1,4 @@
-// Not in use. 
+// Not in use. Can be a great template.
 // @react-three/rapier but trying to use the 2D components from @react-three/drei
 
 import { Canvas } from '@react-three/fiber';
