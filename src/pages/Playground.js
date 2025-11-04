@@ -1,3 +1,7 @@
+// TODO
+// Enable shadows
+// Fix eraser
+
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { OrbitControls, Box, Text, Html } from "@react-three/drei";
 import React, { Suspense, useRef, useState, useEffect } from "react";
@@ -59,6 +63,7 @@ const DrawingCanvas = ({ currentTool, clearTrigger }) => {
 
     if (clearTrigger) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear the canvas when clearTrigger changes
     }
 
     const drawTools = {
@@ -115,14 +120,18 @@ const DrawingCanvas = ({ currentTool, clearTrigger }) => {
       // ctx.lineTo(x, y);
       // ctx.stroke();
 
+      // Uses selected tool to draw - default is pen.
       drawTools[currentTool](x, y);
-
       setLastPos({ x, y });
     };
 
     canvas.addEventListener('mousemove', draw);
     return () => canvas.removeEventListener('mousemove', draw);
   }, [isDrawing, lastPos, clearTrigger]);
+
+  // function clearCanvas(); is currently not being called.
+  // Inside this function, there's basically a function call to clearRect
+  // This exact verbatim code already exists. 
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
@@ -178,6 +187,7 @@ const Playground = () => {
         toneMapping: THREE.ACESFilmicToneMapping,
       }}
     >
+      {/* <OrbitControls /> */}
       <CameraAnimation onAnimationComplete={() => setShowCanvas(true)} />
 
       {/* LIGHTS */}

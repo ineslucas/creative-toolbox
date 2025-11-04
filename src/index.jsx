@@ -65,6 +65,27 @@ const IntroductionContainer = styled.div`
   }
 `
 
+const ArtistBio = styled.div`
+  padding: 6vh 3vw 6vh 2vw; // top right bottom left
+  min-width: 400px;
+  background-color: #EDB3C9;
+
+  p {
+    font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+    font-weight: 400;
+
+
+    color: #3C536C;
+  }
+
+  // Colors:
+  // color: #CED1B6;
+  // color: #AE9DD3;
+  // background-color: #53364F;
+  // color: #707669;
+
+`
+
 export default function Index() {
   const cameraRotation = [0, 1.5, 0]; // 0, 0, 0 - do not move X or Z
   const cameraPosition = [4.5, 3, 0]; // 0, 2, 6
@@ -105,6 +126,33 @@ export default function Index() {
       dataInterpolation={(p) => `${p.toFixed(2)}%`} />
 
     <ScrollContainer>
+      {/* 3: Physics Container */}
+      <SkillsTags/>
+
+      {/* 2: Introduction Container */}
+      {/* <IntroductionContainer> */}
+        {/* <h1>
+          I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund.
+          Incoming NYU Interactive Telecommunications grad student.
+        </h1> */}
+      {/* </IntroductionContainer> */}
+
+      {/* 4: Artist Bio Container */}
+      <ArtistBio>
+        <p>
+          <b>Inês Lucas</b> is a Portuguese <b>interdisciplinary artist and creative technologist</b>. Inês brings communities together through interactive intimate experiences of <b>presence, memory and motions of nature</b>. These explorations have taken physical form as speculative objects, immersive archives, sensory materials and even short films. Recent work has been presented by Shadow Traffic and at various interactive media art shows.
+          <br />
+          <br />
+          Social impact and accessibility has been at the center of her practice as a full stack developer, data analyst, marketeer, founder and organizer. Her professional background includes roles with governmental agencies, such as the <b>European Union</b>, <b>European Investment Fund</b>, <b>Unbabel</b> and the <b>Center for Responsible AI</b>.
+          <br />
+          <br />
+          Inês has a soft spot for fabrication and works fluently across digital and physical media. Her tools of choice include creative coding, interactive media platforms, physical computing, and machine learning for real-time experiences.
+          <br />
+          <br />
+          She is based in Brooklyn, New York, where she’s currently pursuing her Master’s at <b>NYU’s Interactive Telecommunications Program</b>.
+        </p>
+      </ArtistBio>
+
       {/* 1: Toolbox + Overlays */}
       <ThreeJSContainer>
         <Canvas
@@ -164,16 +212,6 @@ export default function Index() {
 
       </ThreeJSContainer>
 
-      {/* 2: Introduction Container */}
-      <IntroductionContainer>
-        <h1>
-          I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês Lucas</a>, a full stack creative developer based in Lisbon into entrepreneurship, previously at the European Investment Fund. 
-          Incoming NYU Interactive Telecommunications grad student.
-        </h1>
-      </IntroductionContainer>
-
-      {/* 3: Physics Container */}
-      <SkillsTags/>
     </ScrollContainer>
 
     { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}

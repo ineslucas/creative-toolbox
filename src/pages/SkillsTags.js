@@ -157,7 +157,9 @@ const SkillsTags = () => {
         // Create the box with dynamic width and fixed height
         const box = Bodies.rectangle(x, y + index * ( fixedHeight + 7 ), width, fixedHeight, options); // Adjust the y position for each box to avoid overlap
         console.log(`Box ${index} created and width is ${width}`, box);
-        Composite.add(engine.world, box);
+
+        // REMOVED SKILL TAGS FROM SIMULATION:
+        // Composite.add(engine.world, box);
       });
     };
 
@@ -209,7 +211,9 @@ const SkillsTags = () => {
     const fillStyles = [
       '#F3B3FF',
       '#A63382',
-      '#3C154E' // dark purple
+      '#CED1B6',
+      // THIS COLOR NEVER GETS CHOSEN _ TODO see below the logic for click count.
+      '#3C154E', // dark purple
       // '#B38FBA', // light purple
       // '#F3CFFA'
     ];
