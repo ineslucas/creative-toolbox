@@ -13,6 +13,7 @@ import ClassRanking from './pages/ClassRanking.js';
 import SurfTheJob from './pages/SurfTheJob.js';
 import GatherGo from './pages/GatherGo.js';
 import Playground from './pages/Playground.js';
+import TouchGrass from './pages/TouchGrass.js';
 // import AboutHover from './layout/AboutHover.js';
 
 // console.log("Creating root element");
@@ -34,6 +35,7 @@ const App = () => (
       <Route path="/surf-the-job" element={<SurfTheJob />} />
       <Route path="/gathergo" element={<GatherGo />} />
       <Route path='/playground' element={<Playground />} />
+      <Route path='/touch-grass' element={<TouchGrass />} />
     </Routes>
   </Router>
 );

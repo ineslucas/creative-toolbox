@@ -74,8 +74,7 @@ const ArtistBio = styled.div`
     font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
     font-weight: 400;
 
-
-    color: #3C536C;
+    color: #7B052C;
   }
 
   // Colors:
@@ -83,8 +82,55 @@ const ArtistBio = styled.div`
   // color: #AE9DD3;
   // background-color: #53364F;
   // color: #707669;
-
+  // color: #3C536C; // last chosen
 `
+const ProjectPhotosContainer = styled.div`
+  background: #D58EA9;
+  display: flex;
+  padding: 3vh;
+  gap: 15px;
+  width: 97%; // accounts for margin of 3vh
+  height: 100%;
+  overflow-x: auto;  // Enable horizontal scrolling
+  overflow-y: hidden; // Disable vertical scrolling
+`;
+
+const Photo = styled.img`
+  height: auto;
+  max-height: 30vh; // ⭐️ sets the height for the photos, and therefore the container.
+  aspect-ratio: auto 1 / 1; /* Original aspect ratio */
+  flex-shrink: 0;
+`;
+
+const TouchGrassPhotoContainer = styled.div`
+  position: relative;
+  width: fit-content; /* Makes the container's width match its content (the Photo), and therefore the icon lands in the right place */
+`;
+
+const InfoIcon = styled.div`
+  position: absolute;
+  bottom: 25px;
+  right: 20px;
+  width: 40px;
+  aspect-ratio: auto 1 / 1;
+  cursor: pointer;
+  z-index: 10;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    path {
+      fill: #FED9E7; /* Apply initial color to the SVG path */
+      transition: fill 0.3s ease-in-out; /* Smooth transition for the fill color */
+    }
+  }
+
+  &:hover {
+    svg path {
+      fill: #B43B69;
+    }
+  }
+`;
 
 export default function Index() {
   const cameraRotation = [0, 1.5, 0]; // 0, 0, 0 - do not move X or Z
@@ -152,6 +198,21 @@ export default function Index() {
           She is based in Brooklyn, New York, where she’s currently pursuing her Master’s at <b>NYU’s Interactive Telecommunications Program</b>.
         </p>
       </ArtistBio>
+
+      <ProjectPhotosContainer>
+        <TouchGrassPhotoContainer>
+          <Photo src='/images/touchGrass/TouchGrassFilm.png' />
+          <InfoIcon
+            onClick={() => window.open('/touch-grass', '_blank')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M48 80a48 48 0 1 1 96 0A48 48 0 1 1 48 80zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z"/></svg>
+          </InfoIcon>
+        </TouchGrassPhotoContainer>
+        <Photo src='/images/ITPProjectPhotos/RLCRD_image.png'/>
+        <Photo src='/images/ITPProjectPhotos/Playful_Communication_Project_OG_Image_NYU.jpg'/>
+        <Photo src='/images/ITPProjectPhotos/3D Ceramics.jpg'/>
+        <Photo src='/images/ITPProjectPhotos/Marcos_truck.JPG'/>
+      </ProjectPhotosContainer>
 
       {/* 1: Toolbox + Overlays */}
       <ThreeJSContainer>
