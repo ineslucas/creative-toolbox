@@ -6,7 +6,7 @@
 
 Portfolio Website based on a parallell between a physical toolbox and creative skills. [Throughout my journey](https://www.linkedin.com/in/mariaineslucas/), I've had so many diverse experiences that have led me to where I am - someone who's able to come up with creative concepts, design, code, and bring them to market. I didn't study a full computer science BSc but I can pull from my different experiences in a way that makes me more creative and driven. This is what this portfolio is all about.
 
-The branding is very much me, where all the objects which I physically have in my house, are linked to an experience and have a meaning, whilst showcasing skills in 3D modeling, web animation, and interactive design - all hosted on [Digipeasy](https://www.digipeasy.studio). 
+The branding is very much me, where all the objects which I physically have in my house, are linked to an experience and have a meaning, whilst showcasing skills in 3D modeling, web animation, and interactive design - all hosted on [Digipeasy](https://www.digipeasy.studio).
 
 📷 Camera 👉🏼 [my 3D photography website](https://www.digipeasy.studio/memory-lab)<br>
 
@@ -51,7 +51,7 @@ Visitors can explore a virtual space where objects can be interacted with — dr
 - Mobile responsiveness and interaction alternatives for the toolbox 3D environment on mobile.
 - Adding an About Me, Playground and Journal of Experiments sections.
 - More interactive elements and animations to showcase additional skills.
-- Performance improvements. 
+- Performance improvements.
 
 ## 🚦 Running the Project
 
@@ -74,5 +74,3 @@ To experience the Creative Toolbox locally:
 <img width="1512" alt="image" src="https://github.com/ineslucas/creative-toolbox/assets/122114360/77ad6f4e-a648-42e2-95d2-31cb96590ee1">
 <img width="1512" alt="image" src="https://github.com/ineslucas/creative-toolbox/assets/122114360/c76e5e1c-12e4-4536-9d51-3ade819baaa1">
 <img width="1512" alt="image" src="https://github.com/ineslucas/creative-toolbox/assets/122114360/c8c730bf-03d2-488d-8cb7-6f3a1568d350">
-
-
