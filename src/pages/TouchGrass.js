@@ -96,6 +96,13 @@ const Photo = styled.img`
   flex-shrink: 0;
 `;
 
+const Video = styled.video`
+  height: auto;
+  max-height: 30vh; // ⭐️ sets the height for the videos, and therefore the container.
+  aspect-ratio: auto 1 / 1; /* Original aspect ratio */
+  flex-shrink: 0;
+`;
+
 const TwoColumnContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -176,14 +183,25 @@ const TouchGrass = () => {
               style={{ opacity: activeSection === 'materials' ? 1 : 0.4 }}>Materials</SubHeading>
           </SubHeadingsContainer>
 
+          {/* TODO: Preloading flow for the videos */}
+          {/* Add comment with thx for checking out my front end! */}
+
           {activeSection === 'documentation' &&
             <ContainerForToggle>
               <UserInterfaceGalleryContainer>
-                <Photo src='/images/touchGrass/TG GIF Canon Fabri.gif' />
-                <Photo src='/images/touchGrass/iPhoneVideo.gif' />
-                <Photo src='/images/touchGrass/Sequence 4k Timelapse_1.gif' />
-                <Photo src='/images/touchGrass/Sequence GIF Canon Clips above.gif' />
-                <Photo src='/images/touchGrass/TouchGrassFilm.png' />
+                <Photo src='/images/touchGrass/Canon Clip Fabri.mp4' />
+
+                <Photo src='/images/touchGrass/Sequence 4k Timelapse.mp4' />
+                <Video autoPlay loop muted playsInline>
+                  <source
+                    src='/images/touchGrass/iPhoneVid-3to2-18fps-touchGrass.mp4'
+                    type="video/mp4"
+                  />
+                </Video>
+
+
+                <Photo src='/images/touchGrass/Canon Clip Above.mp4' />
+                {/* <Photo src='/images/touchGrass/TouchGrassFilm.png' /> */}
               </UserInterfaceGalleryContainer>
             </ContainerForToggle>
           }
