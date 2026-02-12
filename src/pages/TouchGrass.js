@@ -13,6 +13,12 @@ const RightContainerWithImage = styled.div`
   background-position: center; /* center image within the container */
   width: 60%;
 
+  @media (max-width: 910px) {
+    width: 100%;
+    height: auto;
+    min-height: 60vh;
+  }
+
   @media (max-width: 663px) {
     width: 100%; // Full width on small screens
     height: auto; // Adjust height as per content
@@ -36,17 +42,49 @@ const StyledYouTubeVideo = styled.div`
       padding-left: 0;
     }
   }
+
+  @media (max-width: 910px) {
+    max-width: 100%;
+    iframe {
+      scale: 1;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+  }
 `;
 
 const SectionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 60vh; // What makes the information be underneath.
+
+  @media (max-width: 910px) {
+    margin-top: 20vh;
+  }
 `;
 
 const SubHeadingsContainer = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media (max-width: 910px) {
+    display: none;
+  }
+`;
+
+const DesktopOnly = styled.div`
+  @media (max-width: 910px) {
+    display: none;
+  }
+`;
+
+const MobileOnly = styled.div`
+  display: none;
+
+  @media (max-width: 910px) {
+    display: block;
+  }
 `;
 
 const SubHeading = styled.div`
@@ -57,6 +95,11 @@ const SubHeading = styled.div`
   color: #fad9e4;
   margin-bottom: 2%;
   margin-left: 25px;
+
+  @media (max-width: 910px) {
+    font-size: 1em;
+    margin-left: 15px;
+  }
 
   @media (max-width: 663px) {
     top: 10vh;
@@ -94,6 +137,10 @@ const Photo = styled.img`
   max-height: 30vh; // ⭐️ sets the height for the photos, and therefore the container.
   aspect-ratio: auto 1 / 1; /* Original aspect ratio */
   flex-shrink: 0;
+
+  @media (max-width: 910px) {
+    max-height: 18vh;
+  }
 `;
 
 const Video = styled.video`
@@ -101,6 +148,10 @@ const Video = styled.video`
   max-height: 30vh; // ⭐️ sets the height for the videos, and therefore the container.
   aspect-ratio: auto 1 / 1; /* Original aspect ratio */
   flex-shrink: 0;
+
+  @media (max-width: 910px) {
+    max-height: 18vh;
+  }
 `;
 
 const TwoColumnContainer = styled.div`
@@ -186,30 +237,65 @@ const TouchGrass = () => {
           {/* TODO: Preloading flow for the videos */}
           {/* Add comment with thx for checking out my front end! */}
 
-          {activeSection === 'documentation' &&
+          {/* Desktop: toggle between sections */}
+          <DesktopOnly>
+            {activeSection === 'documentation' &&
+              <ContainerForToggle>
+                <UserInterfaceGalleryContainer>
+                  <Video autoPlay loop muted playsInline>
+                    <source src='/images/touchGrass/Canon Clip Fabri.mp4' type="video/mp4" />
+                  </Video>
+
+                  <Video autoPlay loop muted playsInline>
+                    <source src='/images/touchGrass/Sequence 4k Timelapse.mp4' type="video/mp4" />
+                  </Video>
+                  <Video autoPlay loop muted playsInline>
+                    <source
+                      src='/images/touchGrass/iPhoneVid-3to2-18fps-touchGrass.mp4'
+                      type="video/mp4"
+                    />
+                  </Video>
+
+
+                  <Video autoPlay loop muted playsInline>
+                    <source src='/images/touchGrass/Canon Clip Above.mp4' type="video/mp4" />
+                  </Video>
+                  {/* <Photo src='/images/touchGrass/TouchGrassFilm.png' /> */}
+                </UserInterfaceGalleryContainer>
+              </ContainerForToggle>
+            }
+            { activeSection === 'materials' &&
+              <ContainerForToggle>
+                Textiles, Custom Pressure Sensor, Arduino, Particle visuals, Metal frame, Plastic Bin, Books, MDF Board, Projector, Projector Screen
+              </ContainerForToggle>
+            }
+          </DesktopOnly>
+
+          {/* Mobile: show all sections stacked */}
+          <MobileOnly>
+            <SubHeading>Documentation</SubHeading>
             <ContainerForToggle>
               <UserInterfaceGalleryContainer>
-                <Photo src='/images/touchGrass/Canon Clip Fabri.mp4' />
-
-                <Photo src='/images/touchGrass/Sequence 4k Timelapse.mp4' />
                 <Video autoPlay loop muted playsInline>
-                  <source
-                    src='/images/touchGrass/iPhoneVid-3to2-18fps-touchGrass.mp4'
-                    type="video/mp4"
-                  />
+                  <source src='/images/touchGrass/Canon Clip Fabri.mp4' type="video/mp4" />
                 </Video>
-
-
-                <Photo src='/images/touchGrass/Canon Clip Above.mp4' />
+                <Video autoPlay loop muted playsInline>
+                  <source src='/images/touchGrass/Sequence 4k Timelapse.mp4' type="video/mp4" />
+                </Video>
+                <Video autoPlay loop muted playsInline>
+                  <source src='/images/touchGrass/iPhoneVid-3to2-18fps-touchGrass.mp4' type="video/mp4" />
+                </Video>
+                <Video autoPlay loop muted playsInline>
+                  <source src='/images/touchGrass/Canon Clip Above.mp4' type="video/mp4" />
+                </Video>
                 {/* <Photo src='/images/touchGrass/TouchGrassFilm.png' /> */}
               </UserInterfaceGalleryContainer>
             </ContainerForToggle>
-          }
-          { activeSection === 'materials' &&
+            <SubHeading>Materials</SubHeading>
             <ContainerForToggle>
-              Textiles, Custom Pressure Sensor, Arduino, Particle visuals, Metal frame, Plastic Bin, Books, MDF Board, Projector, Projector Screen
+              <p>Textiles, Custom Pressure Sensor, Arduino, Particle visuals, Metal frame, Plastic Bin, Books, MDF Board, Projector, Projector Screen</p>
             </ContainerForToggle>
-          }
+          </MobileOnly>
         </SectionsContainer>
       </RightContainerWithImage>
     </PageContainer>

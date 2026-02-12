@@ -4,7 +4,7 @@ import { Loader } from '@react-three/drei';
 import Experience from './Experience.js'; // Default Export
 import * as THREE from 'three';
 import styled, { keyframes } from 'styled-components';
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Cursor } from './layout/Cursor.js'; // Named Export
 // import { BottomLeft } from './layout/styles.js';
 import SkillsTags from './pages/SkillsTags.js';
@@ -20,6 +20,7 @@ const ScrollContainer = styled.div`
   // No height set atm.
   width: 100vw;
   background-color: rgb(181, 79, 111);
+
 `
 
 const ThreeJSContainer = styled.div`
@@ -83,7 +84,39 @@ const ArtistBio = styled.div`
   // background-color: #53364F;
   // color: #707669;
   // color: #3C536C; // last chosen
+
+  @media (max-width: 910px) {
+    min-width: unset;
+    padding: 4vh 5vw;
+  }
 `
+
+const MobileContactLinks = styled.div`
+  display: none;
+
+  @media (max-width: 910px) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 5vh;
+    padding-top: 4vh;
+    border-top: 1px solid #7B052C;
+
+    a {
+      font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+      font-weight: 400;
+      color: #7B052C;
+      font-size: 1em;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+
+      &:last-child {
+        text-decoration: underline;
+      }
+    }
+  }
+`
+
 const ProjectPhotosContainer = styled.div`
   background: #D58EA9;
   display: flex;
@@ -93,6 +126,11 @@ const ProjectPhotosContainer = styled.div`
   height: 100%;
   overflow-x: auto;  // Enable horizontal scrolling
   overflow-y: hidden; // Disable vertical scrolling
+
+  @media (max-width: 910px) {
+    width: 100%;
+    box-sizing: border-box;
+  }
 `;
 
 const Photo = styled.img`
@@ -160,16 +198,23 @@ export default function Index() {
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [isHoveringInfoIcon, setIsHoveringInfoIcon] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 910);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 910);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Scrolling upwards to the introduction section from the SkillsTags component
   // const introductionContainerRef = useRef(null);
   // const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   return <>
-    <Loader
+    {!isMobile && <Loader
       dataStyles={loaderFont}
       containerStyles={loaderStyles} // Flex layout styles
       barStyles={barStyles} // Loading-bar styles
-      dataInterpolation={(p) => `${p.toFixed(2)}%`} />
+      dataInterpolation={(p) => `${p.toFixed(2)}%`} />}
 
     <ScrollContainer>
       {/* 3: Physics Container */}
@@ -195,8 +240,12 @@ export default function Index() {
           Inês has a soft spot for fabrication and works fluently across digital and physical media. Her tools of choice include creative coding, interactive media platforms, physical computing, and machine learning for real-time experiences.
           <br />
           <br />
-          She is based in Brooklyn, New York, where she’s currently pursuing her Master’s at <b>NYU’s Interactive Telecommunications Program</b>.
+          She is based in Brooklyn, New York, where she's currently pursuing her Master's at <b>NYU's Interactive Telecommunications Program</b>.
         </p>
+        <MobileContactLinks>
+          <a href="mailto:lucasinesmaria@gmail.com">lucasinesmaria@gmail.com</a>
+          <a href="https://www.linkedin.com/in/mariaineslucas/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </MobileContactLinks>
       </ArtistBio>
 
       <ProjectPhotosContainer>
@@ -214,8 +263,8 @@ export default function Index() {
         <Photo src='/images/ITPProjectPhotos/Marcos_truck.JPG'/>
       </ProjectPhotosContainer>
 
-      {/* 1: Toolbox + Overlays */}
-      <ThreeJSContainer>
+      {/* 1: Toolbox + Overlays — not rendered on mobile to avoid WebGL/Loader issues */}
+      {!isMobile && <ThreeJSContainer>
         <Canvas
           shadows
           dpr={ 1 }
@@ -248,7 +297,7 @@ export default function Index() {
         {/* Container positioned at the top */}
         <div style={{ position: 'absolute', top: '3vw', right: '3vw', textAlign: 'right', color: '#73003A' }}>
           {/* TO DO: replace this with arrows and something more playful such as 'Drag me!'*/}
-          {/* <p>Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica. She sadly doesn’t own one. Drag the box and hover around. See what you can find.</p> */}
+          {/* <p>Hi there, I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês'</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica. She sadly doesn't own one. Drag the box and hover around. See what you can find.</p> */}
         </div>
 
         {/* Container with Github Info Icon + Arrow */}
@@ -271,11 +320,11 @@ export default function Index() {
           <AnimatedArrow src={ArrowDown} alt="Arrow to scroll up" style={{ width: '40px', height: '40px' }} />
         </div>
 
-      </ThreeJSContainer>
+      </ThreeJSContainer>}
 
     </ScrollContainer>
 
-    { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
+    { !isMobile && isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
 
     {/* <EIFForOverlay/> */}
 

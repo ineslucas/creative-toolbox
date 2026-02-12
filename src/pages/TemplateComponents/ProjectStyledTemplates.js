@@ -10,6 +10,12 @@ export const PageContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
+  @media (max-width: 910px) {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+
   @media (max-width: 663px) {
     flex-direction: column; // Stack children vertically on small screens
   }
@@ -37,6 +43,11 @@ export const LeftContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
+  @media (max-width: 910px) {
+    width: 100%;
+    height: auto;
+  }
+
   @media (max-width: 663px) {
     width: 100%; // Full width on small screens
     height: auto; // Adjust height as per content
@@ -62,6 +73,10 @@ export const BackButton = styled.div`
     font-size: 1.5em;
     line-height: 1.2em;
     color: #fad9e4;
+  }
+
+  @media (max-width: 910px) {
+    margin-top: 10vh;
   }
 `
 
@@ -93,6 +108,11 @@ export const RightContainer = styled.div`
   width: 60%;
   overflow: auto; // Allows scrolling
 
+  @media (max-width: 910px) {
+    width: 100%;
+    height: auto;
+  }
+
   @media (max-width: 663px) {
     width: 100%; // Full width on small screens
     height: auto; // Adjust height as per content
@@ -111,6 +131,15 @@ export const Title = styled.h2`
   color: #fad9e4;
   margin-bottom: 5%;
   z-index: 20;
+
+  @media (max-width: 910px) {
+    position: relative;
+    top: auto;
+    left: 3vw;
+    font-size: 4em;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
 
   @media (max-width: 663px) {
     top: 10vh; // Adjust this value as needed for mobile

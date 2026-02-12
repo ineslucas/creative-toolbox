@@ -6,7 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import Index from './index.jsx';
 import Overlay from './layout/Overlay.js';
-import MobileWarning from './layout/MobileWarning.js';
+// import MobileWarning from './layout/MobileWarning.js';
 import MemoryLab from './pages/MemoryLab.js';
 import AboutMe from './pages/AboutMe.js';
 import ClassRanking from './pages/ClassRanking.js';
@@ -23,7 +23,7 @@ const App = () => (
   <Router>
     <Analytics />
     <SpeedInsights/>
-    <MobileWarning/>
+    {/* <MobileWarning/> */}
     {/* <AboutHover /> */}
     <Overlay/> {/* Rendered outside of the Routes but inside the Router, meaning it will be displayed on all routes. Displays error without zIndex property*/}
 
