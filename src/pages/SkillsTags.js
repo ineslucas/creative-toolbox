@@ -180,6 +180,7 @@ const SkillsTags = () => {
     });
 
     // CIRCLES ON THE CLICK/MOUSEMOVE POSITION
+    const isMobile = window.innerWidth <= 910;
     const maxCirclesBeforeClickingIsAllowed = 70;
     let circleCount = 0;
 
@@ -188,6 +189,7 @@ const SkillsTags = () => {
       circleCount++; // Increment the circle count
     };
 
+    // ─── DESKTOP: Circles on mousemove / click ───
     const handleEvent = (event) => {
       // At which position should the event happen - regardless of what it is?
       const rectangle = canvasRef.current.getBoundingClientRect(); // getBoundingClientRect() returns the size of an element and its position relative to the viewport
@@ -204,7 +206,9 @@ const SkillsTags = () => {
       }
     };
 
-    boxRef.current.addEventListener("mousemove", handleEvent);
+    if (!isMobile) {
+      boxRef.current.addEventListener("mousemove", handleEvent);
+    }
 
     // ALTERNATING FILL STYLES FOR THE CIRCLES CREATED ON CLICK/MOUSEMOVE
     let clickTextureCount = 0;
@@ -260,6 +264,18 @@ const SkillsTags = () => {
       }
     }
       // Note: Created error: Uncaught TypeError: Cannot read properties of null (reading 'style') at _applyBackground + at Render.world
+
+    // ─── MOBILE: Pre-spawn circles automatically (half of desktop max) ───
+    if (isMobile) {
+      const mobileCircleCount = Math.floor(maxCirclesBeforeClickingIsAllowed / 2);
+      const padding = 40; // Keep circles away from walls
+
+      for (let i = 0; i < mobileCircleCount; i++) {
+        const x = padding + Math.random() * (containerWidth - padding * 2);
+        const y = padding + Math.random() * (containerHeight - padding * 2);
+        createCircle(x, y);
+      }
+    }
 
     const handleResize = () => {
       render.options.width = window.innerWidth; // Checking if it's the same as window.innerWidth
