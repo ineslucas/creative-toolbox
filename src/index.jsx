@@ -185,7 +185,7 @@ export default function Index() {
     // backgroundColor: '#654873',
     backgroundColor: 'black',
     color: 'white',
-    position: 'fixed',
+    position: 'absolute',
   }
   const barStyles = {
     height: '5px', // Thicker bar
@@ -210,12 +210,6 @@ export default function Index() {
   // const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   return <>
-    {!isMobile && <Loader
-      dataStyles={loaderFont}
-      containerStyles={loaderStyles} // Flex layout styles
-      barStyles={barStyles} // Loading-bar styles
-      dataInterpolation={(p) => `${p.toFixed(2)}%`} />}
-
     <ScrollContainer>
       {/* 3: Physics Container */}
       <SkillsTags/>
@@ -231,7 +225,7 @@ export default function Index() {
       {/* 4: Artist Bio Container */}
       <ArtistBio>
         <p>
-          <b>Inês Lucas</b> is a Portuguese <b>interdisciplinary artist and creative technologist</b>. Inês brings communities together through interactive intimate experiences of <b>presence, memory and motions of nature</b>. These explorations have taken physical form as speculative objects, immersive archives, sensory materials and even short films. Recent work has been presented by Shadow Traffic and at various interactive media art shows.
+          <b>Inês Lucas</b> is a Portuguese <b>interdisciplinary artist and creative technologist</b>. Inês brings communities together through interactive intimate experiences of <b>presence, memory and motions of nature</b>. These explorations have taken physical form as speculative objects, immersive archives, sensory materials and even short films. Recent work has been presented by Shadow Traffic, Horological Society of New York, Porter Novelli's Innovation Salon, Brooklyn Metal Works and other interactive media art shows.
           <br />
           <br />
           Social impact and accessibility has been at the center of her practice as a full stack developer, data analyst, marketeer, founder and organizer. Her professional background includes roles with governmental agencies, such as the <b>European Union</b>, <b>European Investment Fund</b>, <b>Unbabel</b> and the <b>Center for Responsible AI</b>.
@@ -317,9 +311,14 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <AnimatedArrow src={ArrowDown} alt="Arrow to scroll up" style={{ width: '40px', height: '40px' }} />
+          {/* <AnimatedArrow src={ArrowDown} alt="Arrow to scroll up" style={{ width: '40px', height: '40px' }} /> */}
         </div>
 
+        <Loader
+          dataStyles={loaderFont}
+          containerStyles={loaderStyles}
+          barStyles={barStyles}
+          dataInterpolation={(p) => `${p.toFixed(2)}%`} />
       </ThreeJSContainer>}
 
     </ScrollContainer>
