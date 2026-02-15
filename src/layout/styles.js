@@ -3,6 +3,10 @@ import styled from 'styled-components'; {/** npm install styled-components */}
 export const OverlayContainer = styled.div`
   position: absolute;
   z-index: 500;
+
+  @media (max-width: 910px) {
+    display: none;
+  }
 `
 
 {/** Add media queries & margin & flex disposition */}

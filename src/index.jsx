@@ -4,7 +4,7 @@ import { Loader } from '@react-three/drei';
 import Experience from './Experience.js'; // Default Export
 import * as THREE from 'three';
 import styled, { keyframes } from 'styled-components';
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Cursor } from './layout/Cursor.js'; // Named Export
 // import { BottomLeft } from './layout/styles.js';
 import SkillsTags from './pages/SkillsTags.js';
@@ -20,6 +20,7 @@ const ScrollContainer = styled.div`
   // No height set atm.
   width: 100vw;
   background-color: rgb(181, 79, 111);
+
 `
 
 const ThreeJSContainer = styled.div`
@@ -74,8 +75,7 @@ const ArtistBio = styled.div`
     font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
     font-weight: 400;
 
-
-    color: #3C536C;
+    color: #7B052C;
   }
 
   // Colors:
@@ -83,8 +83,92 @@ const ArtistBio = styled.div`
   // color: #AE9DD3;
   // background-color: #53364F;
   // color: #707669;
+  // color: #3C536C; // last chosen
 
+  @media (max-width: 910px) {
+    min-width: unset;
+    padding: 4vh 5vw;
+  }
 `
+
+const MobileContactLinks = styled.div`
+  display: none;
+
+  @media (max-width: 910px) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 5vh;
+    padding-top: 4vh;
+    border-top: 1px solid #7B052C;
+
+    a {
+      font-family: 'ABCMonumentGrotesk-Regular-Trial', sans-serif;
+      font-weight: 400;
+      color: #7B052C;
+      font-size: 1em;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+
+      &:last-child {
+        text-decoration: underline;
+      }
+    }
+  }
+`
+
+const ProjectPhotosContainer = styled.div`
+  background: #D58EA9;
+  display: flex;
+  padding: 3vh;
+  gap: 15px;
+  width: 97%; // accounts for margin of 3vh
+  height: 100%;
+  overflow-x: auto;  // Enable horizontal scrolling
+  overflow-y: hidden; // Disable vertical scrolling
+
+  @media (max-width: 910px) {
+    width: 100%;
+    box-sizing: border-box;
+  }
+`;
+
+const Photo = styled.img`
+  height: auto;
+  max-height: 30vh; // ⭐️ sets the height for the photos, and therefore the container.
+  aspect-ratio: auto 1 / 1; /* Original aspect ratio */
+  flex-shrink: 0;
+`;
+
+const TouchGrassPhotoContainer = styled.div`
+  position: relative;
+  width: fit-content; /* Makes the container's width match its content (the Photo), and therefore the icon lands in the right place */
+`;
+
+const InfoIcon = styled.div`
+  position: absolute;
+  bottom: 25px;
+  right: 20px;
+  width: 40px;
+  aspect-ratio: auto 1 / 1;
+  cursor: pointer;
+  z-index: 10;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    path {
+      fill: #FED9E7; /* Apply initial color to the SVG path */
+      transition: fill 0.3s ease-in-out; /* Smooth transition for the fill color */
+    }
+  }
+
+  &:hover {
+    svg path {
+      fill: #B43B69;
+    }
+  }
+`;
 
 export default function Index() {
   const cameraRotation = [0, 1.5, 0]; // 0, 0, 0 - do not move X or Z
@@ -101,7 +185,7 @@ export default function Index() {
     // backgroundColor: '#654873',
     backgroundColor: 'black',
     color: 'white',
-    position: 'fixed',
+    position: 'absolute',
   }
   const barStyles = {
     height: '5px', // Thicker bar
@@ -114,17 +198,18 @@ export default function Index() {
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [isHoveringInfoIcon, setIsHoveringInfoIcon] = useState(false);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 910);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 910);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Scrolling upwards to the introduction section from the SkillsTags component
   // const introductionContainerRef = useRef(null);
   // const scrollToIntroduction = () => introductionContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
 
   return <>
-    <Loader
-      dataStyles={loaderFont}
-      containerStyles={loaderStyles} // Flex layout styles
-      barStyles={barStyles} // Loading-bar styles
-      dataInterpolation={(p) => `${p.toFixed(2)}%`} />
-
     <ScrollContainer>
       {/* 3: Physics Container */}
       <SkillsTags/>
@@ -140,7 +225,7 @@ export default function Index() {
       {/* 4: Artist Bio Container */}
       <ArtistBio>
         <p>
-          <b>Inês Lucas</b> is a Portuguese <b>interdisciplinary artist and creative technologist</b>. Inês brings communities together through interactive intimate experiences of <b>presence, memory and motions of nature</b>. These explorations have taken physical form as speculative objects, immersive archives, sensory materials and even short films. Recent work has been presented by Shadow Traffic and at various interactive media art shows.
+          <b>Inês Lucas</b> is a Portuguese <b>interdisciplinary artist and creative technologist</b>. Inês brings communities together through interactive intimate experiences of <b>presence, memory and motions of nature</b>. These explorations have taken physical form as speculative objects, immersive archives, sensory materials and even short films. Recent work has been presented by Shadow Traffic, Horological Society of New York, Porter Novelli's Innovation Salon, Brooklyn Metal Works and other interactive media art shows.
           <br />
           <br />
           Social impact and accessibility has been at the center of her practice as a full stack developer, data analyst, marketeer, founder and organizer. Her professional background includes roles with governmental agencies, such as the <b>European Union</b>, <b>European Investment Fund</b>, <b>Unbabel</b> and the <b>Center for Responsible AI</b>.
@@ -149,12 +234,31 @@ export default function Index() {
           Inês has a soft spot for fabrication and works fluently across digital and physical media. Her tools of choice include creative coding, interactive media platforms, physical computing, and machine learning for real-time experiences.
           <br />
           <br />
-          She is based in Brooklyn, New York, where she’s currently pursuing her Master’s at <b>NYU’s Interactive Telecommunications Program</b>.
+          She is based in Brooklyn, New York, where she's currently pursuing her Master's at <b>NYU's Interactive Telecommunications Program</b>.
         </p>
+        <MobileContactLinks>
+          <a href="mailto:lucasinesmaria@gmail.com">lucasinesmaria@gmail.com</a>
+          <a href="https://www.linkedin.com/in/mariaineslucas/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </MobileContactLinks>
       </ArtistBio>
 
-      {/* 1: Toolbox + Overlays */}
-      <ThreeJSContainer>
+      <ProjectPhotosContainer>
+        <TouchGrassPhotoContainer>
+          <Photo src='/images/touchGrass/TouchGrassFilm.png' />
+          <InfoIcon
+            onClick={() => window.open('/touch-grass', '_blank')}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M48 80a48 48 0 1 1 96 0A48 48 0 1 1 48 80zM0 224c0-17.7 14.3-32 32-32H96c17.7 0 32 14.3 32 32V448h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H64V256H32c-17.7 0-32-14.3-32-32z"/></svg>
+          </InfoIcon>
+        </TouchGrassPhotoContainer>
+        <Photo src='/images/ITPProjectPhotos/RLCRD_image.png'/>
+        <Photo src='/images/ITPProjectPhotos/Playful_Communication_Project_OG_Image_NYU.jpg'/>
+        <Photo src='/images/ITPProjectPhotos/3D Ceramics.jpg'/>
+        <Photo src='/images/ITPProjectPhotos/Marcos_truck.JPG'/>
+      </ProjectPhotosContainer>
+
+      {/* 1: Toolbox + Overlays — not rendered on mobile to avoid WebGL/Loader issues */}
+      {!isMobile && <ThreeJSContainer>
         <Canvas
           shadows
           dpr={ 1 }
@@ -187,7 +291,7 @@ export default function Index() {
         {/* Container positioned at the top */}
         <div style={{ position: 'absolute', top: '3vw', right: '3vw', textAlign: 'right', color: '#73003A' }}>
           {/* TO DO: replace this with arrows and something more playful such as 'Drag me!'*/}
-          {/* <p>Hi there, I’m <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês’</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica. She sadly doesn’t own one. Drag the box and hover around. See what you can find.</p> */}
+          {/* <p>Hi there, I'm <a href="https://mariaineslucas.com/" target="_blank" style={{ color: '#660134' }}>Inês'</a> creative toolbox, home to her creative projects. Pleasure to see you here. Each object means something - except the Leica. She sadly doesn't own one. Drag the box and hover around. See what you can find.</p> */}
         </div>
 
         {/* Container with Github Info Icon + Arrow */}
@@ -207,14 +311,19 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <AnimatedArrow src={ArrowDown} alt="Arrow to scroll up" style={{ width: '40px', height: '40px' }} />
+          {/* <AnimatedArrow src={ArrowDown} alt="Arrow to scroll up" style={{ width: '40px', height: '40px' }} /> */}
         </div>
 
-      </ThreeJSContainer>
+        <Loader
+          dataStyles={loaderFont}
+          containerStyles={loaderStyles}
+          barStyles={barStyles}
+          dataInterpolation={(p) => `${p.toFixed(2)}%`} />
+      </ThreeJSContainer>}
 
     </ScrollContainer>
 
-    { isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
+    { !isMobile && isAnimationComplete && <Cursor isHoveringLeicaM6={isHoveringLeicaM6} isHoveringMicrophone={isHoveringMicrophone} isHoveringKeyboard={isHoveringKeyboard}/>}
 
     {/* <EIFForOverlay/> */}
 
